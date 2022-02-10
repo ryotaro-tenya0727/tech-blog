@@ -331,3 +331,7 @@ a:focus {
     list-style-position: inside;
   }
 }
+/*
+.line-numbers .line-numbers-rows {
+  padding: 1.11rem 0;
+} */
