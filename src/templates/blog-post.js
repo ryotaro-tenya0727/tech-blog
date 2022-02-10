@@ -4,10 +4,8 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import { preToCodeBlock } from "mdx-utils"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
-import CodeBlock from "../components/codeblock"
+import Code from "../components/codeblock"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
@@ -18,7 +16,11 @@ const BlogPostTemplate = ({ data, location }) => {
       return <h1 style={{ color: "tomato" }} {...props} />
     },
     pre: preProps => {
-      return <pre style={{ color: "tomato" }} {...preProps} />
+      const props = preToCodeBlock(preProps)
+      if (props) {
+        return <Code {...props} />
+      }
+      return <pre {...preProps} />
     },
   }
 
