@@ -331,7 +331,27 @@ a:focus {
     list-style-position: inside;
   }
 }
-/*
+
+
+.gatsby-highlight {
+  font-size: 0.65rem;
+
+
+
+}
 .line-numbers .line-numbers-rows {
-  padding: 1.11rem 0;
-} */
+  padding: 11.2px 0 0 0;
+}
+
+.gatsby-code-title {
+  box-shadow: 3px 2.5px 2px rgb(212, 195, 195);
+  background: #f8f5f4;
+  color: #7c584c;
+  margin: 0px 0px -0.5px 0px;
+  padding: 4.5px 13px 5px 5px;
+  font-size: 0.8em;
+  line-height: 1;
+  display: table;
+  font-size: 0.65rem;
+
+}
