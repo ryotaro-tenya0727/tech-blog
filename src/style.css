@@ -165,6 +165,7 @@ p {
   --x-height-multiplier: 0.35;
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
   padding: var(--spacing-0);
+  font-size: 0.8rem;
 }
 
 ul,
@@ -344,14 +345,14 @@ a:focus {
 }
 
 .gatsby-code-title {
-  box-shadow: 3px 2.5px 2px rgb(212, 195, 195);
-  background: #f8f5f4;
-  color: #7c584c;
-  margin: 0px 0px -0.5px 0px;
+  box-shadow: 3.5px 3px 5px #a69f9f;
+  background: #f5f2f0;
+  color: #4e4b4b;
+  margin: 0px 0px 8px 0px;
   padding: 4.5px 13px 5px 5px;
   font-size: 0.8em;
   line-height: 1;
   display: table;
   font-size: 0.65rem;
-
+  font-weight: bold;
 }

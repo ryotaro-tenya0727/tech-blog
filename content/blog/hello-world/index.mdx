@@ -1,5 +1,5 @@
 ---
-title: MDX!
+title: Userモデルに紐付け
 date: "2019-10-22"
 description: "A post showing MDX in action"
 ---
@@ -73,8 +73,41 @@ class BoardsController < ApplicationController
 end
 ```
 
-むずいンゴ
+ここで下記を実行
 
 ```
-
+$ rails db:migrate
 ```
+
+`User`モデルに`enum`を追加します
+
+<div class="gatsby-code-title">
+  <span>app/controllers/admin/user_sessions_controller.rb</span>
+</div>
+
+```ruby
+class Admin::UserSessionsController < Admin::BaseController
+  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :check_admin, only: %i[new create]
+  layout 'layouts/admin_login'
+
+  def new; end
+
+  def create
+    @user = login(params[:email], params[:password])
+    if @user
+      redirect_to admin_root_path, success: t('.success')
+    else
+      flash.now[:danger] = t('.fail')
+      render :new
+    end
+  end
+
+  def destroy
+    logout
+    redirect_to admin_login_path, success: t('.success')
+  end
+end
+```
+
+**aa**は**ももクロ**
