@@ -29,6 +29,7 @@ export const pageQuery = graphql`
     }
     mdx(id: { eq: $id }) {
       id
+      excerpt(pruneLength: 160)
       body
       slug
       frontmatter {

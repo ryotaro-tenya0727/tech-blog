@@ -29,6 +29,14 @@ const BlogIndex = ({ data, location }) => {
                   </h2>
                   <small>{post.frontmatter.date}</small>
                 </header>
+                <section>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: post.frontmatter.description || post.excerpt,
+                    }}
+                    itemProp="description"
+                  />
+                </section>
               </article>
             </li>
           )
@@ -49,6 +57,7 @@ export const pageQuery = graphql`
     }
     allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
+        excerpt
         fields {
           slug
         }
