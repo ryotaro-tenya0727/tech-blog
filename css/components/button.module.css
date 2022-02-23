@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
 
 .base_button {
-  background-color: #ff96df;
-  padding: 8px 12px 11px 15px;
-  /* color: #FFA1E3; */
+  padding: 6px 10px 8px 10px;
+  margin-right: 20px;
   text-align: center;
   cursor: pointer;
+  background-color: #ff96df;
   border-radius: 5px;
   border: none;
   color: #ffffff;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
   font-family: 'Kiwi Maru', serif;
+  font-size: 15px;
 }
 
 .base_button:active {
