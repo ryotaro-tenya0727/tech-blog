@@ -8,7 +8,12 @@ const Header = () => {
   return (
     <div>
       <SHeader>
-        <StaticImage src="./../../images/logo.png" width={250} height={60} />
+        <StaticImage
+          src="./../../images/logo.png"
+          width={250}
+          height={60}
+          placeholder="#fff"
+        />
         <SButtons>
           {HeaderWords.map((word, index) => {
             return <BaseButton key={index} word={word} />
