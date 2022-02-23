@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+.base_button {
+  background-color: #ff96df;
+  padding: 8px 12px 11px 15px;
+  /* color: #FFA1E3; */
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-family: 'Kiwi Maru', serif;
+}
+
+.base_button:active {
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+.base_button:hover{
+  background-color :#faa6e1;
+}
