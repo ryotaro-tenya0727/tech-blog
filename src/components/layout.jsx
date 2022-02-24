@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import styled from "styled-components"
 
 import { Header } from "./components"
 
@@ -10,10 +10,26 @@ const Layout = ({ location, title, children }) => {
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <Header />
-      <main>{children}</main>
-      <footer>© {new Date().getFullYear()}, written by Nakayama</footer>
+      <SMainWrapper>
+        <SMain>{children}</SMain>
+      </SMainWrapper>
+      <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>
     </div>
   )
 }
+
+const SMain = styled.div`
+  max-width: 80%;
+  margin 0 auto;
+`
+
+const SFooter = styled.div`
+  max-width: 80%;
+  margin 0 auto;
+`
+
+const SMainWrapper = styled.div`
+  background-color: #fff5fd;
+`
 
 export default Layout
