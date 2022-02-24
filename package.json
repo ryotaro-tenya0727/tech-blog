@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.0",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
     "@mdx-js/mdx": "^1.6.15",
     "@mdx-js/react": "1.6.15",
+    "@mui/icons-material": "^5.4.2",
+    "@mui/material": "^5.4.3",
     "babel-plugin-styled-components": "^2.0.5",
     "gatsby": "^4.5.3",
     "gatsby-plugin-feed-mdx": "^1.1.0",

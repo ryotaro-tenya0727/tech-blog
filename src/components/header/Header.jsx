@@ -1,8 +1,9 @@
 import * as React from "react"
 import styled from "styled-components"
-import { BaseButton } from "./../components"
 import { StaticImage } from "gatsby-plugin-image"
 import useMedia from "use-media"
+
+import { BaseButton, SideMenu } from "./../components"
 
 const Header = () => {
   const IsWide = useMedia({ minWidth: "750px" })
@@ -23,7 +24,7 @@ const Header = () => {
             })}
           </SButtons>
         ) : (
-          "a"
+          <SideMenu />
         )}
       </SHeader>
     </div>
