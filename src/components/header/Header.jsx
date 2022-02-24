@@ -2,8 +2,10 @@ import * as React from "react"
 import styled from "styled-components"
 import { BaseButton } from "./../components"
 import { StaticImage } from "gatsby-plugin-image"
+import useMedia from "use-media"
 
 const Header = () => {
+  const IsWide = useMedia({ minWidth: "750px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
     <div>
@@ -14,11 +16,15 @@ const Header = () => {
           height={60}
           placeholder="#fff"
         />
-        <SButtons>
-          {HeaderWords.map((word, index) => {
-            return <BaseButton key={index} word={word} />
-          })}
-        </SButtons>
+        {IsWide ? (
+          <SButtons>
+            {HeaderWords.map((word, index) => {
+              return <BaseButton key={index} word={word} />
+            })}
+          </SButtons>
+        ) : (
+          "a"
+        )}
       </SHeader>
     </div>
   )
