@@ -17,8 +17,12 @@ const BlogIndex = ({ data, location }) => {
           const title = post.frontmatter.title || post.fields.slug
           return (
             <li key={post.fields.slug}>
-              <ArticleCard title={title} url={post.fields.slug}>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{post.frontmatter.date}
+              <ArticleCard
+                title={title}
+                url={post.fields.slug}
+                image_url={post.frontmatter.image_url}
+              >
+                {post.frontmatter.date}
               </ArticleCard>
             </li>
           )
@@ -46,6 +50,7 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          image_url
         }
       }
     }

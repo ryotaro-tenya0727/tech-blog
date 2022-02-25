@@ -1,7 +1,8 @@
 .article_card_box {
-  margin-top: 20px;
+  margin-top: 25px;
   box-shadow: 6px 5px 3px 0.6px #938d90;
   width: 60%;
+
   position: relative;
 }
 
@@ -21,11 +22,24 @@
   border: 2.5px solid #000000;
   border-radius: 3px;
   cursor: pointer;
+  display: flex;
+  height: 100px;
 
+}
 
+.article_title{
+  font-size: 20px;
 }
 
 .article_card:hover {
   /* background-color: rgba(255, 215, 243, 0.3); */
   opacity: 0.6;
+}
+
+
+.article_image{
+  height: 95px;
+
+  margin-top: -16px;
+  margin-left: -16px
 }
