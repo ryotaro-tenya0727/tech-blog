@@ -2,10 +2,11 @@ import * as React from "react"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import useMedia from "use-media"
+import { memo } from "react"
 
-import { BaseButton, SideMenu } from "./../components"
+import { BaseButton } from "./../components"
 
-const Header = ({ onClickOpen }) => {
+const Header = memo(({ onClickOpen }) => {
   const IsWide = useMedia({ minWidth: "730px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
@@ -29,7 +30,7 @@ const Header = ({ onClickOpen }) => {
       </SHeader>
     </div>
   )
-}
+})
 
 const SHeader = styled.header`
   background-color: #fff;
