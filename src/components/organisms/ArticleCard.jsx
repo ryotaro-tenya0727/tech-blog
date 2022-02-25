@@ -8,7 +8,7 @@ import { article_card } from "./../../../css/components/card.module.css"
 
 const ArticleCard = ({ children, title, url }) => {
   return (
-    <Card sx={{ width: "70%" }} className={article_card}>
+    <Card sx={{ width: "60%" }} className={article_card}>
       <Link to={url} style={{ textDecoration: "none" }}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

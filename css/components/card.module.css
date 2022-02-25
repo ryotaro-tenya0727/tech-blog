@@ -1,10 +1,10 @@
 .article_card{
   background-color: #ffe6e6;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  border: 2px solid #aaaaaa;
   border-radius: 8px;
   cursor: pointer;
-  border: 2px solid #aaaaaa;
-
+  margin-top: 30px;
 }
 
 .article_card:hover {

@@ -1,8 +1,9 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import { ArticleCard } from "./../components/components"
+import { top_title } from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -10,22 +11,17 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <h3 className={top_title}>最近の記事</h3>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
           return (
             <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <ArticleCard title={title} url={post.fields.slug}>
-                  <header>
-                    <small>{post.frontmatter.date}</small>
-                  </header>
-                </ArticleCard>
-              </article>
+              <ArticleCard title={title} url={post.fields.slug}>
+                <header>
+                  <small>{post.frontmatter.date}</small>
+                </header>
+              </ArticleCard>
             </li>
           )
         })}
