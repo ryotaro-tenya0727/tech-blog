@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { BaseButton } from "./../components"
 
 const Header = memo(({ onClickOpen }) => {
-  const IsWide = useMedia({ minWidth: "750px" })
+  const isWide = useMedia({ minWidth: "750px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
     <div>
@@ -22,7 +22,7 @@ const Header = memo(({ onClickOpen }) => {
             placeholder="#fff"
           />
         </Link>
-        {IsWide ? (
+        {isWide ? (
           <SButtons>
             {HeaderWords.map((word, index) => {
               return <BaseButton key={index} word={word} />
