@@ -1,8 +1,6 @@
 .article_card_box {
-  margin-top: 25px;
-  box-shadow: 6px 5px 3px 0.6px #938d90;
+  margin-top: 20px;
   width: 60%;
-
   position: relative;
 }
 
@@ -39,7 +37,6 @@
 
 .article_image{
   height: 95px;
-
   margin-top: -16px;
   margin-left: -16px
 }
