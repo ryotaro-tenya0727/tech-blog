@@ -3,21 +3,24 @@ import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import useMedia from "use-media"
 import { memo } from "react"
+import { Link } from "gatsby"
 
 import { BaseButton } from "./../components"
 
 const Header = memo(({ onClickOpen }) => {
-  const IsWide = useMedia({ minWidth: "730px" })
+  const IsWide = useMedia({ minWidth: "750px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
     <div>
       <SHeader>
-        <StaticImage
-          src="./../../images/logo.png"
-          width={250}
-          height={60}
-          placeholder="#fff"
-        />
+        <Link to="/">
+          <StaticImage
+            src="./../../images/logo.png"
+            width={250}
+            height={60}
+            placeholder="#fff"
+          />
+        </Link>
         {IsWide ? (
           <SButtons>
             {HeaderWords.map((word, index) => {
