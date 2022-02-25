@@ -1,0 +1,12 @@
+.article_card{
+  background-color: #ffe6e6;
+  box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #aaaaaa;
+}
+
+.article_card:hover {
+  /* background-color: rgba(255, 215, 243, 0.3); */
+  opacity: 0.6;
+}
