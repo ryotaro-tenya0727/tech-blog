@@ -6,7 +6,7 @@ import useMedia from "use-media"
 import { BaseButton, SideMenu } from "./../components"
 
 const Header = () => {
-  const IsWide = useMedia({ minWidth: "750px" })
+  const IsWide = useMedia({ minWidth: "730px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
     <div>
@@ -24,7 +24,7 @@ const Header = () => {
             })}
           </SButtons>
         ) : (
-          <SideMenu />
+          "a"
         )}
       </SHeader>
     </div>
@@ -39,6 +39,7 @@ const SHeader = styled.header`
   padding-bottom: 15px;
   display: flex;
   justify-content: space-between;
+
 `
 const SButtons = styled.div`
   margin-top: 11px;

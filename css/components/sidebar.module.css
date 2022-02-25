@@ -1,0 +1,28 @@
+.sidebar_menu {
+  width: 200px;
+  height: 100vh;
+  color: #000000;
+  background-color : #999396;
+  list-style: none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(134, 134, 131, 0.1);
+  margin-top: 0px;
+  margin: 0 calc(50% - 50vw);
+
+
+}
+
+.sidebar_button{
+  color: #000;
+  /* background-color: #ff96df; */
+  width: 100%;
+  font-family: 'Kiwi Maru',
+  serif;
+  text-decoration: none;
+}
+
+.sidebar_button:hover {
+  /* background-color: #958992; */
+}

@@ -2,6 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { Header } from "./components"
+import { BaseButton, SideMenu } from "./../components/components"
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -11,7 +12,10 @@ const Layout = ({ location, title, children }) => {
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <Header />
       <SMainWrapper>
-        <SMain>{children}</SMain>
+        <SMain>
+          {children}
+          <SideMenu />
+        </SMain>
       </SMainWrapper>
       <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>
     </div>
@@ -21,6 +25,7 @@ const Layout = ({ location, title, children }) => {
 const SMain = styled.div`
   max-width: 80%;
   margin 0 auto;
+  position: relative;
 `
 
 const SFooter = styled.div`
