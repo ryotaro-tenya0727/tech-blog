@@ -29,14 +29,11 @@ const Header = memo(({ onClickOpen }) => {
             className={menu_icon_button}
           />
         </MediaQuery>
-        <MediaQuery query="(min-width: 801px)">
-          {" "}
-          <SButtons>
-            {HeaderWords.map((word, index) => {
-              return <BaseButton key={index} word={word} />
-            })}
-          </SButtons>
-        </MediaQuery>
+        <SButtons>
+          {HeaderWords.map((word, index) => {
+            return <BaseButton key={index} word={word} />
+          })}
+        </SButtons>
       </SHeader>
     </div>
   )
@@ -54,6 +51,9 @@ const SHeader = styled.header`
 `
 const SButtons = styled.div`
   margin-top: 11px;
+  @media (max-width: 800px) {
+    display: none;
+  }
 `
 
 export default Header

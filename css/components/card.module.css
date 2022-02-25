@@ -1,7 +1,18 @@
 .article_card_box {
   margin-top: 20px;
   box-shadow: 6px 5px 3px 0.6px #938d90;
+  width: 60%;
+  position: relative;
+}
 
+@media(max-width: 800px) {
+  .article_card_box {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 6px 5px 3px 0.6px #938d90;
+    position: relative;
+  }
 }
 
 .article_card{
@@ -10,6 +21,8 @@
   border: 2.5px solid #000000;
   border-radius: 3px;
   cursor: pointer;
+
+
 }
 
 .article_card:hover {

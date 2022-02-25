@@ -14,11 +14,7 @@ import { calender_icon } from "./../../../css/components/icon.module.css"
 
 const ArticleCard = ({ children, title, url }) => {
   return (
-    <Card
-      sx={{ width: "60%" }}
-      className={article_card_box}
-      style={{ position: "relative" }}
-    >
+    <Card className={article_card_box}>
       <Link to={url} style={{ textDecoration: "none" }}>
         <CardContent className={article_card}>
           <Typography>{title}</Typography>
