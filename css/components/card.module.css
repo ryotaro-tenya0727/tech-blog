@@ -1,10 +1,15 @@
+.article_card_box {
+  margin-top: 20px;
+  box-shadow: 6px 5px 3px 0.6px #938d90;
+
+}
+
 .article_card{
-  background-color: #ffe6e6;
-  box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
-  border: 2px solid #aaaaaa;
-  border-radius: 8px;
+  background-color: rgba(255, 230, 230, 0.3);
+  color: rgb(0, 0, 0);
+  border: 2.5px solid #000000;
+  border-radius: 3px;
   cursor: pointer;
-  margin-top: 30px;
 }
 
 .article_card:hover {

@@ -18,9 +18,7 @@ const BlogIndex = ({ data, location }) => {
           return (
             <li key={post.fields.slug}>
               <ArticleCard title={title} url={post.fields.slug}>
-                <header>
-                  <small>{post.frontmatter.date}</small>
-                </header>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{post.frontmatter.date}
               </ArticleCard>
             </li>
           )

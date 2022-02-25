@@ -7,7 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import MediaQuery from "react-responsive"
 
 import { BaseButton } from "./../components"
-import { icon_button } from "./../../../css/components/icon.module.css"
+import { menu_icon_button } from "./../../../css/components/icon.module.css"
 
 const Header = memo(({ onClickOpen }) => {
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
@@ -26,7 +26,7 @@ const Header = memo(({ onClickOpen }) => {
           <MenuIcon
             onClick={onClickOpen}
             sx={{ fontSize: 50, mr: 5, mt: 0.3 }}
-            className={icon_button}
+            className={menu_icon_button}
           />
         </MediaQuery>
         <MediaQuery query="(min-width: 801px)">

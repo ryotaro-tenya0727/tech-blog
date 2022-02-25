@@ -16,7 +16,6 @@
 
 .base_button:active {
   box-shadow: none;
-  position: relative;
   top: 5px;
 }
 

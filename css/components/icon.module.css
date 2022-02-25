@@ -1,4 +1,4 @@
-.icon_button {
+.menu_icon_button {
   color: #ffffff;
   background-color: #ff96df;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
@@ -9,12 +9,18 @@
   margin-top: 6px;
 }
 
-.icon_button:active {
+.menu_icon_button:active {
   box-shadow: none;
   position: relative;
   top: 5px;
 }
 
-.icon_button:hover {
+.menu_icon_button:hover {
   background-color: #faa6e1;
+}
+
+.calender_icon{
+  position: absolute;
+  top: 41.5px;
+  left: 15px;
 }
