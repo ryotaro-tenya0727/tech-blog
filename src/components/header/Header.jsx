@@ -5,6 +5,7 @@ import useMedia from "use-media"
 import { memo } from "react"
 import { Link } from "gatsby"
 import MenuIcon from "@mui/icons-material/Menu"
+import MediaQuery from "react-responsive"
 
 import { BaseButton } from "./../components"
 
@@ -22,18 +23,20 @@ const Header = memo(({ onClickOpen }) => {
             placeholder="#fff"
           />
         </Link>
-        {isWide ? (
+        <MediaQuery query="(max-width: 750px)">
+          <MenuIcon
+            onClick={onClickOpen}
+            sx={{ fontSize: 50, mr: 5, mt: 0.3 }}
+          />
+        </MediaQuery>
+        <MediaQuery query="(min-width: 751px)">
+          {" "}
           <SButtons>
             {HeaderWords.map((word, index) => {
               return <BaseButton key={index} word={word} />
             })}
           </SButtons>
-        ) : (
-          <MenuIcon
-            onClick={onClickOpen}
-            sx={{ fontSize: 50, mr: 5, mt: 0.3 }}
-          />
-        )}
+        </MediaQuery>
       </SHeader>
     </div>
   )
