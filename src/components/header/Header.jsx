@@ -4,6 +4,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import useMedia from "use-media"
 import { memo } from "react"
 import { Link } from "gatsby"
+import MenuIcon from "@mui/icons-material/Menu"
 
 import { BaseButton } from "./../components"
 
@@ -28,7 +29,10 @@ const Header = memo(({ onClickOpen }) => {
             })}
           </SButtons>
         ) : (
-          <button onClick={onClickOpen}>change</button>
+          <MenuIcon
+            onClick={onClickOpen}
+            sx={{ fontSize: 50, mr: 5, mt: 0.3 }}
+          />
         )}
       </SHeader>
     </div>
@@ -48,4 +52,5 @@ const SHeader = styled.header`
 const SButtons = styled.div`
   margin-top: 11px;
 `
+
 export default Header
