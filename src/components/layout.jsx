@@ -6,7 +6,7 @@ import { Header } from "./components"
 import { SideMenu } from "./../components/components"
 
 const Layout = ({ location, title, children }) => {
-  const [isOpenSideMenu, SetSideMenu] = useState(true)
+  const [isOpenSideMenu, SetSideMenu] = useState(false)
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 
