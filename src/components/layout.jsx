@@ -1,20 +1,26 @@
 import * as React from "react"
 import styled from "styled-components"
+import { useState } from "react"
 
 import { Header } from "./components"
-import { BaseButton, SideMenu } from "./../components/components"
+import { SideMenu } from "./../components/components"
 
 const Layout = ({ location, title, children }) => {
+  const [isOpenSideMenu, SetSideMenu] = useState(true)
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 
+  const onClickOpen = () => {
+    SetSideMenu(!isOpenSideMenu)
+  }
+
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <Header />
+      <Header onClickOpen={onClickOpen} />
       <SMainWrapper>
         <SMain>
           {children}
-          <SideMenu />
+          {isOpenSideMenu && <SideMenu />}
         </SMain>
       </SMainWrapper>
       <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>

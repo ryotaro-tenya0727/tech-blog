@@ -5,7 +5,7 @@ import useMedia from "use-media"
 
 import { BaseButton, SideMenu } from "./../components"
 
-const Header = () => {
+const Header = ({ onClickOpen }) => {
   const IsWide = useMedia({ minWidth: "730px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
@@ -24,7 +24,7 @@ const Header = () => {
             })}
           </SButtons>
         ) : (
-          "a"
+          <button onClick={onClickOpen}>change</button>
         )}
       </SHeader>
     </div>
