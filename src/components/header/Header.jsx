@@ -1,16 +1,15 @@
 import * as React from "react"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
-import useMedia from "use-media"
 import { memo } from "react"
 import { Link } from "gatsby"
 import MenuIcon from "@mui/icons-material/Menu"
 import MediaQuery from "react-responsive"
 
 import { BaseButton } from "./../components"
+import { icon_button } from "./../../../css/components/icon.module.css"
 
 const Header = memo(({ onClickOpen }) => {
-  const isWide = useMedia({ minWidth: "750px" })
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
   return (
     <div>
@@ -23,13 +22,14 @@ const Header = memo(({ onClickOpen }) => {
             placeholder="#fff"
           />
         </Link>
-        <MediaQuery query="(max-width: 750px)">
+        <MediaQuery query="(max-width: 800px)">
           <MenuIcon
             onClick={onClickOpen}
             sx={{ fontSize: 50, mr: 5, mt: 0.3 }}
+            className={icon_button}
           />
         </MediaQuery>
-        <MediaQuery query="(min-width: 751px)">
+        <MediaQuery query="(min-width: 801px)">
           {" "}
           <SButtons>
             {HeaderWords.map((word, index) => {

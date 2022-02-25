@@ -14,9 +14,9 @@
 
 .sidebar_li{
   width: 100%;
-  border: 2px dashed #000000;
+  border: 2px dotted #000000;
   margin-bottom: 20px;
-  background: rgba(255, 199, 238, 0.3);
+  background: rgba(255, 200, 200, 0.3);
 
 }
 
@@ -35,7 +35,7 @@
 
 
 .sidebar_button:hover {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .sidebar_button::after {
