@@ -22,7 +22,7 @@ const ArticleCard = ({ children, title, url, image_url }) => {
         <CardContent className={article_card}>
           <img alt="test" src={image_url} className={article_image} />
           <ArticleText>
-            <Typography className={article_title}>{title}</Typography>
+            <p className={article_title}>{title} </p>
             <Typography>
               <DateRangeIcon className={calender_icon} /> {children}
             </Typography>

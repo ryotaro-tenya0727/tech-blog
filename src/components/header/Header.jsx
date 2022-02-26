@@ -23,7 +23,11 @@ const Header = memo(({ onClickOpen }) => {
           />
         </Link>
         <MediaQuery query="(max-width: 800px)">
-          <MenuIcon onClick={onClickOpen} className={menu_icon_button} />
+          <MenuIcon
+            onClick={onClickOpen}
+            className={menu_icon_button}
+            sx={{ fontSize: 48 }}
+          />
         </MediaQuery>
         <SButtons>
           {HeaderWords.map((word, index) => {

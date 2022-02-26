@@ -2,12 +2,10 @@
   color: #ffffff;
   background-color: #ff96df;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
-  text-align: center;
   cursor: pointer;
   border-radius: 5px;
-  padding: 6px 10px 8px 10px;
-  margin-top: 6px;
-  font-size: 50px
+  margin-top: 3px;
+
 }
 
 .menu_icon_button:active {
