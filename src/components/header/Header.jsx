@@ -11,7 +11,6 @@ import { menu_icon_button } from "./../../../css/components/icon.module.css"
 
 const Header = memo(({ onClickOpen }) => {
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
-  const rootPath = `${__PATH_PREFIX__}/`
   const HeaderRoots = ["/", "/posts", "/about"]
 
   return (
