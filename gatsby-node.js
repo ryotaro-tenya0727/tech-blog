@@ -1,6 +1,7 @@
 const path = require(`path`)
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const { paginate } = require("gatsby-awesome-pagination")
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -68,6 +69,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nextPostId,
         },
       })
+    })
+    //ページネーション作成
+    paginate({
+      createPage,
+      items: posts,
+      itemsPerPage: 2,
+      pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+      component: path.resolve(`./src/templates/index.js`),
     })
   }
   if (tags.length > 0) {

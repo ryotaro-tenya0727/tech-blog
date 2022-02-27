@@ -1,11 +1,12 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import { ArticleCard } from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 
-const BlogIndex = ({ data, location }) => {
+const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMdx.nodes
 
@@ -27,6 +28,8 @@ const BlogIndex = ({ data, location }) => {
             </li>
           )
         })}
+        <Link to={pageContext.previousPagePath}>前の2件</Link>
+        <Link to={pageContext.nextPagePath}>次の2件</Link>
       </ol>
     </Layout>
   )
@@ -35,13 +38,17 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
+  query ($limit: Int!, $skip: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: $limit
+      skip: $skip
+    ) {
       nodes {
         fields {
           slug
