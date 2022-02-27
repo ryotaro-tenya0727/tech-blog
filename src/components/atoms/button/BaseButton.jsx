@@ -3,11 +3,7 @@ import { Link } from "gatsby"
 
 import { base_button } from "./../../../../css/components/button.module.css"
 
-const BaseButton = ({ word, url }) => {
-  return (
-    <Link to={url}>
-      <button className={base_button}>{word}</button>
-    </Link>
-  )
+const BaseButton = ({ word }) => {
+  return <button className={base_button}>{word}</button>
 }
 export default BaseButton

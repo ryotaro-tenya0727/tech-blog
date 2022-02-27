@@ -11,7 +11,9 @@ import { menu_icon_button } from "./../../../css/components/icon.module.css"
 
 const Header = memo(({ onClickOpen }) => {
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
-  const HeaderRoots = ["/", "posts", "about"]
+  const rootPath = `${__PATH_PREFIX__}/`
+  const HeaderRoots = ["/", "/posts", "/about"]
+
   return (
     <div>
       <SHeader>
@@ -33,7 +35,9 @@ const Header = memo(({ onClickOpen }) => {
         <SButtons>
           {HeaderWords.map((word, index) => {
             return (
-              <BaseButton key={index} word={word} url={HeaderRoots[index]} />
+              <Link to={HeaderRoots[index]}>
+                <BaseButton key={index} word={word} />
+              </Link>
             )
           })}
         </SButtons>
