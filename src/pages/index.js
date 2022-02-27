@@ -11,6 +11,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <h1>{}</h1>
       <h3 className={top_title}>最近の記事</h3>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {

@@ -1,4 +1,5 @@
 const path = require(`path`)
+const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -6,6 +7,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // Define a template for blog post
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const tagTemplate = path.resolve(`./src/templates/tags.js`)
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(
@@ -22,6 +24,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        tags: allMdx {
+          group(field: frontmatter___tags) {
+            totalCount
+            fieldValue
+            nodes {
+              fields {
+                slug
+              }
+            }
+          }
+        }
       }
     `
   )
@@ -35,6 +48,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const posts = result.data.allMdx.nodes
+  const tags = result.data.tags.group
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -52,6 +66,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           id: post.id,
           previousPostId,
           nextPostId,
+        },
+      })
+    })
+  }
+  if (tags.length > 0) {
+    tags.forEach(tag => {
+      createPage({
+        path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
+        component: tagTemplate,
+        //urlのtag.fieldValueをtagtemplateの中で$tagとして取得できる
+        context: {
+          tag: tag.fieldValue,
         },
       })
     })
