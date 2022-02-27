@@ -75,7 +75,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       createPage({
         path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
         component: tagTemplate,
-        //urlのtag.fieldValueをtagtemplateの中で$tagとして取得できる
+        //contextの中のtag.fieldValueをtagtemplateの中で$tagとして取得できる
         context: {
           tag: tag.fieldValue,
         },
