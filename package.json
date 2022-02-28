@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.0",
-    "@emotion/react": "^11.8.1",
+    "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.8.1",
     "@mdx-js/mdx": "^1.6.15",
     "@mdx-js/react": "1.6.15",
