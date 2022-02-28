@@ -4,8 +4,8 @@ module.exports = {
     author: {
       name: `Nakayama Ryotaro`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `エンジニア転職を目指すアイドルオタクプログラマーが、学んだことをアウトプットするブログです`,
+    siteUrl: `https://dreamy-murdock-2c7835.netlify.app/`,
     social: {
       twitter: `@naka_ryo_z`,
     },

@@ -3,15 +3,19 @@ import { graphql } from "gatsby"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
+import Seo from "./../components/seo"
 import { ArticleCard } from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+  const siteTitle = data.site.siteMetadata.title || `Title`
+  const siteURL = data.site.siteMetadata.siteUrl
+  const image_url = `https://user-images.githubusercontent.com/71915489/155811739-35496209-b8fe-495d-baec-a080774319b8.jpeg`
   const posts = data.allMdx.nodes
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
+      <Seo title={siteTitle} page_url={siteURL} image_url={image_url} />
       <h3 className={top_title}>最近の記事</h3>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
@@ -41,6 +45,7 @@ export const pageQuery = graphql`
   query ($limit: Int!, $skip: Int!) {
     site {
       siteMetadata {
+        siteUrl
         title
       }
     }

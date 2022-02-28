@@ -4,7 +4,7 @@ import { useState, useCallback } from "react"
 import { memo } from "react"
 
 import { Header } from "./components"
-import { SideMenu } from "./../components/components"
+import { SideMenu } from "./components"
 
 const Layout = memo(({ location, title, children }) => {
   const [isOpenSideMenu, SetSideMenu] = useState(false)

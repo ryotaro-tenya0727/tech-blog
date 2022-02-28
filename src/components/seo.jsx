@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Seo = ({ description, lang, meta, title }) => {
+const Seo = ({ title, description, page_url, image_url, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -28,7 +28,7 @@ const Seo = ({ description, lang, meta, title }) => {
   )
 
   const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const defaultTitle = site.siteMetadata.title
 
   return (
     <Helmet
@@ -36,42 +36,57 @@ const Seo = ({ description, lang, meta, title }) => {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      // titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
+          property: `og:url`,
+          content: `${page_url}`,
         },
         {
           property: `og:type`,
           content: `website`,
         },
         {
+          property: `og:title`,
+          content: `${title}`,
+        },
+        {
+          property: `og:description`,
+          content: `${metaDescription}`,
+        },
+
+        {
+          property: `og:site_name`,
+          content: `${defaultTitle}`,
+        },
+        {
+          property: `og:image`,
+          content: `${image_url}`,
+        },
+
+        {
           name: `twitter:card`,
           content: `summary`,
         },
         {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
+          name: `twitter:site`,
+          content: `${site.siteMetadata.social.twitter}`,
         },
         {
+          name: `twitter:domain`,
+          content: `dreamy-murdock-2c7835.netlify.app`,
+        },
+
+        {
           name: `twitter:title`,
-          content: title,
+          content: `${title}`,
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: `${metaDescription}`,
         },
       ].concat(meta)}
-    />
+    ></Helmet>
   )
 }
 
