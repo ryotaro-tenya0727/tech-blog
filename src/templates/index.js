@@ -10,7 +10,7 @@ import { top_title } from "./../../css/components/string.module.css"
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title || `Title`
   const siteURL = data.site.siteMetadata.siteUrl
-  const image_url = `./../images/indexogp.jpg`
+  const image_url = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
   const posts = data.allMdx.nodes
 
   return (
