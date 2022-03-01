@@ -18,7 +18,7 @@ const Header = memo(({ onClickOpen }) => {
       <SHeader>
         <Link to="/">
           <StaticImage
-            src="https://user-images.githubusercontent.com/71915489/155916380-4656924c-1aa0-4ab2-bc5d-8d9f9e2823d4.png"
+            src="./../../images/logo.png"
             width={250}
             height={60}
             placeholder="#fff"
