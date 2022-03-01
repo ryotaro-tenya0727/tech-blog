@@ -74,7 +74,7 @@ const Seo = ({ title, description, page_url, image_url, lang, meta }) => {
         },
         {
           name: `twitter:domain`,
-          content: `dreamy-murdock-2c7835.netlify.app`,
+          content: `otaku-programmer.com`,
         },
 
         {
