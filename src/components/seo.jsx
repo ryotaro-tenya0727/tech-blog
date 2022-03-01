@@ -39,6 +39,10 @@ const Seo = ({ title, description, page_url, image_url, lang, meta }) => {
       // titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
+          property: `app_id`,
+          content: `298773962351651`,
+        },
+        {
           property: `og:url`,
           content: `${page_url}`,
         },
