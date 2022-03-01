@@ -4,18 +4,29 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "./../components/seo"
-import { ArticleCard } from "./../components/components"
+import { ArticleCard, ShareButtons } from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
-  const siteTitle = data.site.siteMetadata.title || `Title`
-  const siteURL = data.site.siteMetadata.siteUrl
-  const image_url = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
+  const siteTitle = data.site.siteMetadata.title
+  const siteUrl = data.site.siteMetadata.siteUrl
+  const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
+  const fbImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const posts = data.allMdx.nodes
 
   return (
     <Layout location={location}>
-      <Seo title={siteTitle} page_url={siteURL} image_url={image_url} />
+      <Seo
+        title={siteTitle}
+        page_url={siteUrl}
+        twitterImageUrl={twitterImageUrl}
+        fbImageUrl={fbImageUrl}
+      />
+      <ShareButtons
+        url={siteUrl}
+        title={`${siteTitle}\nこのブログの著者を応援！\n`}
+        size={36}
+      />
       <h3 className={top_title}>最近の記事</h3>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
