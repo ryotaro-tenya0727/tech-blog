@@ -21,16 +21,16 @@
   border-radius: 3px;
   cursor: pointer;
   display: flex;
-  height: 100px;
+  height: 125px;
 
 }
 
 .article_title{
   font-size: 20px;
+  margin-top: -10px;
 }
 
 .article_card:hover {
-  /* background-color: rgba(255, 215, 243, 0.3); */
   opacity: 0.6;
 }
 

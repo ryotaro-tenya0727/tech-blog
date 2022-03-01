@@ -32,6 +32,7 @@
   serif;
   font-weight: 700;
   font-size: 17px;
+  max-width: 90%;
 }
 
 .share_buttons{
@@ -39,9 +40,17 @@
   margin-left: 15px;
 }
 
+
+
 .share_icon{
   margin-left: 20px;
 
+}
+
+@media(max-width: 800px) {
+  .share_icon {
+    margin-left: 10px;
+  }
 }
 
 .share_icon:hover{
