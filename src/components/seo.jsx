@@ -65,7 +65,7 @@ const Seo = ({ title, description, page_url, image_url, lang, meta }) => {
         },
         {
           property: `og:image`,
-          content: `${image_url}`,
+          content: `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`,
         },
 
         {
@@ -84,6 +84,10 @@ const Seo = ({ title, description, page_url, image_url, lang, meta }) => {
         {
           name: `twitter:title`,
           content: `${title}`,
+        },
+        {
+          name: `twitter:image`,
+          content: `${image_url}`,
         },
         {
           name: `twitter:description`,
