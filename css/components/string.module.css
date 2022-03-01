@@ -2,5 +2,7 @@
 
 .top_title{
   font-family: 'Kiwi Maru', serif;
-  padding-top: 15px
+  padding-top: 15px;
+  font-size: 25px;
+  font-weight: bold;
 }

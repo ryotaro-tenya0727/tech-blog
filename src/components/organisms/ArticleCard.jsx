@@ -1,7 +1,7 @@
 import * as React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
-import Typography from "@mui/material/Typography"
+
 import { Link } from "gatsby"
 import DateRangeIcon from "@mui/icons-material/DateRange"
 import styled from "styled-components"
@@ -11,11 +11,13 @@ import {
   article_card_box,
   article_image,
   article_title,
+  article_description,
+  article_date,
 } from "./../../../css/components/card.module.css"
 
 import { calender_icon } from "./../../../css/components/icon.module.css"
 
-const ArticleCard = ({ children, title, url, image_url }) => {
+const ArticleCard = ({ children, title, url, image_url, description }) => {
   return (
     <Card className={article_card_box}>
       <Link to={url} style={{ textDecoration: "none" }}>
@@ -23,9 +25,12 @@ const ArticleCard = ({ children, title, url, image_url }) => {
           <img alt="test" src={image_url} className={article_image} />
           <ArticleText>
             <p className={article_title}>{title} </p>
-            <Typography>
-              <DateRangeIcon className={calender_icon} /> {children}
-            </Typography>
+            <p className={article_description}>{description}</p>
+
+            <p className={article_date}>
+              <DateRangeIcon className={calender_icon} />
+              &emsp;&ensp; {children}
+            </p>
           </ArticleText>
         </CardContent>
       </Link>

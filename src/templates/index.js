@@ -27,7 +27,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
       />
-      <h3 className={top_title}>最近の記事</h3>
+      <h2 className={top_title}>最近の記事</h2>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
@@ -37,6 +37,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
                 title={title}
                 url={post.fields.slug}
                 image_url={post.frontmatter.image_url}
+                description={post.frontmatter.description}
               >
                 {post.frontmatter.date}
               </ArticleCard>
@@ -70,7 +71,7 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY年 MM月 DD日")
           title
           description
           image_url

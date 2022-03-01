@@ -24,7 +24,7 @@ const Header = memo(({ onClickOpen }) => {
             placeholder="#fff"
           />
         </Link>
-        <MediaQuery query="(max-width: 800px)">
+        <MediaQuery query="(max-width: 890px)">
           <MenuIcon
             onClick={onClickOpen}
             className={menu_icon_button}
@@ -57,7 +57,7 @@ const SHeader = styled.header`
 `
 const SButtons = styled.div`
   margin-top: 11px;
-  @media (max-width: 800px) {
+  @media (max-width: 890px) {
     display: none;
   }
 `
