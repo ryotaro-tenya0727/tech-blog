@@ -4,7 +4,11 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "./../components/seo"
-import { ArticleCard, ShareButtons } from "./../components/components"
+import {
+  ArticleCard,
+  ShareButtons,
+  Paginations,
+} from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
@@ -22,11 +26,13 @@ const BlogIndex = ({ data, location, pageContext }) => {
         twitterImageUrl={twitterImageUrl}
         fbImageUrl={fbImageUrl}
       />
+
       <ShareButtons
         url={siteUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
       />
+      <Paginations pageContext={pageContext} />
       <h2 className={top_title}>最近の記事</h2>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
@@ -44,8 +50,6 @@ const BlogIndex = ({ data, location, pageContext }) => {
             </li>
           )
         })}
-        <Link to={pageContext.previousPagePath}>前の2件</Link>
-        <Link to={pageContext.nextPagePath}>次の2件</Link>
       </ol>
     </Layout>
   )
