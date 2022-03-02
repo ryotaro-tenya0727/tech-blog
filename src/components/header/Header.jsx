@@ -46,7 +46,7 @@ const Header = memo(({ onClickOpen }) => {
 })
 
 const SHeader = styled.header`
-  background-color: #fff;
+  background-color: #fff5fd;
   width: 80%;
   margin 0 auto;
   padding-top: 10px;

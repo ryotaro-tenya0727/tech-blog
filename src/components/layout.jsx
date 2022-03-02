@@ -16,32 +16,42 @@ const Layout = memo(({ location, title, children }) => {
   }, [isOpenSideMenu])
 
   return (
-    <div className="global-wrapper" data-is-root-path={isRootPath}>
+    <SMainWrapper className="global-wrapper" data-is-root-path={isRootPath}>
       <Header onClickOpen={onClickOpen} />
-      <SMainWrapper>
-        <SMain>
-          {children}
-          {isOpenSideMenu && <SideMenu />}
-        </SMain>
-      </SMainWrapper>
+
+      <SMain>
+        {children}
+        {isOpenSideMenu && <SideMenu />}
+      </SMain>
+
       <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>
-    </div>
+    </SMainWrapper>
   )
 })
+
+const SAllWrapper = styled.div`
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+`
 
 const SMain = styled.div`
   width: 80%;
   margin 0 auto;
-  position: relative;
-`
+  padding-bottom: 60px;
+  `
 
 const SFooter = styled.div`
-  max-width: 80%;
-  margin 0 auto;
+  background-color: #c8b7c3;
+  margin-top: auto;
+  text-align: center;
 `
 
 const SMainWrapper = styled.div`
   background-color: #fff5fd;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
 `
 
 export default Layout
