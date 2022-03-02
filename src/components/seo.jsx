@@ -44,7 +44,7 @@ const Seo = ({
         lang,
       }}
       title={title}
-      // titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      description={description}
       meta={[
         {
           property: `fb:app_id`,
