@@ -16,7 +16,6 @@ const Bio = () => {
         siteMetadata {
           author {
             name
-            summary
           }
           social {
             twitter
@@ -26,8 +25,8 @@ const Bio = () => {
     }
   `)
 
-  const author = data.site.siteMetadata?.author
-  const social = data.site.siteMetadata?.social
+  const author = data.site.siteMetadata.author
+  const social = data.site.siteMetadata.social
 
   return (
     <div className="bio">

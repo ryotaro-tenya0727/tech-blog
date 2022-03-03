@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.0.0",
     "@mui/system": "^5.4.3",
+    "@netlify/plugin-gatsby": "2.0.4",
     "babel-plugin-styled-components": "^2.0.5",
     "gatsby": "^4.5.3",
     "gatsby-awesome-pagination": "^0.3.8",
