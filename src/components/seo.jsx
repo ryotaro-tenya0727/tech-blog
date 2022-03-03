@@ -69,7 +69,7 @@ const Seo = ({
 
         {
           property: `og:site_name`,
-          content: `${defaultTitle}`,
+          content: `寝ても覚めてもプログラミングワールド、夢中にさせちゃうぞ！`,
         },
         {
           property: `og:image`,
