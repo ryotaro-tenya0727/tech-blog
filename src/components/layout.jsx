@@ -29,20 +29,15 @@ const Layout = memo(({ location, title, children }) => {
   )
 })
 
-const SAllWrapper = styled.div`
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-`
-
 const SMain = styled.div`
   width: 80%;
   margin 0 auto;
   padding-bottom: 60px;
+  position: relative;
   `
 
 const SFooter = styled.div`
-  background-color: #c8b7c3;
+  background-color: #ffc9ef;
   margin-top: auto;
   text-align: center;
 `
