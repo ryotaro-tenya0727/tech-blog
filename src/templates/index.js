@@ -1,5 +1,7 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import styled from "styled-components"
+import MediaQuery from "react-responsive"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -8,8 +10,12 @@ import {
   ArticleCard,
   ShareButtons,
   Paginations,
+  Bio,
 } from "./../components/components"
-import { top_title } from "./../../css/components/string.module.css"
+import {
+  top_title,
+  contents_wrapper,
+} from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -34,28 +40,46 @@ const BlogIndex = ({ data, location, pageContext }) => {
       />
       <Paginations pageContext={pageContext} />
       <h2 className={top_title}>最近の記事</h2>
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-          return (
-            <li key={post.fields.slug}>
+      <ContentsWrapper className={contents_wrapper}>
+        <ArticlesWrapper style={{ listStyle: `none`, flex: 7 }}>
+          {posts.map(post => {
+            const title = post.frontmatter.title || post.fields.slug
+            return (
               <ArticleCard
                 title={title}
                 url={post.fields.slug}
                 image_url={post.frontmatter.image_url}
                 description={post.frontmatter.description}
+                key={post.fields.slug}
               >
                 {post.frontmatter.date}
               </ArticleCard>
-            </li>
-          )
-        })}
-      </ol>
+            )
+          })}
+        </ArticlesWrapper>
+        <CardsWrapper>
+          <Bio />
+        </CardsWrapper>
+      </ContentsWrapper>
     </Layout>
   )
 }
 
 export default BlogIndex
+
+const ArticlesWrapper = styled.div``
+const CardsWrapper = styled.div`
+  flex: 3;
+`
+
+const ContentsWrapper = styled.div`
+  @media (min-width: 1020px) {
+     {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+`
 
 export const pageQuery = graphql`
   query ($limit: Int!, $skip: Int!) {

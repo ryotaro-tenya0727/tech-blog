@@ -1,18 +1,10 @@
 .article_card_box {
   margin-top: 30px;
-  width: 60%;
+  width: 100%;
   filter: drop-shadow(6px 4px 4px rgba(47, 47, 47, 0.7));
 
 }
 
-@media(max-width: 890px) {
-  .article_card_box {
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 30px;
-
-  }
-}
 
 .article_card{
   background-color: rgba(255, 230, 230, 0.3);
