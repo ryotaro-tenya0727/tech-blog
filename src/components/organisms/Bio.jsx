@@ -2,33 +2,50 @@ import * as React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import { StaticImage } from "gatsby-plugin-image"
-import Typography from "@mui/material/Typography"
+import styled from "styled-components"
+import MailIcon from "@mui/icons-material/Mail"
+import { pink } from "@mui/material/colors"
+
 import {
   bio_wrapper,
+  bio_image_wrapper,
+  bio_name,
   bio_image,
+  bio_description,
+  bio_email_wrapper,
 } from "./../../../css/components/bio.module.css"
+import { BioIcons } from "./../components"
 
 const Bio = () => {
   return (
     <Card className={bio_wrapper}>
-      <StaticImage
-        src="./../../images/newbio.png"
-        className={bio_image}
-        width={150}
-        height={150}
-        placeholder="#fff"
-      />
+      <BioImageWrapper className={bio_image_wrapper}>
+        <StaticImage
+          src="./../../images/newbio.png"
+          width={150}
+          height={150}
+          placeholder="#rgba(255, 184, 226, 0.3)"
+          className={bio_image}
+        />
+      </BioImageWrapper>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {/* {author} */}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <BioIcons />
+
+        <p className={bio_name}>著者　中山遼太郎</p>
+        <p className={bio_email_wrapper}>
+          <MailIcon sx={{ color: pink[`500`] }} />
+          <a href="mailto:ryotaro123110@gmail.com" target={`_blank`}>
+            ryotaro123110@gmail.com
+          </a>
+        </p>
+        <p className={bio_description}>
           エンジニアを目指してプログラミングスクールで学習中です。 主に、Rails
           Reactを学びながら、競技プログラミングにも参加しています。
-        </Typography>
+        </p>
       </CardContent>
     </Card>
   )
 }
 
+const BioImageWrapper = styled.div``
 export default Bio
