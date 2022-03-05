@@ -1,7 +1,6 @@
 import * as React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
-
 import { Link } from "gatsby"
 import DateRangeIcon from "@mui/icons-material/DateRange"
 import styled from "styled-components"

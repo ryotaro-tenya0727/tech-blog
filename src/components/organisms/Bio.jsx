@@ -8,6 +8,7 @@ import { pink } from "@mui/material/colors"
 
 import {
   bio_wrapper,
+  bio_card,
   bio_image_wrapper,
   bio_name,
   bio_image,
@@ -19,16 +20,16 @@ import { BioIcons } from "./../components"
 const Bio = () => {
   return (
     <Card className={bio_wrapper}>
-      <BioImageWrapper className={bio_image_wrapper}>
-        <StaticImage
-          src="./../../images/newbio.png"
-          width={150}
-          height={150}
-          placeholder="#rgba(255, 184, 226, 0.3)"
-          className={bio_image}
-        />
-      </BioImageWrapper>
-      <CardContent>
+      <CardContent className={bio_card}>
+        <BioImageWrapper className={bio_image_wrapper}>
+          <StaticImage
+            src="./../../images/newbio.png"
+            width={150}
+            height={150}
+            placeholder="#rgba(255, 184, 226, 0.3)"
+            className={bio_image}
+          />
+        </BioImageWrapper>
         <BioIcons />
 
         <p className={bio_name}>著者　中山遼太郎</p>

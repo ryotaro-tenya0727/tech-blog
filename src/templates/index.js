@@ -12,10 +12,7 @@ import {
   Paginations,
   Bio,
 } from "./../components/components"
-import {
-  top_title,
-  contents_wrapper,
-} from "./../../css/components/string.module.css"
+import { top_title } from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -40,7 +37,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
       />
       <Paginations pageContext={pageContext} />
       <h2 className={top_title}>最近の記事</h2>
-      <ContentsWrapper className={contents_wrapper}>
+      <ContentsWrapper>
         <ArticlesWrapper style={{ listStyle: `none`, flex: 7 }}>
           {posts.map(post => {
             const title = post.frontmatter.title || post.fields.slug

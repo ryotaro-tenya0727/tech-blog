@@ -5,7 +5,6 @@ import styled from "styled-components"
 import ArticleIcon from "@mui/icons-material/Article"
 import { Link } from "gatsby"
 import { green } from "@mui/material/colors"
-import { pink } from "@mui/material/colors"
 
 import {
   bio_icons_wrapper,
