@@ -40,8 +40,8 @@ const Bio = () => {
           </a>
         </p>
         <p className={bio_description}>
-          エンジニアを目指してプログラミングスクールで学習中です。 主に、Rails
-          Reactを学びながら、競技プログラミングにも参加しています。
+          エンジニアを目指してプログラミングスクールで学習中です。 主にRails
+          Reactを学びながら競技プログラミングにも参加しています。
         </p>
       </CardContent>
     </Card>

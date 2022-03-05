@@ -63,3 +63,31 @@
   -ms-transform: translateY(-5px);
   transform: translateY(-5px);
 }
+
+.tag_button{
+  padding: 6px 10px 8px 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ff96df;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-family: 'Kiwi Maru',
+  serif;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+
+}
+
+.tag_button:active {
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+.tag_button:hover {
+  opacity: 0.7
+}

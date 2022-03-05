@@ -9,6 +9,7 @@ import {
   ShareButtons,
   Paginations,
   Bio,
+  Category,
 } from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 
@@ -18,6 +19,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
   const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
   const fbImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const posts = data.allMdx.nodes
+  const tags = data.allMdx.group
 
   return (
     <Layout location={location}>
@@ -54,6 +56,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
         </ArticlesWrapper>
         <CardsWrapper>
           <Bio />
+          <Category tags={tags} />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>
@@ -62,9 +65,12 @@ const BlogIndex = ({ data, location, pageContext }) => {
 
 export default BlogIndex
 
-const ArticlesWrapper = styled.div``
+const ArticlesWrapper = styled.div`
+  flex: 7;
+`
 const CardsWrapper = styled.div`
-  flex: 3;
+  flex: 2;
+  display: inline-block;
 `
 
 const ContentsWrapper = styled.div`
