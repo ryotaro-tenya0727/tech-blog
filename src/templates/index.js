@@ -1,8 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
-import MediaQuery from "react-responsive"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "./../components/seo"
@@ -100,7 +98,11 @@ export const pageQuery = graphql`
           title
           description
           image_url
+          tags
         }
+      }
+      group(field: frontmatter___tags) {
+        fieldValue
       }
     }
   }
