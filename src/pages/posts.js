@@ -12,7 +12,7 @@ import {
   Bio,
   Category,
 } from "./../components/components"
-import { article_wrapper } from "./../../css/components/string.module.css"
+import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_post_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_posts_title } from "./../../css/components/string.module.css"
 import { search_form } from "./../../css/components/search_form.module.css"
@@ -75,7 +75,6 @@ const BlogPostsIndex = ({ data, location }) => {
       <ContentsWrapper>
         <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {
-            const title = post.frontmatter.title || post.fields.slug
             return (
               <ArticleCard
                 title={post.frontmatter.title}

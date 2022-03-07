@@ -20,7 +20,18 @@
   display: flex;
   height: 140px;
   position: relative;
+}
 
+@media(max-width: 430px) {
+  .article_card {
+    height: 160px;
+  }
+}
+
+@media(min-width:430px) and (max-width:600px) {
+  .article_card {
+    height: 200px;
+  }
 }
 
 .article_card:hover {
@@ -31,6 +42,15 @@
   font-size: 16px;
   margin-top: -10px;
   font-weight: 700;
+
+}
+
+@media(max-width: 430px) {
+  .article_title {
+  font-size: 11px;
+  margin-left: -15px;
+
+  }
 }
 
 .article_description{
@@ -39,7 +59,7 @@
 
 }
 
-@media(max-width: 720px) {
+@media(max-width: 760px) {
   .article_description {
     display: none;
   }
@@ -61,4 +81,26 @@
   border: 2px solid #605c5c;
   border-radius: 3px;
   background-color: #ffffff;
+}
+
+@media(max-width: 430px) {
+  .article_image {
+    margin-top: 5px;
+    margin-left: -2px;
+  }
+}
+
+@media(min-width:430px) and (max-width:600px) {
+  .article_image {
+    margin-top: 35px;
+    margin-left: -2px;
+  }
+}
+
+@media(max-width: 430px) {
+  .article_tags_wrapper {
+
+    margin-left: -15px;
+
+  }
 }
