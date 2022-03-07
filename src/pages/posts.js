@@ -1,19 +1,33 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import { useState } from "react"
+import styled from "styled-components"
+import SavedSearchIcon from "@mui/icons-material/SavedSearch"
+import { pink } from "@mui/material/colors"
 
 import Layout from "../components/layout"
-import { ArticleCard } from "./../components/components"
-import { top_title } from "./../../css/components/string.module.css"
+import {
+  ArticleCard,
+  ShareButtons,
+  Bio,
+  Category,
+} from "./../components/components"
+import { article_wrapper } from "./../../css/components/string.module.css"
+import { bio_post_page_wrapper } from "./../../css/components/bio.module.css"
+import { top_posts_title } from "./../../css/components/string.module.css"
+import { search_form } from "./../../css/components/search_form.module.css"
+import { search_icon } from "./../../css/components/icon.module.css"
 
 const BlogPostsIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+  const siteTitle = data.site.siteMetadata.title
+  const siteUrl = data.site.siteMetadata.siteUrl
   const emptyQuery = ""
   const [state, setState] = useState({
     filteredData: [],
     query: emptyQuery,
   })
   const allPosts = data.allMdx.nodes
+  const tags = data.tags.group
 
   const { filteredData, query } = state
   const hasSearchResults = filteredData && query !== emptyQuery
@@ -23,7 +37,6 @@ const BlogPostsIndex = ({ data, location }) => {
   const handleInputChange = event => {
     const query = event.target.value
     const posts = data.allMdx.nodes || []
-    console.log(posts)
     const filteredData = posts.filter(post => {
       const { description, title } = post.frontmatter
       return (
@@ -40,41 +53,74 @@ const BlogPostsIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <h1>{}</h1>
-      <h3 className={top_title}>
+      <ShareButtons
+        url={siteUrl}
+        title={`${siteTitle}\nこのブログの著者を応援！\n`}
+        size={36}
+      />
+      <p className={top_posts_title}>記事一覧</p>
+      <p>
         <input
           type="text"
           aria-label="Search"
           placeholder="検索ワードを入力..."
           onChange={handleInputChange}
+          className={search_form}
         />
-      </h3>
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-          return (
-            <li key={post.fields.slug}>
+        <SavedSearchIcon
+          className={search_icon}
+          sx={{ fontSize: 40, color: pink[700] }}
+        />
+      </p>
+      <ContentsWrapper>
+        <ArticlesWrapper className={article_wrapper}>
+          {posts.map(post => {
+            const title = post.frontmatter.title || post.fields.slug
+            return (
               <ArticleCard
-                title={title}
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
                 url={post.fields.slug}
                 image_url={post.frontmatter.image_url}
-              >
-                {post.frontmatter.date}
-              </ArticleCard>
-            </li>
-          )
-        })}
-      </ol>
+                tags={post.frontmatter.tags}
+                date={post.frontmatter.date}
+              />
+            )
+          })}
+        </ArticlesWrapper>
+        <CardsWrapper>
+          <Bio bio_wrapper={bio_post_page_wrapper} />
+          <Category tags={tags} />
+        </CardsWrapper>
+      </ContentsWrapper>
     </Layout>
   )
 }
 
 export default BlogPostsIndex
 
+const ArticlesWrapper = styled.div`
+  flex: 7;
+`
+const CardsWrapper = styled.div`
+  flex: 2;
+  display: inline-block;
+`
+
+const ContentsWrapper = styled.div`
+  @media (min-width: 1040px) {
+     {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+`
+
 export const pageQuery = graphql`
   query {
     site {
       siteMetadata {
+        siteUrl
         title
       }
     }
@@ -84,11 +130,17 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
           title
+          tags
+          date(formatString: "MMMM DD, YYYY")
           description
           image_url
         }
+      }
+    }
+    tags: allMdx {
+      group(field: frontmatter___tags) {
+        fieldValue
       }
     }
   }

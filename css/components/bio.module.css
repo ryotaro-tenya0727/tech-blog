@@ -16,6 +16,15 @@
   margin-left: 30px;
 }
 
+.bio_post_page_wrapper {
+  display: inline-block;
+  border: 2.5px solid #605c5c;
+  border-radius: 5px;
+  max-width: 250px;
+  margin-top: -104.5px;
+  margin-left: 30px;
+}
+
 .bio_card{
   background-color: rgba(255, 230, 230, 0.3);
   height: 330px;
