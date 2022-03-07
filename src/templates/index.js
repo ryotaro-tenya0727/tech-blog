@@ -11,7 +11,10 @@ import {
   Bio,
   Category,
 } from "./../components/components"
-import { top_title } from "./../../css/components/string.module.css"
+import {
+  top_title,
+  article_wrapper,
+} from "./../../css/components/string.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -38,7 +41,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
       <Paginations pageContext={pageContext} />
       <h2 className={top_title}>最近の記事</h2>
       <ContentsWrapper>
-        <ArticlesWrapper style={{ listStyle: `none`, flex: 7 }}>
+        <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
             return (
@@ -48,9 +51,9 @@ const BlogIndex = ({ data, location, pageContext }) => {
                 image_url={post.frontmatter.image_url}
                 description={post.frontmatter.description}
                 key={post.fields.slug}
-              >
-                {post.frontmatter.date}
-              </ArticleCard>
+                tags={post.frontmatter.tags}
+                date={post.frontmatter.date}
+              />
             )
           })}
         </ArticlesWrapper>
@@ -74,7 +77,7 @@ const CardsWrapper = styled.div`
 `
 
 const ContentsWrapper = styled.div`
-  @media (min-width: 1020px) {
+  @media (min-width: 1040px) {
      {
       display: flex;
       justify-content: space-between;

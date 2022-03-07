@@ -13,7 +13,7 @@
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1040px) {
   .bio_wrapper{
   display: none;
 }}

@@ -8,6 +8,12 @@
 
 }
 
+@media (max-width: 1040px) {
+  .category_wrapper {
+    display: none;
+  }
+}
+
 .category_card {
   background-color: rgba(255, 230, 230, 0.3);
   height: 380px;

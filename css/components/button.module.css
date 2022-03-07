@@ -91,3 +91,31 @@
 .tag_button:hover {
   opacity: 0.7
 }
+
+.card_tag_button {
+  padding: 4px 8px 6px 8px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ff96df;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-family: 'Kiwi Maru',
+    serif;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-right: 5px;
+  font-weight: bold;
+
+}
+
+.card_tag_button:active {
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+.card_tag_button:hover {
+  opacity: 0.7
+}

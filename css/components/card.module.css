@@ -1,3 +1,8 @@
+.article_wrapper{
+  list-style: none;
+  flex: 7
+}
+
 .article_card_box {
   margin-top: 30px;
   width: 100%;
@@ -13,13 +18,13 @@
   border-radius: 3px;
   cursor: pointer;
   display: flex;
-  height: 125px;
+  height: 140px;
   position: relative;
 
 }
 
 .article_card:hover {
-  opacity: 0.6;
+  background-color: rgba(255, 175, 175, 0.3)
 }
 
 .article_title{
@@ -34,7 +39,7 @@
 
 }
 
-@media(max-width: 600px) {
+@media(max-width: 720px) {
   .article_description {
     display: none;
   }

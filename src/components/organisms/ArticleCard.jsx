@@ -4,6 +4,9 @@ import CardContent from "@mui/material/CardContent"
 import { Link } from "gatsby"
 import DateRangeIcon from "@mui/icons-material/DateRange"
 import styled from "styled-components"
+import _ from "lodash"
+
+import { CardTagButton } from "./../components"
 
 import {
   article_card,
@@ -16,7 +19,7 @@ import {
 
 import { calender_icon } from "./../../../css/components/icon.module.css"
 
-const ArticleCard = ({ children, title, url, image_url, description }) => {
+const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
   return (
     <Card className={article_card_box}>
       <Link to={url} style={{ textDecoration: "none" }}>
@@ -25,10 +28,17 @@ const ArticleCard = ({ children, title, url, image_url, description }) => {
           <ArticleText>
             <p className={article_title}>{title} </p>
             <p className={article_description}>{description}</p>
-
+            {tags &&
+              tags.map(tag => {
+                return (
+                  <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                    <CardTagButton word={`#${tag}`} />
+                  </Link>
+                )
+              })}
             <p className={article_date}>
               <DateRangeIcon className={calender_icon} />
-              &emsp;&ensp; {children}
+              &emsp;&ensp; {date}
             </p>
           </ArticleText>
         </CardContent>
@@ -38,7 +48,7 @@ const ArticleCard = ({ children, title, url, image_url, description }) => {
 }
 
 const ArticleText = styled.div`
-  margin-left: 27px;
+  margin-left: 20px;
 `
 
 export default ArticleCard

@@ -13,11 +13,12 @@ const Tags = ({ pageContext, data, location }) => {
         return (
           <ArticleCard
             title={node.frontmatter.title}
+            description={node.frontmatter.description}
             url={node.fields.slug}
             image_url={node.frontmatter.image_url}
-          >
-            {node.frontmatter.date}
-          </ArticleCard>
+            tags={node.frontmatter.tags}
+            date={node.frontmatter.date}
+          />
         )
       })}
     </Layout>
