@@ -7,7 +7,6 @@ import MailIcon from "@mui/icons-material/Mail"
 import { pink } from "@mui/material/colors"
 
 import {
-  bio_wrapper,
   bio_card,
   bio_image_wrapper,
   bio_name,
@@ -17,7 +16,7 @@ import {
 } from "./../../../css/components/bio.module.css"
 import { BioIcons } from "./../components"
 
-const Bio = () => {
+const Bio = ({ bio_wrapper }) => {
   return (
     <Card className={bio_wrapper}>
       <CardContent className={bio_card}>
@@ -40,7 +39,7 @@ const Bio = () => {
           </a>
         </p>
         <p className={bio_description}>
-          エンジニアを目指してプログラミングスクールで学習中です。 主にRails
+          エンジニアを目指してプログラミングスクールで学習中です。主にRails
           Reactを学びながら競技プログラミングにも参加しています。
         </p>
       </CardContent>

@@ -7,9 +7,18 @@
   margin-left: 30px;
 }
 
+.bio_tag_page_wrapper {
+  display: inline-block;
+  border: 2.5px solid #605c5c;
+  border-radius: 5px;
+  max-width: 250px;
+  margin-top: -54.5px;
+  margin-left: 30px;
+}
+
 .bio_card{
   background-color: rgba(255, 230, 230, 0.3);
-  height: 350px;
+  height: 330px;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
 }
 
@@ -20,18 +29,19 @@
 
 .bio_name{
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.0em;
   font-weight: bold;
 }
 
 .bio_description{
   font-weight: bold;
+  font-size: 0.7em;
 }
 
 
 .bio_image_wrapper{
   text-align: center;
-  margin-top: 0px;
+  margin-top: -3px;
   margin-bottom: 10px;
 
 }
