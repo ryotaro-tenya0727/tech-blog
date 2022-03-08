@@ -62,7 +62,7 @@ const CardsWrapper = styled.div`
 `
 
 const ContentsWrapper = styled.div`
-  @media (min-width: 1040px) {
+  @media (min-width: 980px) {
      {
       display: flex;
       justify-content: space-between;

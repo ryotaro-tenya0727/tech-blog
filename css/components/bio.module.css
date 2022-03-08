@@ -6,7 +6,7 @@
   margin-top: -85px;
   margin-left: 30px;
 }
-@media (max-width: 1040px) {
+@media (max-width: 980px) {
   .bio_wrapper {
     display: none;
   }
@@ -20,7 +20,7 @@
   margin-top: -54.5px;
   margin-left: 30px;
 }
-@media (max-width: 1040px) {
+@media (max-width: 980px) {
   .bio_tag_page_wrapper {
     display: none;
   }
@@ -34,7 +34,7 @@
   margin-top: -104.5px;
   margin-left: 30px;
 }
-@media (max-width: 1040px) {
+@media (max-width: 980px) {
   .bio_post_page_wrapper {
     display: none;
   }
