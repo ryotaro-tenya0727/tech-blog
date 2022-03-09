@@ -25,10 +25,18 @@ const ShareButtons = ({ url, title, size, words }) => {
     <SButtonsWrapper className={share_button_wrapper}>
       {words}
       <SButtons className={share_buttons}>
-        <FacebookShareButton url={url} quote={title}>
+        <FacebookShareButton
+          url={url}
+          quote={title}
+          hashtag={"#アイドルオタクプログラマーの技術ブログ"}
+        >
           <FacebookIcon size={size} round className={share_icon} />
         </FacebookShareButton>
-        <TwitterShareButton url={url} title={title}>
+        <TwitterShareButton
+          url={url}
+          title={title}
+          hashtag={"#アイドルオタクプログラマーの技術ブログ"}
+        >
           <TwitterIcon size={size} round className={share_icon} />
         </TwitterShareButton>
         <LineShareButton url={url} quote={title}>

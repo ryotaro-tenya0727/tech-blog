@@ -20,6 +20,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
   const siteUrl = data.site.siteMetadata.siteUrl
   const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
   const fbImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
+  const description = data.site.siteMetadata.description
   const posts = data.allMdx.nodes
   const tags = data.allMdx.group
 
@@ -30,10 +31,11 @@ const BlogIndex = ({ data, location, pageContext }) => {
         page_url={siteUrl}
         twitterImageUrl={twitterImageUrl}
         fbImageUrl={fbImageUrl}
+        description={description}
       />
       <ShareButtons
         url={siteUrl}
-        title={`${siteTitle}\nこのブログの著者を応援！\n`}
+        title={`${siteTitle}`}
         size={36}
         words={`Share this Blog!`}
       />
@@ -87,6 +89,7 @@ export const pageQuery = graphql`
       siteMetadata {
         siteUrl
         title
+        description
       }
     }
     allMdx(
