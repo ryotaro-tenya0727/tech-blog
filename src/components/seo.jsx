@@ -35,9 +35,6 @@ const Seo = ({
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata.title
-
   return (
     <Helmet
       htmlAttributes={{
@@ -64,7 +61,7 @@ const Seo = ({
         },
         {
           property: `og:description`,
-          content: `${metaDescription}`,
+          content: `${description}`,
         },
 
         {
@@ -99,7 +96,7 @@ const Seo = ({
         },
         {
           name: `twitter:description`,
-          content: `${metaDescription}`,
+          content: `${description}`,
         },
       ].concat(meta)}
     ></Helmet>

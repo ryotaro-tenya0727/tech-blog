@@ -31,7 +31,6 @@ const BlogIndex = ({ data, location, pageContext }) => {
         twitterImageUrl={twitterImageUrl}
         fbImageUrl={fbImageUrl}
       />
-
       <ShareButtons
         url={siteUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}

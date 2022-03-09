@@ -16,8 +16,9 @@ import { bio_post_show_wrapper } from "./../../css/components/bio.module.css"
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
   const siteTitle = data.mdx.frontmatter.title
+  const siteUrl = data.site.siteMetadata.siteUrl
   const tags = data.tags.group
-  const url = `https://otaku-programmer.com//${post.slug}`
+  const url = `${siteUrl}/${post.slug}`
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -66,6 +67,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
       }
     }
     mdx(id: { eq: $id }) {

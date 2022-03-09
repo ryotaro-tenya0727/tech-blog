@@ -2,6 +2,9 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import styled from "styled-components"
+import _ from "lodash"
+
+import Seo from "./../components/seo"
 import {
   ArticleCard,
   ShareButtons,
@@ -16,11 +19,21 @@ import { top_tag_title } from "./../../css/components/string.module.css"
 const Tags = ({ pageContext, data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
+  const TagsUrl = `${siteUrl}/tags/${_.kebabCase(pageContext.tag)}/`
+  const TwitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
+  const FBImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const tags = data.tags.group
+
   return (
     <Layout location={location}>
+      <Seo
+        title={siteTitle}
+        page_url={TagsUrl}
+        twitterImageUrl={TwitterImageUrl}
+        fbImageUrl={FBImageUrl}
+      />
       <ShareButtons
-        url={siteUrl}
+        url={TagsUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
         words={`Share this Blog!`}
