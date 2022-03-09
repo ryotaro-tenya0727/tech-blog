@@ -22,8 +22,8 @@ const BlogPostTemplate = ({ data, location }) => {
   const siteUrl = data.site.siteMetadata.siteUrl
   const BlogPostUrl = `${siteUrl}/${post.slug}`
   const description = data.mdx.frontmatter.description
-  const TwitterImageUrl = data.mdx.frontmatter.image_url
-  const FBImageUrl = data.mdx.frontmatter.image_url
+  const TwitterImageUrl = `${data.mdx.frontmatter.image_url}`
+  const FBImageUrl = `${data.mdx.frontmatter.image_url}`
 
   return (
     <Layout location={location} title={siteTitle}>
