@@ -34,7 +34,7 @@ const BlogPostTemplate = ({ data, location }) => {
         description={description}
       />
       <ShareButtons
-        url={url}
+        url={BlogPostUrl}
         title={`${siteTitle}\n`}
         size={36}
         words={`Share this Article!`}
