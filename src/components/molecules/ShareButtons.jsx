@@ -27,14 +27,12 @@ const ShareButtons = ({ url, title, size, words }) => {
       <SButtons className={share_buttons}>
         <FacebookShareButton
           url={`${url}\n`}
-          quote={title}
           hashtags={["アイドルオタクプログラマーの技術ブログ"]}
         >
           <FacebookIcon size={size} round className={share_icon} />
         </FacebookShareButton>
         <TwitterShareButton
           url={`${url}\n`}
-          title={title}
           hashtags={["アイドルオタクプログラマーの技術ブログ"]}
         >
           <TwitterIcon size={size} round className={share_icon} />
