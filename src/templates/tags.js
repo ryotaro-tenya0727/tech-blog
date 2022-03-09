@@ -28,7 +28,7 @@ const Tags = ({ pageContext, data, location }) => {
     <Layout location={location}>
       <Seo
         title={siteTitle}
-        page_url={TagsUrl}
+        page_url={siteUrl}
         twitterImageUrl={TwitterImageUrl}
         fbImageUrl={FBImageUrl}
         description={description}
