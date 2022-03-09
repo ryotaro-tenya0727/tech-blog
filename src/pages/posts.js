@@ -57,6 +57,7 @@ const BlogPostsIndex = ({ data, location }) => {
         url={siteUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
+        words={`Share this Blog!`}
       />
       <p className={top_posts_title}>記事一覧</p>
       <p>

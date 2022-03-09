@@ -18,12 +18,12 @@ import {
   share_icon,
 } from "./../../../css/components/button.module.css"
 
-const ShareButtons = ({ url, title, size }) => {
+const ShareButtons = ({ url, title, size, words }) => {
   const IsWide = useMedia({ maxWidth: "430px" })
   size = IsWide ? 28 : size
   return (
     <SButtonsWrapper className={share_button_wrapper}>
-      Share this Blog!
+      {words}
       <SButtons className={share_buttons}>
         <FacebookShareButton url={url} quote={title}>
           <FacebookIcon size={size} round className={share_icon} />

@@ -9,7 +9,7 @@ import {
   Category,
 } from "./../components/components"
 
-import { article_wrapper } from "./../../css/components/string.module.css"
+import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_tag_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_tag_title } from "./../../css/components/string.module.css"
 
@@ -23,6 +23,7 @@ const Tags = ({ pageContext, data, location }) => {
         url={siteUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
+        words={`Share this Blog!`}
       />
       <p className={top_tag_title}>
         {pageContext.tag}のタグがついた記事({data.allMdx.totalCount}件)
@@ -53,9 +54,7 @@ const Tags = ({ pageContext, data, location }) => {
 
 export default Tags
 
-const ArticlesWrapper = styled.div`
-  flex: 7;
-`
+const ArticlesWrapper = styled.div``
 const CardsWrapper = styled.div`
   flex: 2;
   display: inline-block;

@@ -11,11 +11,8 @@ import {
   Bio,
   Category,
 } from "./../components/components"
-import {
-  top_title,
-  article_wrapper,
-} from "./../../css/components/string.module.css"
-
+import { top_title } from "./../../css/components/string.module.css"
+import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_wrapper } from "./../../css/components/bio.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
@@ -39,6 +36,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
         url={siteUrl}
         title={`${siteTitle}\nこのブログの著者を応援！\n`}
         size={36}
+        words={`Share this Blog!`}
       />
       <Paginations pageContext={pageContext} />
       <h2 className={top_title}>最近の記事</h2>
@@ -70,12 +68,9 @@ const BlogIndex = ({ data, location, pageContext }) => {
 
 export default BlogIndex
 
-const ArticlesWrapper = styled.div`
-  flex: 7;
-`
+const ArticlesWrapper = styled.div``
 const CardsWrapper = styled.div`
   flex: 2;
-  display: inline-block;
 `
 
 const ContentsWrapper = styled.div`

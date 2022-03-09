@@ -1,0 +1,17 @@
+.post_show_contens_wrapper{
+
+}
+
+.post_show_wrapper{
+  flex: 2;
+  background-color: hsl(320, 100%, 94%);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.post_show_title{
+  font-family: 'Kiwi Maru', serif;
+  font-size: 25px;
+  margin-top:-10px;
+  font-weight: bold;
+}
