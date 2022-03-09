@@ -26,7 +26,12 @@ const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
     <Card className={article_card_box}>
       <Link to={url} style={{ textDecoration: "none" }}>
         <CardContent className={article_card}>
-          <img alt="test" src={image_url} className={article_image} />
+          <img
+            alt="test"
+            src={image_url}
+            className={article_image}
+            placeholder="#fff"
+          />
           <ArticleText>
             <p className={article_title}>{title} </p>
             <p className={article_description}>{description}</p>
