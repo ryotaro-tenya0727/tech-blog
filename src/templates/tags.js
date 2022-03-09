@@ -19,7 +19,7 @@ const Tags = ({ pageContext, data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
-  const TwitterImageUrl = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-plain-wordmark.svg`
+  const TwitterImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const FBImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const description = data.site.siteMetadata.description
   const tags = data.tags.group
