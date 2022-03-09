@@ -45,10 +45,6 @@ const Seo = ({
       description={description}
       meta={[
         {
-          property: `fb:app_id`,
-          content: `298773962351651`,
-        },
-        {
           property: `og:url`,
           content: `${page_url}`,
         },
