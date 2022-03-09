@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import styled from "styled-components"
+import gatsby_image from "./../images/gatsby-icon.png"
 
 import Seo from "./../components/seo"
 import { ShareButtons, Bio, Category } from "./../components/components"
@@ -22,8 +23,8 @@ const BlogPostTemplate = ({ data, location }) => {
   const siteUrl = data.site.siteMetadata.siteUrl
   const BlogPostUrl = `${siteUrl}/${post.slug}`
   const description = data.mdx.frontmatter.description
-  const TwitterImageUrl = `${data.mdx.frontmatter.image_url}`
-  const FBImageUrl = `${data.mdx.frontmatter.image_url}`
+  const TwitterImageUrl = `${siteUrl}${gatsby_image}`
+  const FBImageUrl = `${siteUrl}${gatsby_image}`
 
   return (
     <Layout location={location} title={siteTitle}>
