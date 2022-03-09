@@ -18,6 +18,7 @@ import { top_tag_title } from "./../../css/components/string.module.css"
 
 const Tags = ({ pageContext, data, location }) => {
   const siteTitle = data.site.siteMetadata.title
+  const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
   const TwitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
   const FBImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
@@ -32,6 +33,7 @@ const Tags = ({ pageContext, data, location }) => {
         twitterImageUrl={TwitterImageUrl}
         fbImageUrl={FBImageUrl}
         description={description}
+        ogTitle={ogTitle}
       />
       <ShareButtons
         url={siteUrl}

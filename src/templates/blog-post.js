@@ -18,6 +18,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
   const tags = data.tags.group
   const siteTitle = data.mdx.frontmatter.title
+  const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
   const BlogPostUrl = `${siteUrl}/${post.slug}`
   const description = data.mdx.frontmatter.description
@@ -32,6 +33,7 @@ const BlogPostTemplate = ({ data, location }) => {
         twitterImageUrl={TwitterImageUrl}
         fbImageUrl={FBImageUrl}
         description={description}
+        ogTitle={ogTitle}
       />
       <ShareButtons
         url={BlogPostUrl}
