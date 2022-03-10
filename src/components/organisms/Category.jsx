@@ -12,7 +12,7 @@ import {
   category_title,
 } from "./../../../css/components/category.module.css"
 
-const Category = ({ tags }) => {
+const Category = ({ tags, category_wrapper }) => {
   return (
     <Card className={category_wrapper}>
       <CardContent className={category_card}>

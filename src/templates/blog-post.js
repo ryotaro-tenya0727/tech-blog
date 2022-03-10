@@ -22,6 +22,7 @@ import {
   post_show_calender_icon,
   post_show_calender_string,
 } from "./../../css/components/post_show.module.css"
+import { posts_show_category_wrapper } from "./../../css/components/category.module.css"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
@@ -54,7 +55,6 @@ const BlogPostTemplate = ({ data, location }) => {
             words={`Share this Article!`}
           />
           <p className={post_show_title}>{post.frontmatter.title}</p>
-
           <p className={post_show_calender_wrapper}>
             <DateRangeIcon
               className={post_show_calender_icon}
@@ -80,7 +80,10 @@ const BlogPostTemplate = ({ data, location }) => {
         </PostShowWrapper>
         <CardsWrapper>
           <Toc tableOfContents={post.tableOfContents} />
-          <Category tags={tags} />
+          <Category
+            tags={tags}
+            category_wrapper={posts_show_category_wrapper}
+          />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>

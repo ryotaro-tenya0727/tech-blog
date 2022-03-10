@@ -17,6 +17,7 @@ import { bio_post_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_posts_title } from "./../../css/components/string.module.css"
 import { search_form } from "./../../css/components/search_form.module.css"
 import { search_icon } from "./../../css/components/icon.module.css"
+import { posts_category_wrapper } from "./../../css/components/category.module.css"
 
 const BlogPostsIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -90,7 +91,7 @@ const BlogPostsIndex = ({ data, location }) => {
         </ArticlesWrapper>
         <CardsWrapper>
           <Bio bio_wrapper={bio_post_page_wrapper} />
-          <Category tags={tags} />
+          <Category tags={tags} category_wrapper={posts_category_wrapper} />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>

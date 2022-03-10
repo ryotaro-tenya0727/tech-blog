@@ -14,6 +14,7 @@ import {
 import { top_title } from "./../../css/components/string.module.css"
 import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_wrapper } from "./../../css/components/bio.module.css"
+import { category_wrapper } from "./../../css/components/category.module.css"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -62,7 +63,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
         </ArticlesWrapper>
         <CardsWrapper>
           <Bio bio_wrapper={bio_wrapper} />
-          <Category tags={tags} />
+          <Category tags={tags} category_wrapper={category_wrapper} />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>

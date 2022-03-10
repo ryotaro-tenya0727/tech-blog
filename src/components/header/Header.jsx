@@ -14,34 +14,32 @@ const Header = memo(({ onClickOpen }) => {
   const HeaderRoots = ["/", "/posts", "/about"]
 
   return (
-    <div>
-      <SHeader>
-        <Link to="/">
-          <StaticImage
-            src="./../../images/logo.png"
-            width={250}
-            height={60}
-            placeholder="#fff"
-          />
-        </Link>
-        <MediaQuery query="(max-width: 890px)">
-          <MenuIcon
-            onClick={onClickOpen}
-            className={menu_icon_button}
-            sx={{ fontSize: 48 }}
-          />
-        </MediaQuery>
-        <SButtons>
-          {HeaderWords.map((word, index) => {
-            return (
-              <Link to={HeaderRoots[index]}>
-                <BaseButton key={index} word={word} />
-              </Link>
-            )
-          })}
-        </SButtons>
-      </SHeader>
-    </div>
+    <SHeader>
+      <Link to="/">
+        <StaticImage
+          src="./../../images/logo.png"
+          width={250}
+          height={60}
+          placeholder="#fff"
+        />
+      </Link>
+      <MediaQuery query="(max-width: 890px)">
+        <MenuIcon
+          onClick={onClickOpen}
+          className={menu_icon_button}
+          sx={{ fontSize: 48 }}
+        />
+      </MediaQuery>
+      <SButtons>
+        {HeaderWords.map((word, index) => {
+          return (
+            <Link to={HeaderRoots[index]}>
+              <BaseButton key={index} word={word} />
+            </Link>
+          )
+        })}
+      </SButtons>
+    </SHeader>
   )
 })
 
@@ -53,6 +51,9 @@ const SHeader = styled.header`
   padding-bottom: 15px;
   display: flex;
   justify-content: space-between;
+  z-index: 1;
+  position:sticky;
+  top:0;
 
 `
 const SButtons = styled.div`

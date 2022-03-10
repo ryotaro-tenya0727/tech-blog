@@ -14,6 +14,7 @@ import {
 import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_tag_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_tag_title } from "./../../css/components/string.module.css"
+import { category_wrapper } from "./../../css/components/category.module.css"
 
 const Tags = ({ pageContext, data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -60,7 +61,7 @@ const Tags = ({ pageContext, data, location }) => {
         </ArticlesWrapper>
         <CardsWrapper>
           <Bio bio_wrapper={bio_tag_page_wrapper} />
-          <Category tags={tags} />
+          <Category tags={tags} category_wrapper={category_wrapper} />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>
