@@ -4,11 +4,10 @@
   border-radius: 5px;
   width: 250px;
   margin-top: 68px;
-  margin-left: 30px;
+  margin-left: 15px;
   font-family: 'Kiwi Maru', serif;
-  position: fixed;
-  top: 5;
-
+  position: sticky;
+  top: 0;
 
 }
 

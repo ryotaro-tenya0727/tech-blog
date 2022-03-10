@@ -93,10 +93,6 @@ const BlogPostTemplate = ({ data, location }) => {
         </PostShowWrapper>
         <CardsWrapper>
           <Toc tableOfContents={post.tableOfContents} />
-          <Category
-            tags={tags}
-            category_wrapper={posts_show_category_wrapper}
-          />
         </CardsWrapper>
       </ContentsWrapper>
     </Layout>
@@ -109,7 +105,9 @@ const PostShowWrapper = styled.div`
   flex: 7;
 `
 
-const CardsWrapper = styled.div``
+const CardsWrapper = styled.div`
+  flex: 2;
+`
 
 const ContentsWrapper = styled.div`
   @media (min-width: 980px) {
