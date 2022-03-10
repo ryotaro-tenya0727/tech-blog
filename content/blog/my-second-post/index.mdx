@@ -6,13 +6,51 @@ image_url: https://user-images.githubusercontent.com/71915489/157560125-a15e5e25
 tags: ["Rails", "AWS", "atcorder"]
 ---
 
-import Bio from "./../../../src/components/bio.js"
-export const Thing = () => <>World</>
+## 目次 1
 
-# Hello <Thing />
+## 目次 2
 
-# AAA
+## 目次 3
 
-```js{numberLines:true}
-const a = 1
+## 目次 4
+
+## 目次 5
+
+AWS は、、、
+
+<div class="gatsby-code-title">
+  <span>app/controllers/bookmarks_controller.rb</span>
+</div>
+
+```ruby
+class Admin::UserSessionsController < Admin::BaseController
+skip_before_action :require_login, only: %i[new create]
+skip_before_action :check_admin, only: %i[new create]
+layout 'layouts/admin_login'
+
+def new; end
+
+def create
+@user = login(params[:email], params[:password])
+if @user
+redirect_to admin_root_path, success: t('.success')
+else
+flash.now[:danger] = t('.fail')
+render :new
+end
+end
+
+def destroy
+logout
+redirect_to admin_login_path, success: t('.success')
+end
+
+```
+
+ここで下記を実行
+
+```
+
+$ rails db:migrate
+
 ```

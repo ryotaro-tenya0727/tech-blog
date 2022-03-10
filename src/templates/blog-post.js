@@ -5,14 +5,12 @@ import { MDXProvider } from "@mdx-js/react"
 import styled from "styled-components"
 
 import Seo from "./../components/seo"
-import { ShareButtons, Bio, Category } from "./../components/components"
+import { ShareButtons, Category, Toc } from "./../components/components"
 import Layout from "../components/layout"
 import {
-  post_show_contens_wrapper,
   post_show_wrapper,
   post_show_title,
 } from "./../../css/components/post_show.module.css"
-import { bio_post_show_wrapper } from "./../../css/components/bio.module.css"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
@@ -50,7 +48,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </MDXProvider>
         </PostShowWrapper>
         <CardsWrapper>
-          <Bio bio_wrapper={bio_post_show_wrapper} />
+          <Toc tableOfContents={post.tableOfContents} />
           <Category tags={tags} />
         </CardsWrapper>
       </ContentsWrapper>
@@ -94,6 +92,7 @@ export const pageQuery = graphql`
         image_url
         tags
       }
+      tableOfContents
     }
     tags: allMdx {
       group(field: frontmatter___tags) {
