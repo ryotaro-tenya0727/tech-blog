@@ -6,18 +6,17 @@ import {
   sidebar_button,
   sidebar_li,
 } from "./../../../css/components/sidebar.module.css"
-import styled from "styled-components"
 
 const SideMenu = () => {
   return (
     <ul className={sidebar_menu}>
       <li className={sidebar_li}>
-        <Link to="/hello-world" className={sidebar_button}>
+        <Link to="/" className={sidebar_button}>
           トップ
         </Link>
       </li>
       <li className={sidebar_li}>
-        <Link to="/hello-world" className={sidebar_button}>
+        <Link to="/posts" className={sidebar_button}>
           記事一覧
         </Link>
       </li>

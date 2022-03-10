@@ -1,17 +1,44 @@
-.post_show_contens_wrapper{
-
-}
 
 .post_show_wrapper{
   flex: 2;
-  background-color: hsl(320, 100%, 94%);
-  padding: 30px;
   border-radius: 5px;
+  background-color: #fff5fd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: -13px;
 }
 
 .post_show_title{
   font-family: 'Kiwi Maru', serif;
-  font-size: 25px;
-  margin-top:-10px;
+  font-size: 28px;
+  margin-top:10px;
+
   font-weight: bold;
+
+}
+
+.post_show_calender_wrapper {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 25px;
+  position: relative;
+  border-bottom: dashed 3px rgb(255, 144, 144);
+  display: flex
+}
+
+.post_show_calender_icon{
+  position: absolute;
+  top: -2px;
+  left: -3px;
+}
+
+.post_show_calender_string{
+  font-family: 'Kiwi Maru', serif;
+  margin-left: 30px;
+  font-size: 15px;
+
+}
+
+.post_show_share_buttons{
+  margin-bottom: 20px
 }

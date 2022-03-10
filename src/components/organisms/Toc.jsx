@@ -1,9 +1,15 @@
 import * as React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
+import { Link } from "gatsby"
 import styled from "styled-components"
 
-import { toc_card, toc_wrapper } from "./../../../css/components/toc.module.css"
+import {
+  toc_card,
+  toc_wrapper,
+  toc_title,
+  toc_link,
+} from "./../../../css/components/toc.module.css"
 
 const Items = ({ tableOfContents, depth }) => {
   return (
@@ -12,10 +18,13 @@ const Items = ({ tableOfContents, depth }) => {
         <li
           key={item.url}
           style={{
-            paddingLeft: depth !== 0 ? "1em" : "0",
+            paddingLeft: depth !== 0 ? "15px" : "0",
+            listStyle: "none",
           }}
         >
-          <a href={item.url}>{item.title}</a>
+          <Link to={item.url} className={toc_link}>
+            {item.title}
+          </Link>
           {item.items && (
             <Items tableOfContents={item.items} depth={depth + 1} />
           )}
@@ -30,7 +39,7 @@ const Toc = ({ tableOfContents }) => {
     <Card className={toc_wrapper}>
       <CardContent className={toc_card}>
         <div>
-          <h3>Table of Contents</h3>
+          <p className={toc_title}>もくじへのリンク</p>
           <Items tableOfContents={tableOfContents.items} depth={0} />
         </div>
       </CardContent>

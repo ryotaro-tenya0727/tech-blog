@@ -132,7 +132,7 @@ export const pageQuery = graphql`
         frontmatter {
           title
           tags
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY年 MM月 DD日")
           description
           image_url
         }

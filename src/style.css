@@ -54,9 +54,10 @@ footer {
 }
 
 hr {
-  background: var(--color-accent);
-  height: 1px;
-  border: 0;
+
+  border-width: 1px 0 0 0;
+  border-top: dashed;
+  border-color: black;
 }
 
 /* Heading */
