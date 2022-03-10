@@ -42,3 +42,11 @@
 .post_show_share_buttons{
   margin-bottom: 20px
 }
+
+
+
+@media (max-width: 430px) {
+  .post_show_tag_wrapper {
+    display: none;
+  }
+}

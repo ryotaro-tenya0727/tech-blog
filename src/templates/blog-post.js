@@ -6,6 +6,7 @@ import styled from "styled-components"
 import DateRangeIcon from "@mui/icons-material/DateRange"
 import { Link } from "gatsby"
 import _ from "lodash"
+import MediaQuery from "react-responsive"
 
 import Seo from "./../components/seo"
 import {
@@ -21,6 +22,7 @@ import {
   post_show_calender_wrapper,
   post_show_calender_icon,
   post_show_calender_string,
+  post_show_tag_wrapper,
 } from "./../../css/components/post_show.module.css"
 import { posts_show_category_wrapper } from "./../../css/components/category.module.css"
 
@@ -45,7 +47,6 @@ const BlogPostTemplate = ({ data, location }) => {
         description={description}
         ogTitle={ogTitle}
       />
-
       <ContentsWrapper>
         <PostShowWrapper className={post_show_wrapper}>
           <ShareButtons
@@ -55,6 +56,18 @@ const BlogPostTemplate = ({ data, location }) => {
             words={`Share this Article!`}
           />
           <p className={post_show_title}>{post.frontmatter.title}</p>
+          <MediaQuery query="(max-width: 430px)">
+            <p style={{ marginTop: "10px" }}>
+              {post.frontmatter.tags &&
+                post.frontmatter.tags.map(tag => {
+                  return (
+                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                      <PostShowTagButton word={`#${tag}`} />
+                    </Link>
+                  )
+                })}
+            </p>
+          </MediaQuery>
           <p className={post_show_calender_wrapper}>
             <DateRangeIcon
               className={post_show_calender_icon}
@@ -63,17 +76,17 @@ const BlogPostTemplate = ({ data, location }) => {
             <span className={post_show_calender_string}>
               {post.frontmatter.date}
             </span>
-
-            {post.frontmatter.tags &&
-              post.frontmatter.tags.map(tag => {
-                return (
-                  <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                    <PostShowTagButton word={`#${tag}`} />
-                  </Link>
-                )
-              })}
+            <span className={post_show_tag_wrapper}>
+              {post.frontmatter.tags &&
+                post.frontmatter.tags.map(tag => {
+                  return (
+                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                      <PostShowTagButton word={`#${tag}`} />
+                    </Link>
+                  )
+                })}
+            </span>
           </p>
-
           <MDXProvider>
             <MDXRenderer>{post.body}</MDXRenderer>
           </MDXProvider>
@@ -90,6 +103,8 @@ const BlogPostTemplate = ({ data, location }) => {
   )
 }
 
+export default BlogPostTemplate
+
 const PostShowWrapper = styled.div`
   flex: 7;
 `
@@ -104,8 +119,6 @@ const ContentsWrapper = styled.div`
     }
   }
 `
-
-export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($id: String!) {

@@ -33,6 +33,18 @@
   }
 }
 
+@media (max-width: 980px) {
+  .posts_category_wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .posts_show_category_wrapper {
+    display: none;
+  }
+}
+
 .category_card {
   background-color: rgba(255, 230, 230, 0.3);
 
