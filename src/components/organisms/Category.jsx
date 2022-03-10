@@ -7,7 +7,6 @@ import _ from "lodash"
 import { TagButton } from "../components"
 
 import {
-  category_wrapper,
   category_card,
   category_title,
 } from "./../../../css/components/category.module.css"

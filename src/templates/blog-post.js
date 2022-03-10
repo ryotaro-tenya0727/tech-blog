@@ -11,7 +11,6 @@ import MediaQuery from "react-responsive"
 import Seo from "./../components/seo"
 import {
   ShareButtons,
-  Category,
   Toc,
   PostShowTagButton,
 } from "./../components/components"
@@ -24,11 +23,10 @@ import {
   post_show_calender_string,
   post_show_tag_wrapper,
 } from "./../../css/components/post_show.module.css"
-import { posts_show_category_wrapper } from "./../../css/components/category.module.css"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.mdx
-  const tags = data.tags.group
+
   const siteTitle = data.mdx.frontmatter.title
   const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
