@@ -1,9 +1,33 @@
 ---
-title: GCPを学びたい
+title: GCPを学んで記事を書きたい（仮）
 date: "2015-05-28T22:40:32.169Z"
 description: 新しいことを始めよう！
-image_url: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg
+image_url: https://user-images.githubusercontent.com/71915489/157560125-a15e5e25-6d1e-4077-ab8b-30055e3d397a.png
 tags: ["AWS", "GCP", "React"]
 ---
 
-# docker
+```js
+export const loadingState = {
+  fetchState: REQUEST_STATE.INITIAL,
+}
+
+export const fightersActionTypes = {
+  FETCHING: "FETCHING",
+  FETCH_SUCCESS: "FETCH_SUCCESS",
+}
+
+export const fightersReducer = (state, action) => {
+  switch (action.type) {
+    case fightersActionTypes.FETCHING:
+      return {
+        fetchState: REQUEST_STATE.LOADING,
+      }
+    case fightersActionTypes.FETCH_SUCCESS:
+      return {
+        fetchState: REQUEST_STATE.OK,
+      }
+    default:
+      throw new Error()
+  }
+}
+```
