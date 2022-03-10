@@ -51,9 +51,7 @@ const SHeader = styled.header`
   padding-bottom: 15px;
   display: flex;
   justify-content: space-between;
-  z-index: 1;
-  position:sticky;
-  top:0;
+
 
 `
 const SButtons = styled.div`
