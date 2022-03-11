@@ -6,6 +6,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange"
 import styled from "styled-components"
 import _ from "lodash"
 import MediaQuery from "react-responsive"
+import { StaticImage } from "gatsby-plugin-image"
 
 import { CardTagButton } from "./../components"
 
