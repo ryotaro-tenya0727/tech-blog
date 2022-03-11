@@ -27,7 +27,6 @@ import {
 
 const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
-
   const siteTitle = data.mdx.frontmatter.title
   const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
@@ -137,11 +136,6 @@ export const pageQuery = graphql`
         tags
       }
       tableOfContents
-    }
-    tags: allMdx {
-      group(field: frontmatter___tags) {
-        fieldValue
-      }
     }
   }
 `
