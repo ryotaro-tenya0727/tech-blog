@@ -21,6 +21,8 @@ const Header = memo(({ onClickOpen }) => {
           width={250}
           height={60}
           placeholder="#fff"
+          loading="eager"
+          durationFadeIn={100}
         />
       </Link>
       <MediaQuery query="(max-width: 890px)">

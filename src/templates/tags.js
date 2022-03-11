@@ -2,6 +2,7 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import styled from "styled-components"
+import { memo } from "react"
 
 import Seo from "./../components/seo"
 import {
@@ -16,7 +17,7 @@ import { bio_tag_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_tag_title } from "./../../css/components/string.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
 
-const Tags = ({ pageContext, data, location }) => {
+const Tags = memo(({ pageContext, data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
@@ -66,7 +67,7 @@ const Tags = ({ pageContext, data, location }) => {
       </ContentsWrapper>
     </Layout>
   )
-}
+})
 
 export default Tags
 

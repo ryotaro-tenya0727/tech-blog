@@ -25,8 +25,10 @@ const Bio = ({ bio_wrapper }) => {
             src="./../../images/newbio.png"
             width={150}
             height={150}
-            placeholder="#rgba(255, 184, 226, 0.3)"
+            placeholder="#fff"
             className={bio_image}
+            loading="eager"
+            durationFadeIn={100}
           />
         </BioImageWrapper>
         <BioIcons />

@@ -4,6 +4,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import SavedSearchIcon from "@mui/icons-material/SavedSearch"
 import { pink } from "@mui/material/colors"
+import { memo } from "react"
 
 import Layout from "../components/layout"
 import {
@@ -19,7 +20,7 @@ import { search_form } from "./../../css/components/search_form.module.css"
 import { search_icon } from "./../../css/components/icon.module.css"
 import { posts_category_wrapper } from "./../../css/components/category.module.css"
 
-const BlogPostsIndex = ({ data, location }) => {
+const BlogPostsIndex = memo(({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
   const emptyQuery = ""
@@ -96,7 +97,7 @@ const BlogPostsIndex = ({ data, location }) => {
       </ContentsWrapper>
     </Layout>
   )
-}
+})
 
 export default BlogPostsIndex
 

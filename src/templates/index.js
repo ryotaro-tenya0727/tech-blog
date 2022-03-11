@@ -1,6 +1,7 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
+import { memo } from "react"
 
 import Layout from "../components/layout"
 import Seo from "./../components/seo"
@@ -16,7 +17,7 @@ import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_wrapper } from "./../../css/components/bio.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
 
-const BlogIndex = ({ data, location, pageContext }) => {
+const BlogIndex = memo(({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const ogTitle = data.site.siteMetadata.title
   const siteUrl = data.site.siteMetadata.siteUrl
@@ -68,7 +69,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
       </ContentsWrapper>
     </Layout>
   )
-}
+})
 
 export default BlogIndex
 

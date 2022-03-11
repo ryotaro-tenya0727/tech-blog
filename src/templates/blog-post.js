@@ -7,6 +7,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange"
 import { Link } from "gatsby"
 import _ from "lodash"
 import MediaQuery from "react-responsive"
+import { memo } from "react"
 
 import Seo from "./../components/seo"
 import {
@@ -24,7 +25,7 @@ import {
   post_show_tag_wrapper,
 } from "./../../css/components/post_show.module.css"
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
 
   const siteTitle = data.mdx.frontmatter.title
@@ -95,7 +96,7 @@ const BlogPostTemplate = ({ data, location }) => {
       </ContentsWrapper>
     </Layout>
   )
-}
+})
 
 export default BlogPostTemplate
 
