@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 import { tag_button } from "./../../../../css/components/button.module.css"
 

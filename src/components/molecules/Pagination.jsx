@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import Pagination from "@mui/material/Pagination"
 import { navigate } from "gatsby"
 import Stack from "@mui/material/Stack"
