@@ -11,7 +11,7 @@ import { menu_icon_button } from "./../../../css/components/icon.module.css"
 import { header_button } from "./../../../css/components/button.module.css"
 
 const Header = memo(({ onClickOpen }) => {
-  const HeaderWords = ["トップ", "記事一覧", "著者について"]
+  const HeaderWords = ["トップ", "記事一覧", "ブログについて"]
   const HeaderRoots = ["/", "/posts", "/about"]
 
   return (

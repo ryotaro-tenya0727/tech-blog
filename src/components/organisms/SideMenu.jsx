@@ -22,7 +22,7 @@ const SideMenu = () => {
       </li>
       <li className={sidebar_li}>
         <Link to="/about" className={sidebar_button}>
-          著者について
+          ブログについて
         </Link>
       </li>
     </ul>

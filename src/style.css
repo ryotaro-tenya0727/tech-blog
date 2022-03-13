@@ -53,12 +53,6 @@ footer {
   padding: var(--spacing-6) var(--spacing-0);
 }
 
-hr {
-
-  border-width: 1px 0 0 0;
-  border-top: dashed;
-  border-color: black;
-}
 
 /* Heading */
 
@@ -73,6 +67,7 @@ h6 {
   margin-bottom: var(--spacing-6);
   line-height: var(--lineHeight-tight);
   letter-spacing: -0.025em;
+
 }
 
 h2,
@@ -82,6 +77,10 @@ h5,
 h6 {
   font-weight: var(--fontWeight-bold);
   color: var(--color-heading);
+  border-bottom: solid 2px #fb9999;
+  padding-bottom: 5px;
+  margin-bottom:30px;
+  margin-top: 20px;
 }
 
 h1 {
@@ -132,7 +131,7 @@ p {
   --x-height-multiplier: 0.35;
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
   padding: var(--spacing-0);
-  font-size: 0.8rem;
+  font-size: 16px;
 }
 
 ul,
@@ -325,4 +324,10 @@ a:focus {
 .bm-menu-wrap {
   position: fixed;
   height: 100%;
+}
+
+br{
+  display: block;
+  content: "";
+  margin: 10px 0;
 }

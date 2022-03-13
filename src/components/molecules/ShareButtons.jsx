@@ -45,6 +45,8 @@ const ShareButtons = ({ url, title, size, words }) => {
   )
 }
 const SButtonsWrapper = styled.div``
-const SButtons = styled.div``
+const SButtons = styled.div`
+  margin-top: -5px;
+`
 
 export default ShareButtons

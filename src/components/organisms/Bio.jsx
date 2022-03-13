@@ -34,7 +34,7 @@ const Bio = ({ bio_wrapper }) => {
         <BioIcons />
         <p className={bio_name}>著者　中山遼太郎</p>
         <p className={bio_email_wrapper}>
-          <MailIcon sx={{ color: pink[`500`] }} />
+          <MailIcon sx={{ color: pink[`500`], fontSize: 20 }} />
           <a href="mailto:ryotaro123110@gmail.com" target={`_blank`}>
             ryotaro123110@gmail.com
           </a>

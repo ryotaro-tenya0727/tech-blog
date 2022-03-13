@@ -44,7 +44,7 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
         words={`Share this Blog!`}
       />
       <Paginations pageContext={pageContext} />
-      <h2 className={top_title}>最近の記事</h2>
+      <p className={top_title}>最近の記事</p>
       <ContentsWrapper>
         <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {

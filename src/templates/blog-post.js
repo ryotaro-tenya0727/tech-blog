@@ -51,7 +51,7 @@ const BlogPostTemplate = memo(({ data, location }) => {
           <ShareButtons
             url={BlogPostUrl}
             title={`${siteTitle}\n`}
-            size={36}
+            size={32}
             words={`Share this Article!`}
           />
           <p className={post_show_title}>{post.frontmatter.title}</p>
