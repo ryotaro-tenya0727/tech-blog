@@ -21,7 +21,7 @@ const SideMenu = () => {
         </Link>
       </li>
       <li className={sidebar_li}>
-        <Link to="/hello-world" className={sidebar_button}>
+        <Link to="/about" className={sidebar_button}>
           著者について
         </Link>
       </li>
