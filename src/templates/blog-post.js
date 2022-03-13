@@ -1,20 +1,20 @@
 import React from "react"
+import DateRangeIcon from "@mui/icons-material/DateRange"
 import { graphql } from "gatsby"
+import { Link } from "gatsby"
+import { memo } from "react"
+import MediaQuery from "react-responsive"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import styled from "styled-components"
-import DateRangeIcon from "@mui/icons-material/DateRange"
-import { Link } from "gatsby"
 import _ from "lodash"
-import MediaQuery from "react-responsive"
-import { memo } from "react"
 
 import {
+  BaseButton,
   Layout,
   Seo,
   ShareButtons,
   Toc,
-  PostShowTagButton,
 } from "./../components/components"
 import {
   post_show_wrapper,
@@ -61,7 +61,10 @@ const BlogPostTemplate = memo(({ data, location }) => {
                 post.frontmatter.tags.map(tag => {
                   return (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      <PostShowTagButton word={`#${tag}`} />
+                      <BaseButton
+                        word={`#${tag}`}
+                        base_button_style={post_show_tag_button}
+                      />
                     </Link>
                   )
                 })}

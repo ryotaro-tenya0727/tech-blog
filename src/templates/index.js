@@ -1,16 +1,16 @@
 import React from "react"
 import { graphql } from "gatsby"
-import styled from "styled-components"
 import { memo } from "react"
+import styled from "styled-components"
 
 import {
-  Layout,
-  Seo,
   ArticleCard,
-  ShareButtons,
-  Paginations,
   Bio,
   Category,
+  Layout,
+  Paginations,
+  Seo,
+  ShareButtons,
 } from "./../components/components"
 import { top_title } from "./../../css/components/string.module.css"
 import { article_wrapper } from "./../../css/components/card.module.css"

@@ -1,17 +1,17 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { useState } from "react"
+import { memo } from "react"
+import { pink } from "@mui/material/colors"
 import styled from "styled-components"
 import SavedSearchIcon from "@mui/icons-material/SavedSearch"
-import { pink } from "@mui/material/colors"
-import { memo } from "react"
+import { useState } from "react"
 
 import {
-  Layout,
   ArticleCard,
-  ShareButtons,
   Bio,
   Category,
+  Layout,
+  ShareButtons,
 } from "./../components/components"
 import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_post_page_wrapper } from "./../../css/components/bio.module.css"

@@ -1,10 +1,10 @@
 import React from "react"
-import styled from "styled-components"
-import { StaticImage } from "gatsby-plugin-image"
-import { memo } from "react"
 import { Link } from "gatsby"
+import { memo } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import MediaQuery from "react-responsive"
+import styled from "styled-components"
+import { StaticImage } from "gatsby-plugin-image"
 
 import { BaseButton } from "./../components"
 import { menu_icon_button } from "./../../../css/components/icon.module.css"

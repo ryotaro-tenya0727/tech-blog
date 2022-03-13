@@ -1,14 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import {
-  TwitterIcon,
-  TwitterShareButton,
-  LineShareButton,
-  LineIcon,
-  HatenaShareButton,
-  HatenaIcon,
   FacebookIcon,
   FacebookShareButton,
+  HatenaShareButton,
+  HatenaIcon,
+  LineShareButton,
+  LineIcon,
+  TwitterIcon,
+  TwitterShareButton,
 } from "react-share"
 import useMedia from "use-media"
 

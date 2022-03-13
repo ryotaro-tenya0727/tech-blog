@@ -1,8 +1,8 @@
 import React from "react"
-import Pagination from "@mui/material/Pagination"
-import { navigate } from "gatsby"
-import Stack from "@mui/material/Stack"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { navigate } from "gatsby"
+import Pagination from "@mui/material/Pagination"
+import Stack from "@mui/material/Stack"
 
 import { pagination } from "./../../../css/components/pagination.module.css"
 

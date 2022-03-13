@@ -5,7 +5,6 @@ import { Link } from "gatsby"
 
 import _ from "lodash"
 import { BaseButton } from "../components"
-
 import {
   category_card,
   category_title,

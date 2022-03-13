@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+
 import { Layout, Seo } from "./../components/components"
 
 const NotFoundPage = ({ data, location }) => {

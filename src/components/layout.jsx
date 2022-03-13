@@ -1,7 +1,7 @@
 import React from "react"
+import { memo } from "react"
 import styled from "styled-components"
 import { useState, useCallback } from "react"
-import { memo } from "react"
 
 import { Header } from "./components"
 import { SideMenu } from "./components"

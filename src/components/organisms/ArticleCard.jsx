@@ -8,7 +8,6 @@ import _ from "lodash"
 import MediaQuery from "react-responsive"
 
 import { BaseButton } from "./../components"
-
 import {
   article_card,
   article_card_box,
@@ -18,7 +17,6 @@ import {
   article_date,
   article_tags_wrapper,
 } from "./../../../css/components/card.module.css"
-
 import { calender_icon } from "./../../../css/components/icon.module.css"
 import { card_tag_button } from "./../../../css/components/button.module.css"
 
