@@ -9,7 +9,6 @@ import { pagination } from "./../../../css/components/pagination.module.css"
 const theme = createTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
       main: "#ffa5e4",
     },
   },

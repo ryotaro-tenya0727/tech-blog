@@ -20,19 +20,19 @@ import {
   post_show_wrapper,
   post_show_title,
   post_show_calender_wrapper,
-  post_show_calender_icon,
   post_show_calender_string,
   post_show_tag_wrapper,
 } from "./../../css/components/post_show.module.css"
 import { post_show_tag_button } from "./../../css/components/button.module.css"
+import { post_show_calender_icon } from "./../../css/components/icon.module.css"
 
 const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
   const siteTitle = data.mdx.frontmatter.title
   const ogTitle = data.site.siteMetadata.title
+  const description = data.mdx.frontmatter.description
   const siteUrl = data.site.siteMetadata.siteUrl
   const BlogPostUrl = `${siteUrl}/${post.slug}`
-  const description = data.mdx.frontmatter.description
   const TwitterImageUrl = `${data.mdx.frontmatter.image_url}`
   const FBImageUrl = `${data.mdx.frontmatter.image_url}`
 
@@ -83,7 +83,7 @@ const BlogPostTemplate = memo(({ data, location }) => {
                 post.frontmatter.tags.map(tag => {
                   return (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      <PostShowTagButton
+                      <BaseButton
                         word={`#${tag}`}
                         base_button_style={post_show_tag_button}
                       />

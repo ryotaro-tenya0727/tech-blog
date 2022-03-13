@@ -18,13 +18,14 @@ import { top_tag_title } from "./../../css/components/string.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
 
 const Tags = memo(({ pageContext, data, location }) => {
+  const posts = data.allMdx.nodes
+  const tags = data.tags.group
   const siteTitle = data.site.siteMetadata.title
   const ogTitle = data.site.siteMetadata.title
-  const siteUrl = data.site.siteMetadata.siteUrl
+  const description = data.site.siteMetadata.description
+  const siteUrl = `${data.site.siteMetadata.siteUrl}`
   const TwitterImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
   const FBImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
-  const description = data.site.siteMetadata.description
-  const tags = data.tags.group
 
   return (
     <Layout location={location}>
@@ -47,15 +48,15 @@ const Tags = memo(({ pageContext, data, location }) => {
       </p>
       <ContentsWrapper>
         <ArticlesWrapper className={article_wrapper}>
-          {data.allMdx.nodes.map(node => {
+          {posts.map(post => {
             return (
               <ArticleCard
-                title={node.frontmatter.title}
-                description={node.frontmatter.description}
-                url={node.fields.slug}
-                image_url={node.frontmatter.image_url}
-                tags={node.frontmatter.tags}
-                date={node.frontmatter.date}
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                url={post.fields.slug}
+                image_url={post.frontmatter.image_url}
+                tags={post.frontmatter.tags}
+                date={post.frontmatter.date}
               />
             )
           })}

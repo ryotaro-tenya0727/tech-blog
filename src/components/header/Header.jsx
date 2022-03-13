@@ -34,12 +34,12 @@ const Header = memo(({ onClickOpen }) => {
         />
       </MediaQuery>
       <SButtons>
-        {HeaderWords.map((word, index) => {
+        {HeaderWords.map((header_word, index) => {
           return (
             <Link to={HeaderRoots[index]}>
               <BaseButton
                 key={index}
-                word={word}
+                word={header_word,}
                 base_button_style={header_button}
               />
             </Link>

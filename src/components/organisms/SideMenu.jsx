@@ -3,9 +3,9 @@ import { Link } from "gatsby"
 
 import {
   sidebar_menu,
-  sidebar_button,
   sidebar_li,
 } from "./../../../css/components/sidebar.module.css"
+import { sidebar_button } from "./../../../css/components/button.module.css"
 
 const SideMenu = () => {
   return (

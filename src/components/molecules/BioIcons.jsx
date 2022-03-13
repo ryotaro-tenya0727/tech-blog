@@ -1,10 +1,10 @@
 import React from "react"
-import TwitterIcon from "@mui/icons-material/Twitter"
-import GitHubIcon from "@mui/icons-material/GitHub"
-import styled from "styled-components"
 import ArticleIcon from "@mui/icons-material/Article"
-import { Link } from "gatsby"
+import GitHubIcon from "@mui/icons-material/GitHub"
 import { green } from "@mui/material/colors"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import TwitterIcon from "@mui/icons-material/Twitter"
 
 import {
   bio_icons_wrapper,

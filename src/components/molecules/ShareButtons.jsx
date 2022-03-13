@@ -16,7 +16,7 @@ import {
   share_button_wrapper,
   share_buttons,
   share_icon,
-} from "./../../../css/components/button.module.css"
+} from "./../../../css/components/icon.module.css"
 
 const ShareButtons = ({ url, title, size, words }) => {
   const IsWide = useMedia({ maxWidth: "430px" })

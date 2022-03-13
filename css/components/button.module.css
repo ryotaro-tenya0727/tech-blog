@@ -24,6 +24,43 @@
   opacity: 0.7
 }
 
+.sidebar_button {
+  color: #000;
+  font-family: 'Kiwi Maru', serif;
+  text-decoration: none;
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  text-decoration: none;
+  z-index: 1;
+  font-size: 16px;
+}
+
+
+.sidebar_button:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar_button::after {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  bottom: 13px;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: #ff96df;
+  transform: scale(0, 2.0);
+  transform-origin: right top;
+  transition: transform .5s;
+}
+
+.sidebar_button:hover::after {
+  transform-origin: left top;
+  transform: scale(1, 1);
+}
+
 .share_button_wrapper{
   color: #484848;
   display:flex;
@@ -44,28 +81,6 @@
 .share_buttons{
   margin-top: -3.3px;
   margin-left: 7px;
-}
-
-.share_icon{
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  margin-left: 20px;
-}
-
-@media(max-width: 890px) {
-  .share_icon {
-    margin-left: 7px;
-  }
-}
-
-.share_icon:hover{
-  opacity: 0.7;
-  -webkit-transform: translateY(-5px);
-  -ms-transform: translateY(-5px);
-  transform: translateY(-5px);
 }
 
 .category_tag_button{
@@ -161,4 +176,8 @@
 
 .post_show_tag_button:hover {
   opacity: 0.7
+}
+
+.post_show_share_buttons {
+  margin-bottom: 20px
 }
