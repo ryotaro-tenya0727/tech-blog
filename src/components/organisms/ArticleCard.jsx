@@ -7,7 +7,7 @@ import styled from "styled-components"
 import _ from "lodash"
 import MediaQuery from "react-responsive"
 
-import { CardTagButton } from "./../components"
+import { BaseButton } from "./../components"
 
 import {
   article_card,
@@ -20,6 +20,7 @@ import {
 } from "./../../../css/components/card.module.css"
 
 import { calender_icon } from "./../../../css/components/icon.module.css"
+import { card_tag_button } from "./../../../css/components/button.module.css"
 
 const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
   return (
@@ -40,7 +41,10 @@ const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
                 tags.map(tag => {
                   return (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      <CardTagButton word={`#${tag}`} />
+                      <BaseButton
+                        word={`#${tag}`}
+                        base_button_style={card_tag_button}
+                      />
                     </Link>
                   )
                 })}

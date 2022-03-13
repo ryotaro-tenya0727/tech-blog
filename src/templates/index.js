@@ -3,9 +3,9 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import { memo } from "react"
 
-import Layout from "../components/layout"
-import Seo from "./../components/seo"
 import {
+  Layout,
+  Seo,
   ArticleCard,
   ShareButtons,
   Paginations,

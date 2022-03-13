@@ -1,8 +1,6 @@
 import React from "react"
 
-import { base_button } from "./../../../../css/components/button.module.css"
-
-const BaseButton = ({ word }) => {
-  return <button className={base_button}>{word}</button>
+const BaseButton = ({ word, base_button_style }) => {
+  return <button className={base_button_style}>{word}</button>
 }
 export default BaseButton

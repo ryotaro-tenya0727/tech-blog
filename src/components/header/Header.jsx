@@ -8,6 +8,7 @@ import MediaQuery from "react-responsive"
 
 import { BaseButton } from "./../components"
 import { menu_icon_button } from "./../../../css/components/icon.module.css"
+import { header_button } from "./../../../css/components/button.module.css"
 
 const Header = memo(({ onClickOpen }) => {
   const HeaderWords = ["トップ", "記事一覧", "著者について"]
@@ -36,7 +37,11 @@ const Header = memo(({ onClickOpen }) => {
         {HeaderWords.map((word, index) => {
           return (
             <Link to={HeaderRoots[index]}>
-              <BaseButton key={index} word={word} />
+              <BaseButton
+                key={index}
+                word={word}
+                base_button_style={header_button}
+              />
             </Link>
           )
         })}

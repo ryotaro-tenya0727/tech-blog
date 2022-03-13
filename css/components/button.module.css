@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
 
-.base_button {
+.header_button {
   padding: 6px 10px 8px 10px;
   margin-left: 20px;
   text-align: center;
@@ -14,13 +14,13 @@
   font-size: 15px;
 }
 
-.base_button:active {
+.header_button:active {
   box-shadow: none;
   position: relative;
   top: 5px;
 }
 
-.base_button:hover{
+.header_button:hover {
   opacity: 0.7
 }
 
@@ -68,7 +68,7 @@
   transform: translateY(-5px);
 }
 
-.tag_button{
+.category_tag_button{
   padding: 6px 10px 8px 10px;
   text-align: center;
   cursor: pointer;
@@ -88,13 +88,13 @@
 
 
 
-.tag_button:active {
+.category_tag_button:active {
   box-shadow: none;
   position: relative;
   top: 5px;
 }
 
-.tag_button:hover {
+.category_tag_button:hover {
   opacity: 0.7
 }
 

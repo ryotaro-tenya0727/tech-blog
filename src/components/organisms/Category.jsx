@@ -4,12 +4,14 @@ import CardContent from "@mui/material/CardContent"
 import { Link } from "gatsby"
 
 import _ from "lodash"
-import { TagButton } from "../components"
+import { BaseButton } from "../components"
 
 import {
   category_card,
   category_title,
 } from "./../../../css/components/category.module.css"
+
+import { category_tag_button } from "./../../../css/components/button.module.css"
 
 const Category = ({ tags, category_wrapper }) => {
   return (
@@ -19,7 +21,10 @@ const Category = ({ tags, category_wrapper }) => {
         {tags.map(tag => {
           return (
             <Link to={`/tags/${_.kebabCase(tag.fieldValue)}/`}>
-              <TagButton word={`#${tag.fieldValue}`} />
+              <BaseButton
+                word={`#${tag.fieldValue}`}
+                base_button_style={category_tag_button}
+              />
             </Link>
           )
         })}

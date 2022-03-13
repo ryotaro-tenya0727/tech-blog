@@ -9,13 +9,13 @@ import _ from "lodash"
 import MediaQuery from "react-responsive"
 import { memo } from "react"
 
-import Seo from "./../components/seo"
 import {
+  Layout,
+  Seo,
   ShareButtons,
   Toc,
   PostShowTagButton,
 } from "./../components/components"
-import Layout from "../components/layout"
 import {
   post_show_wrapper,
   post_show_title,
@@ -24,6 +24,7 @@ import {
   post_show_calender_string,
   post_show_tag_wrapper,
 } from "./../../css/components/post_show.module.css"
+import { post_show_tag_button } from "./../../css/components/button.module.css"
 
 const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
@@ -79,7 +80,10 @@ const BlogPostTemplate = memo(({ data, location }) => {
                 post.frontmatter.tags.map(tag => {
                   return (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      <PostShowTagButton word={`#${tag}`} />
+                      <PostShowTagButton
+                        word={`#${tag}`}
+                        base_button_style={post_show_tag_button}
+                      />
                     </Link>
                   )
                 })}

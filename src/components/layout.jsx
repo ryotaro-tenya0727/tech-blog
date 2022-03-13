@@ -6,7 +6,7 @@ import { memo } from "react"
 import { Header } from "./components"
 import { SideMenu } from "./components"
 
-const Layout = memo(({ location, title, children }) => {
+const Layout = memo(({ location, children }) => {
   const [isOpenSideMenu, SetSideMenu] = useState(false)
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath

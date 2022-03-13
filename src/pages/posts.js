@@ -6,8 +6,8 @@ import SavedSearchIcon from "@mui/icons-material/SavedSearch"
 import { pink } from "@mui/material/colors"
 import { memo } from "react"
 
-import Layout from "../components/layout"
 import {
+  Layout,
   ArticleCard,
   ShareButtons,
   Bio,
