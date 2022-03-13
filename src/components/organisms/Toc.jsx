@@ -2,12 +2,14 @@ import React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import { Link } from "gatsby"
+import ListIcon from "@mui/icons-material/List"
 
 import {
   toc_card,
   toc_wrapper,
-  toc_title,
   toc_link,
+  toc_heading_wrapper,
+  toc_title,
 } from "./../../../css/components/toc.module.css"
 
 const Items = ({ tableOfContents, depth }) => {
@@ -38,7 +40,10 @@ const Toc = ({ tableOfContents }) => {
     <Card className={toc_wrapper}>
       <CardContent className={toc_card}>
         <div>
-          <p className={toc_title}>もくじへのリンク</p>
+          <p className={toc_heading_wrapper}>
+            <ListIcon sx={{ fontSize: 32 }} />
+            <p className={toc_title}>見出しへのリンク</p>
+          </p>
           <Items tableOfContents={tableOfContents.items} depth={0} />
         </div>
       </CardContent>

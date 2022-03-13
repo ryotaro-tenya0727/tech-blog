@@ -32,7 +32,6 @@ const Bio = ({ bio_wrapper }) => {
           />
         </BioImageWrapper>
         <BioIcons />
-
         <p className={bio_name}>著者　中山遼太郎</p>
         <p className={bio_email_wrapper}>
           <MailIcon sx={{ color: pink[`500`] }} />

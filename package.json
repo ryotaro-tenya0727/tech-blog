@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.8.1",
     "@mdx-js/mdx": "^1.6.15",
     "@mdx-js/react": "1.6.15",
-    "@mui/icons-material": "^5.4.2",
+    "@mui/icons-material": "^5.5.0",
     "@mui/material": "^5.0.0",
     "@mui/system": "^5.4.3",
     "@netlify/plugin-gatsby": "2.0.4",

@@ -18,12 +18,10 @@ const Layout = memo(({ location, children }) => {
   return (
     <SMainWrapper className="global-wrapper" data-is-root-path={isRootPath}>
       <Header onClickOpen={onClickOpen} />
-
       <SMain>
         {children}
         {isOpenSideMenu && <SideMenu />}
       </SMain>
-
       <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>
     </SMainWrapper>
   )

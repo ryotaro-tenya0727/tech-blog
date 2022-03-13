@@ -39,7 +39,7 @@ const Header = memo(({ onClickOpen }) => {
             <Link to={HeaderRoots[index]}>
               <BaseButton
                 key={index}
-                word={header_word,}
+                word={header_word}
                 base_button_style={header_button}
               />
             </Link>
