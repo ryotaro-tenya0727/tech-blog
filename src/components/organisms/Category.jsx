@@ -26,7 +26,7 @@ const Category = ({ tags, category_wrapper }) => {
           return (
             <Link to={`/tags/${_.kebabCase(tag.fieldValue)}/`}>
               <BaseButton
-                word={`#${tag.fieldValue}`}
+                word={`${tag.fieldValue} (${tag.totalCount})`}
                 base_button_style={category_tag_button}
               />
             </Link>

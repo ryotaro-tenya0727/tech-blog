@@ -117,6 +117,7 @@ export const pageQuery = graphql`
     tags: allMdx {
       group(field: frontmatter___tags) {
         fieldValue
+        totalCount
       }
     }
   }
