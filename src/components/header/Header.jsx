@@ -18,7 +18,7 @@ const Header = memo(({ onClickOpen }) => {
     <SHeader>
       <Link to="/">
         <StaticImage
-          src="./../../images/logo.png"
+          src="./../../images/logo_new.png"
           width={250}
           height={60}
           placeholder="#fff"
