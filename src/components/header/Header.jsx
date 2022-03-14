@@ -16,7 +16,7 @@ const Header = memo(({ onClickOpen }) => {
 
   return (
     <SHeader>
-      <Link to="/" alt="top_logo">
+      <Link to="/">
         <StaticImage
           src="./../../images/logo.png"
           width={250}
@@ -24,6 +24,7 @@ const Header = memo(({ onClickOpen }) => {
           placeholder="#fff"
           loading="eager"
           durationFadeIn={100}
+          alt="top_logo"
         />
       </Link>
       <MediaQuery query="(max-width: 890px)">
