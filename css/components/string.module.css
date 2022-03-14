@@ -4,16 +4,14 @@
   font-family: 'Kiwi Maru', serif;
   font-size: 25px;
   font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: -18px;
+  margin: 5px 0px -18px 0px;
 }
 
 .top_tag_title{
   font-family: 'Kiwi Maru', serif;
   font-size: 25px;
   font-weight: bold;
-  margin-top: 8px;
-  margin-bottom: -12px;
+  margin: 8px 0px -12px 0px;
 }
 
 .top_posts_title{

@@ -72,13 +72,10 @@
   font-family: 'Kiwi Maru', serif;
 }
 
-
-
 .article_image{
   width: 95px;
   height: 95px;
-  margin-top: 4px;
-  margin-left: -2px;
+  margin: 4px 0px 0px -2px;
   border: 2px solid #605c5c;
   border-radius: 3px;
   background-color: #ffffff;
@@ -86,22 +83,18 @@
 
 @media(max-width: 430px) {
   .article_image {
-    margin-top: 5px;
-    margin-left: -2px;
+    margin: 5px 0px 0px -2px;
   }
 }
 
 @media(min-width:430px) and (max-width:600px) {
   .article_image {
-    margin-top: 35px;
-    margin-left: -2px;
+    margin: 35px 0px 0px -2px;
   }
 }
 
 @media(max-width: 430px) {
   .article_tags_wrapper {
-
     margin-left: -15px;
-
   }
 }

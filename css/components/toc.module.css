@@ -3,8 +3,7 @@
   border: 2.5px solid #605c5c;
   border-radius: 5px;
   width: 250px;
-  margin-top: 68px;
-  margin-left: 15px;
+  margin: 68px 0px 0px 15px;
   font-family: 'Kiwi Maru', serif;
   position: sticky;
   top: 130px;
@@ -49,8 +48,7 @@
 }
 
 .toc_title{
-  margin-left: 7px;
-  margin-bottom: 3px;
+  margin: 0px 0px 3px 7px;
   font-weight: bold;
   font-size: 18px;
 }
