@@ -29,10 +29,12 @@
     "gatsby-plugin-manifest": "^4.6.0",
     "gatsby-plugin-mdx": "^3.5.0",
     "gatsby-plugin-offline": "^5.6.0",
+    "gatsby-plugin-preload-fonts": "^3.9.1",
     "gatsby-plugin-react-helmet": "^5.6.0",
     "gatsby-plugin-sharp": "^4.6.0",
     "gatsby-plugin-sitemap": "^5.9.0",
     "gatsby-plugin-styled-components": "^5.8.0",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-autolink-headers": "^5.9.0",
     "gatsby-remark-code-titles": "^1.1.0",
     "gatsby-remark-copy-linked-files": "^5.6.0",
@@ -79,6 +81,7 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "preload-fonts": "gatsby-preload-fonts"
   }
 }
