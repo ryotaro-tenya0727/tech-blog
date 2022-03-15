@@ -31,7 +31,7 @@ const SMain = styled.div`
   width: 95%;
   margin 0 auto;
   padding-bottom: 60px;
-  position: relative;
+
   `
 
 const SFooter = styled.div`

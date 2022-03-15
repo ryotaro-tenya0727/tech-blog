@@ -16,6 +16,7 @@ import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_tag_page_wrapper } from "./../../css/components/bio.module.css"
 import { top_tag_title } from "./../../css/components/string.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
+import { contents_wrapper } from "./../../css/components/contents.module.css"
 
 const Tags = memo(({ pageContext, data, location }) => {
   const posts = data.allMdx.nodes
@@ -46,7 +47,7 @@ const Tags = memo(({ pageContext, data, location }) => {
       <p className={top_tag_title}>
         {pageContext.tag}のタグがついた記事({data.allMdx.totalCount}件)
       </p>
-      <ContentsWrapper>
+      <ContentsWrapper className={contents_wrapper}>
         <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {
             return (
@@ -73,19 +74,9 @@ const Tags = memo(({ pageContext, data, location }) => {
 export default Tags
 
 const ArticlesWrapper = styled.div``
-const CardsWrapper = styled.div`
-  flex: 2;
-  display: inline-block;
-`
+const CardsWrapper = styled.div``
 
-const ContentsWrapper = styled.div`
-  @media (min-width: 980px) {
-     {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-`
+const ContentsWrapper = styled.div``
 
 export const pageQuery = graphql`
   query ($tag: String) {

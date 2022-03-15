@@ -25,6 +25,7 @@ import {
 } from "./../../css/components/post_show.module.css"
 import { post_show_tag_button } from "./../../css/components/button.module.css"
 import { post_show_calender_icon } from "./../../css/components/icon.module.css"
+import { contents_wrapper } from "./../../css/components/contents.module.css"
 
 const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
@@ -46,7 +47,7 @@ const BlogPostTemplate = memo(({ data, location }) => {
         description={description}
         ogTitle={ogTitle}
       />
-      <ContentsWrapper>
+      <ContentsWrapper className={contents_wrapper}>
         <PostShowWrapper className={post_show_wrapper}>
           <ShareButtons
             url={BlogPostUrl}
@@ -106,22 +107,11 @@ const BlogPostTemplate = memo(({ data, location }) => {
 
 export default BlogPostTemplate
 
-const PostShowWrapper = styled.div`
-  flex: 7;
-`
+const PostShowWrapper = styled.div``
 
-const CardsWrapper = styled.div`
-  flex: 2;
-`
+const CardsWrapper = styled.div``
 
-const ContentsWrapper = styled.div`
-  @media (min-width: 980px) {
-     {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-`
+const ContentsWrapper = styled.div``
 
 export const pageQuery = graphql`
   query BlogPostBySlug($id: String!) {

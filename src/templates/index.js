@@ -16,6 +16,7 @@ import { top_title } from "./../../css/components/string.module.css"
 import { article_wrapper } from "./../../css/components/card.module.css"
 import { bio_wrapper } from "./../../css/components/bio.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
+import { contents_wrapper } from "./../../css/components/contents.module.css"
 
 const BlogIndex = memo(({ data, location, pageContext }) => {
   const posts = data.allMdx.nodes
@@ -45,7 +46,7 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
       />
       <Paginations pageContext={pageContext} />
       <p className={top_title}>最近の記事</p>
-      <ContentsWrapper>
+      <ContentsWrapper className={contents_wrapper}>
         <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
@@ -74,18 +75,9 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
 export default BlogIndex
 
 const ArticlesWrapper = styled.div``
-const CardsWrapper = styled.div`
-  flex: 2;
-`
+const CardsWrapper = styled.div``
 
-const ContentsWrapper = styled.div`
-  @media (min-width: 980px) {
-     {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-`
+const ContentsWrapper = styled.div``
 
 export const pageQuery = graphql`
   query ($limit: Int!, $skip: Int!) {

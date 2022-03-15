@@ -19,6 +19,7 @@ import { top_posts_title } from "./../../css/components/string.module.css"
 import { search_form } from "./../../css/components/search_form.module.css"
 import { search_icon } from "./../../css/components/icon.module.css"
 import { posts_category_wrapper } from "./../../css/components/category.module.css"
+import { contents_wrapper } from "./../../css/components/contents.module.css"
 
 const BlogPostsIndex = memo(({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -75,7 +76,7 @@ const BlogPostsIndex = memo(({ data, location }) => {
           sx={{ fontSize: 40, color: pink[700] }}
         />
       </p>
-      <ContentsWrapper>
+      <ContentsWrapper className={contents_wrapper}>
         <ArticlesWrapper className={article_wrapper}>
           {posts.map(post => {
             return (
@@ -101,22 +102,10 @@ const BlogPostsIndex = memo(({ data, location }) => {
 
 export default BlogPostsIndex
 
-const ArticlesWrapper = styled.div`
-  flex: 7;
-`
-const CardsWrapper = styled.div`
-  flex: 2;
-  display: inline-block;
-`
+const ArticlesWrapper = styled.div``
+const CardsWrapper = styled.div``
 
-const ContentsWrapper = styled.div`
-  @media (min-width: 980px) {
-     {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-`
+const ContentsWrapper = styled.div``
 
 export const pageQuery = graphql`
   query {
