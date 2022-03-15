@@ -6,7 +6,7 @@ image_url: https://user-images.githubusercontent.com/71915489/157560125-a15e5e25
 tags: ["AWS", "GCP", "React"]
 ---
 
-# 目次 1
+## 目次 1
 
 AWS は、、、
 
@@ -87,48 +87,9 @@ end
 
 ```
 
-# 目次 3
+##目次 3
 
-## 目次 3-1
-
-ここで下記を実行
-
-```
-
-$ rails db:migrate
-
-```
-
-AWS は、、、
-
-<div class="gatsby-code-title">
-  <span>app/controllers/bookmarks_controller.rb</span>
-</div>
-
-```ruby
-class Admin::UserSessionsController < Admin::BaseController
-skip_before_action :require_login, only: %i[new create]
-skip_before_action :check_admin, only: %i[new create]
-layout 'layouts/admin_login'
-
-def new; end
-
-def create
-@user = login(params[:email], params[:password])
-if @user
-redirect_to admin_root_path, success: t('.success')
-else
-flash.now[:danger] = t('.fail')
-render :new
-end
-end
-
-def destroy
-logout
-redirect_to admin_login_path, success: t('.success')
-end
-
-```
+### 目次 3-1
 
 ここで下記を実行
 
@@ -169,9 +130,48 @@ end
 
 ```
 
-# 目次 4
+ここで下記を実行
 
-# 目次 5
+```
+
+$ rails db:migrate
+
+```
+
+AWS は、、、
+
+<div class="gatsby-code-title">
+  <span>app/controllers/bookmarks_controller.rb</span>
+</div>
+
+```ruby
+class Admin::UserSessionsController < Admin::BaseController
+skip_before_action :require_login, only: %i[new create]
+skip_before_action :check_admin, only: %i[new create]
+layout 'layouts/admin_login'
+
+def new; end
+
+def create
+@user = login(params[:email], params[:password])
+if @user
+redirect_to admin_root_path, success: t('.success')
+else
+flash.now[:danger] = t('.fail')
+render :new
+end
+end
+
+def destroy
+logout
+redirect_to admin_login_path, success: t('.success')
+end
+
+```
+
+## 目次 4
+
+## 目次 5
 
 ここで下記を実行
 
