@@ -19,7 +19,7 @@ import { category_wrapper } from "./../../css/components/category.module.css"
 
 const BlogIndex = memo(({ data, location, pageContext }) => {
   const posts = data.allMdx.nodes
-  const tags = data.allMdx.group
+  const tags = data.tags.group
   const siteTitle = data.site.siteMetadata.title
   const ogTitle = data.site.siteMetadata.title
   const description = data.site.siteMetadata.description
@@ -113,6 +113,8 @@ export const pageQuery = graphql`
           tags
         }
       }
+    }
+    tags: allMdx {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount
