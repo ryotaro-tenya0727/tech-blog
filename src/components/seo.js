@@ -43,7 +43,7 @@ const Seo = ({
       }}
       title={title}
       meta={[
-        { name: "description", content: `${description}` },
+        { name: `description`, content: `${description}` },
         {
           property: `og:url`,
           content: `${page_url}`,
