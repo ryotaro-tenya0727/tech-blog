@@ -42,8 +42,8 @@ const Seo = ({
         lang,
       }}
       title={title}
-      description={description}
       meta={[
+        { name: "description", content: `${description}` },
         {
           property: `og:url`,
           content: `${page_url}`,
