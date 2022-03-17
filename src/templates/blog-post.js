@@ -59,9 +59,9 @@ const BlogPostTemplate = memo(({ data, location }) => {
           <MediaQuery query="(max-width: 430px)">
             <p style={{ marginTop: "10px" }}>
               {post.frontmatter.tags &&
-                post.frontmatter.tags.map(tag => {
+                post.frontmatter.tags.map((tag, index) => {
                   return (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                    <Link to={`/tags/${_.kebabCase(tag)}/`} key={index}>
                       <BaseButton
                         word={`#${tag}`}
                         base_button_style={post_show_tag_button}
@@ -81,9 +81,9 @@ const BlogPostTemplate = memo(({ data, location }) => {
             </span>
             <span className={post_show_tag_wrapper}>
               {post.frontmatter.tags &&
-                post.frontmatter.tags.map(tag => {
+                post.frontmatter.tags.map((tag, index) => {
                   return (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                    <Link to={`/tags/${_.kebabCase(tag)}/`} key={index}>
                       <BaseButton
                         word={`#${tag}`}
                         base_button_style={post_show_tag_button}

@@ -26,7 +26,7 @@ const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
       <Link to={url} style={{ textDecoration: "none" }}>
         <CardContent className={article_card}>
           <img
-            alt="test"
+            alt="article_image"
             src={image_url}
             className={article_image}
             placeholder="#fff"
@@ -36,9 +36,9 @@ const ArticleCard = ({ tags, title, date, url, image_url, description }) => {
             <p className={article_description}>{description}</p>
             <ArticleTagsWrapper className={article_tags_wrapper}>
               {tags &&
-                tags.map(tag => {
+                tags.map((tag, index) => {
                   return (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                    <Link to={`/tags/${_.kebabCase(tag)}/`} key={index}>
                       <BaseButton
                         word={`#${tag}`}
                         base_button_style={card_tag_button}

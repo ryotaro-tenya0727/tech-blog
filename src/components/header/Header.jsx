@@ -37,9 +37,8 @@ const Header = memo(({ onClickOpen }) => {
       <SButtons>
         {HeaderWords.map((header_word, index) => {
           return (
-            <Link to={HeaderRoots[index]}>
+            <Link to={HeaderRoots[index]} key={index}>
               <BaseButton
-                key={index}
                 word={header_word}
                 base_button_style={header_button}
               />

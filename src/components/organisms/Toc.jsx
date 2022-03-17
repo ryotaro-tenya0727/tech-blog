@@ -15,9 +15,9 @@ import {
 const Items = ({ tableOfContents, depth }) => {
   return (
     <ul>
-      {tableOfContents.map(item => (
+      {tableOfContents.map((item, index) => (
         <li
-          key={item.url}
+          key={index}
           style={{
             paddingLeft: depth !== 0 ? "15px" : "0",
             listStyle: "none",

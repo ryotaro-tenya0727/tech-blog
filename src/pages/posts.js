@@ -78,9 +78,10 @@ const BlogPostsIndex = memo(({ data, location }) => {
       </p>
       <ContentsWrapper className={contents_wrapper}>
         <ArticlesWrapper className={article_wrapper}>
-          {posts.map(post => {
+          {posts.map((post, index) => {
             return (
               <ArticleCard
+                key={index}
                 title={post.frontmatter.title}
                 description={post.frontmatter.description}
                 url={post.fields.slug}

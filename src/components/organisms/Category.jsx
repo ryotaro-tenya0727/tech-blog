@@ -22,9 +22,9 @@ const Category = ({ tags, category_wrapper }) => {
           <FolderCopyIcon />
           <p className={category_title}>カテゴリ一覧</p>
         </p>
-        {tags.map(tag => {
+        {tags.map((tag, index) => {
           return (
-            <Link to={`/tags/${_.kebabCase(tag.fieldValue)}/`}>
+            <Link to={`/tags/${_.kebabCase(tag.fieldValue)}/`} key={index}>
               <BaseButton
                 word={`${tag.fieldValue} (${tag.totalCount})`}
                 base_button_style={category_tag_button}

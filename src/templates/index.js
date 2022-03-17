@@ -48,15 +48,15 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
       <p className={top_title}>最近の記事</p>
       <ContentsWrapper className={contents_wrapper}>
         <ArticlesWrapper className={article_wrapper}>
-          {posts.map(post => {
+          {posts.map((post, index) => {
             const title = post.frontmatter.title || post.fields.slug
             return (
               <ArticleCard
+                key={index}
                 title={title}
                 url={post.fields.slug}
                 image_url={post.frontmatter.image_url}
                 description={post.frontmatter.description}
-                key={post.fields.slug}
                 tags={post.frontmatter.tags}
                 date={post.frontmatter.date}
               />

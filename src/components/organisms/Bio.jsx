@@ -29,6 +29,7 @@ const Bio = ({ bio_wrapper }) => {
             className={bio_image}
             loading="eager"
             durationFadeIn={100}
+            alt="bio_image"
           />
         </BioImageWrapper>
         <BioIcons />
