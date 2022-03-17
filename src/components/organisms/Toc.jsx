@@ -42,7 +42,7 @@ const Toc = ({ tableOfContents }) => {
         <div>
           <p className={toc_heading_wrapper}>
             <ListIcon sx={{ fontSize: 32 }} />
-            <p className={toc_title}>見出しへのリンク</p>
+            <span className={toc_title}>見出しへのリンク</span>
           </p>
           <Items tableOfContents={tableOfContents.items} depth={0} />
         </div>

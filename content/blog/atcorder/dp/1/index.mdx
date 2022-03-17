@@ -1,0 +1,115 @@
+---
+title: Rubyで動的計画法を解いてみた
+date: "2022-03-18"
+description: AtcorderのDPの基本問題をrubyで解きました
+image_url: "https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg"
+tags: ["Atcorder", "技術"]
+---
+
+動的計画法の基本問題を Ruby で解いてみました。
+
+<br />
+
+Ruby で解いている記事がそれほど多くなかったので記録として残しておきます。
+
+### 導入
+
+解いた問題は以下の問題です。
+
+<br />
+
+公式の DP の問題集の最初の問題ですね。この問題から DP を始めた方も多いのではないでしょうか。
+
+<br />
+
+[$card](https://atcoder.jp/contests/abc243/editorial/3542)
+
+### 解答
+
+まずは自分の解答から載せておきます。
+
+```ruby{numberLines:true}
+N=gets.to_i
+h=gets.split.map(&:to_i)
+
+if N==2
+  puts (h[0]-h[1]).abs
+  exit
+end
+
+dp=[0,(h[1]-h[0]).abs]
+
+2.upto(N-1){|n|
+  if dp[n-1]+(h[n]-h[n-1]).abs >= dp[n-2]+(h[n]-h[n-2]).abs
+    dp[n]=dp[n-2]+(h[n]-h[n-2]).abs
+  else
+    dp[n]=dp[n-1]+(h[n]-h[n-1]).abs
+  end
+  }
+
+puts dp[N-1]
+```
+
+<br />
+
+`dp[n]` は n 回ジャンプした時のコストの最小値です。
+
+<br />
+
+`dp[0]`はジャンプしていない状態を表すので `0`になります。`dp[1]`は 2 つ前の足場が存在しないので`(h[1]-h[0]).abs`となります。
+
+<br />
+
+よって初期条件として以下の値が入っていきます。
+
+<br />
+
+```ruby{numberLines:true}
+dp=[0,(h[1]-h[0]).abs]
+```
+
+<br />
+
+そして重要になるのは以下のコード
+
+<br />
+
+```ruby{numberLines:true}
+2.upto(N-1){|n|
+  if dp[n-1]+(h[n]-h[n-1]).abs >= dp[n-2]+(h[n]-h[n-2]).abs
+    dp[n]=dp[n-2]+(h[n]-h[n-2]).abs
+  else
+    dp[n]=dp[n-1]+(h[n]-h[n-1]).abs
+  end
+  }
+```
+
+この時比較しているのは
+
+<br />
+
+**「1 つ前の着地点までのコストの最小値と 1 つ前の着地点と現在の着地点の差」の和**
+
+と
+
+**「2 つ前の着地点までのコストの最小値と 2 つ前の着地点と現在の着地点の差」の和**
+
+になります。
+
+<br />
+
+比較した結果小さいものが`dp[n]`となります。
+
+<br />
+
+これを繰り返すことによって目標地点までのコストの最小値を求めることができます。
+
+### 感想
+
+Atcorder 初心者ですが、先人たちの知恵を借りてなんとか解くことができました。
+
+以下参考にした記事になります。
+
+<br />
+
+[https://qiita.com/drken/items/fd4e5e3630d0f5859067](https://qiita.com/drken/items/fd4e5e3630d0f5859067)
