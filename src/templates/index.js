@@ -22,7 +22,6 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
   const posts = data.allMdx.nodes
   const tags = data.tags.group
   const siteTitle = data.site.siteMetadata.title
-  const ogTitle = data.site.siteMetadata.title
   const description = data.site.siteMetadata.description
   const siteUrl = `${data.site.siteMetadata.siteUrl}`
   const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
@@ -36,7 +35,6 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
         twitterImageUrl={twitterImageUrl}
         fbImageUrl={fbImageUrl}
         description={description}
-        ogTitle={ogTitle}
       />
       <ShareButtons
         url={siteUrl}

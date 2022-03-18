@@ -18,7 +18,6 @@ const Seo = ({
   fbImageUrl,
   lang,
   meta,
-  ogTitle,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -54,7 +53,7 @@ const Seo = ({
         },
         {
           property: `og:title`,
-          content: `${ogTitle}`,
+          content: `${title}`,
         },
         {
           property: `og:description`,
@@ -85,7 +84,7 @@ const Seo = ({
 
         {
           name: `twitter:title`,
-          content: `${ogTitle}`,
+          content: `${title}`,
         },
         {
           name: `twitter:image`,

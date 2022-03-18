@@ -22,7 +22,6 @@ const Tags = memo(({ pageContext, data, location }) => {
   const posts = data.allMdx.nodes
   const tags = data.tags.group
   const siteTitle = data.site.siteMetadata.title
-  const ogTitle = data.site.siteMetadata.title
   const description = data.site.siteMetadata.description
   const siteUrl = `${data.site.siteMetadata.siteUrl}`
   const TwitterImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
@@ -36,7 +35,6 @@ const Tags = memo(({ pageContext, data, location }) => {
         twitterImageUrl={TwitterImageUrl}
         fbImageUrl={FBImageUrl}
         description={description}
-        ogTitle={ogTitle}
       />
       <ShareButtons
         url={siteUrl}

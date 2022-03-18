@@ -30,7 +30,6 @@ import { contents_wrapper } from "./../../css/components/contents.module.css"
 const BlogPostTemplate = memo(({ data, location }) => {
   const post = data.mdx
   const siteTitle = data.mdx.frontmatter.title
-  const ogTitle = data.site.siteMetadata.title
   const description = data.mdx.frontmatter.description
   const siteUrl = data.site.siteMetadata.siteUrl
   const BlogPostUrl = `${siteUrl}/${post.slug}`
@@ -45,7 +44,6 @@ const BlogPostTemplate = memo(({ data, location }) => {
         twitterImageUrl={TwitterImageUrl}
         fbImageUrl={FBImageUrl}
         description={description}
-        ogTitle={ogTitle}
       />
       <ContentsWrapper className={contents_wrapper}>
         <PostShowWrapper className={post_show_wrapper}>
