@@ -19,7 +19,7 @@
 
 .calender_icon{
   position: absolute;
-  top: 1px;
+  top: -0.5px;
   left: -3px;
 }
 
@@ -44,14 +44,10 @@
   box-sizing: border-box;
   -webkit-transition: all .3s;
   transition: all .3s;
-  margin-left: 20px;
+  margin-left: 17px;
 }
 
-@media(max-width: 890px) {
-  .share_icon {
-    margin-left: 7px;
-  }
-}
+
 
 .share_icon:hover {
   opacity: 0.7;
