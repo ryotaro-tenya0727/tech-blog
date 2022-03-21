@@ -1,0 +1,257 @@
+---
+title: Reactのコンポーネントで再レンダリングが起こる瞬間3選
+date: "2022-03-21"
+description: Reactのコンポーネントで再レンダリングが起こってしまう3つの書き方について解説しました
+image_url: "https://user-images.githubusercontent.com/71915489/159204626-e6d7a74a-0ffd-43f6-ba16-a195c506b84a.png"
+tags: ["React"]
+---
+
+React でコンポーネントの再レンダリングが起こってしまう瞬間を 3 つまとめてみました。
+
+<br />
+
+不要な再レンダリングを減らすことは、ブラウザの負荷の改善、ページ速度の向上に繋がりますので参考にしていただけたらと思います。
+
+<br />
+
+また、react の文法や `useState` の記法などについては解説しておりません。
+
+この記事に挙げた再レンダリングを解消する方法については次の記事で解説する予定です。
+
+### 結論
+
+結論として、再レンダリングが起こる瞬間は次の３つです。
+
+<br />
+
+**コンポーネントの state が更新されたとき**
+
+<br />
+
+**親コンポーネントの state が更新されたとき**
+
+<br />
+
+**親コンポーネントから渡された props が更新されたとき**
+
+<br />
+
+### 解説
+
+それぞれ解説していきます
+
+##### コンポーネントの state が更新されたとき
+
+基本的でわかりやすいタイミングだと思います。
+
+具体的には以下のコードになります。
+
+<br />
+
+ボタンを押すと、`count` が`+1` され `state` で管理している `count` が更新されます。
+
+<br />
+
+このとき再レンダリングが起こり、App 関数のスコープ内の一番上から順番に実行されることになります。
+
+これが最も重要です。
+
+<br />
+
+`count up`ボタンを押すたびに App 関数のスコープ内の一番上に戻り、
+
+`console.log("Appの再レンダリング")`が実行されます。
+
+<br />
+
+こちら、ぜひ手元で確認していただけたらと思います。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>src/App.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+import { useState } from "react"
+
+export const App = () => {
+  // count upボタンを押すたびにここに戻る。
+  console.log("Appの再レンダリング")
+  const [count, setCount] = useState(0)
+
+  const onClickCountUP = () => {
+    setCount(preveState => preveState + 1)
+  }
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={onClickCountUP}>count up</button>
+    </div>
+  )
+}
+```
+
+<br />
+
+ひとつ目の解説は以上になります。
+
+##### 親コンポーネントの state が更新されたとき
+
+こちらは、ひとつ目のように state が更新されたとき、子供のコンポーネントにまで再レンダリングが起こってしまうということです。
+
+<br />
+
+以下のコードでは、`App.js`の`input`にテキストを入力する度に、親コンポーネント(`App.js`)と子コンポーネント(`Child.js`)で再レンダリングが起こり、コンソールで以下のように表示されます。
+
+<br />
+
+このとき子コンポーネントでは親コンポーネントと同様に、関数のスコープ内の一番上から処理が順番に実行されることになります
+
+<br />
+
+![再レンダリング画像](https://user-images.githubusercontent.com/71915489/159209503-6ad7e72e-b25f-4628-ae2d-c7286179ae82.png)
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>src/App.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+import { useState } from "react";
+import { Child } from "./Child";
+
+export const App = () => {
+  // inputにテキストを入力する度にここに戻る。
+  console.log("再レンダリング");
+  const [text, setText] = useState("");
+  const onChangeText = (e) => setText(e.target.value);
+
+  return (
+    <div>
+      <input value={text} onChange={onChangeText} />
+      <Child />
+    </div>
+  );
+};
+```
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>src/Child.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+
+export const Child = ({ open }) => {
+  // App.jsのinputにテキストが入力される度にここに戻る。
+  console.log("子供レンダリング");
+  return (
+        <div>
+          <p>子供</p>
+        </div>
+  );
+};
+```
+
+<br />
+
+二つ目の解説は以上になります
+
+##### 親コンポーネントから渡された props が更新されたとき
+
+次に親からの`props`が更新された時について解説します。
+
+<br />
+
+子コンポーネントでは親から、`open`という state が`props`として渡されています。
+
+この`open`を boolean として 3 項間演算子で表示を変えています。
+
+<br />
+
+親コンポーネントで、表示ボタンを押すたびに親コンポーネントの`state`で管理している`open`の値が更新され、子コンポーネントに渡される`props`が更新されることになります。
+
+<br />
+
+これが原因で子コンポーネントで再レンダリングが起こります。
+
+<br />
+
+また、親の`state`が変更されていて尚且つ、子に渡した`props`が変更されているため再レンダリングが 2 度起こるのではないかと思ってしまいますが、この場合一度しか起こりません。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>src/App.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+import { useState } from "react";
+import { Child } from "./Child";
+
+export const App = () => {
+  console.log("再レンダリング");
+  const [open, setOpen] = useState(false);
+  const OnClickOpen = () => setOpen(!open);
+
+  return (
+    <div>
+      <button onClick={OnClickOpen}>表示</button>
+      <Child open={open} />
+    </div>
+  );
+};
+```
+
+<div class="gatsby-code-title">
+  <span>src/Child.js.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+import { Fragment } from "react";
+
+export const Child = ({ open }) => {
+  console.log("子供レンダリング");
+  return (
+    <Fragment>
+      {open ? (
+        <div style={style}>
+          <p>子供</p>
+        </div>
+      ) : null}
+    </Fragment>
+  );
+};
+```
+
+<br />
+
+3 つ目の解説は以上になります
+
+### 感想
+
+次の記事では、再レンダリングを回避する方法について書く予定です。
+
+<br />
+
+ここまで読んでくださりありがとうございます。
+
+<br />
+
+わかりにくい点、間違っている点などあれば以下にご連絡いただければと思います。
+
+<br />
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com

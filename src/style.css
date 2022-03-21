@@ -309,16 +309,15 @@ a:focus {
 }
 
 .gatsby-code-title {
-  box-shadow: 3.5px 3px 5px #a69f9f;
-  background: #f5f2f0;
-  color: #4e4b4b;
-  margin: 0px 0px 8px 0px;
-  padding: 4.5px 13px 5px 5px;
-  font-size: 0.8em;
+  background: #ffc1ec;
+  color: #000000;
+  margin: 35px 0px -5.5px 0px;
+  padding: 4.5px 8px 5px 5px;
   line-height: 1;
   display: table;
   font-size: 0.65rem;
   font-weight: bold;
+  border-radius:2px
 }
 
 .bm-menu-wrap {

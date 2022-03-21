@@ -5,7 +5,7 @@ module.exports = {
       name: `Nakayama Ryotaro`,
     },
     description: `エンジニア転職を目指すアイドルオタクプログラマーが、学んだことをアウトプットするブログです。`,
-    siteUrl: `https://otaku-programmer.com/`,
+    siteUrl: `https://otaku-programmer.com`,
     social: {
       twitter: `@naka_ryo_z`,
     },
