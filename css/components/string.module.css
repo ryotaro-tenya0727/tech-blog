@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
 
 .top_title{
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   font-size: 25px;
   font-weight: bold;
@@ -8,6 +9,7 @@
 }
 
 .top_tag_title{
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   font-size: 25px;
   font-weight: bold;
@@ -15,6 +17,7 @@
 }
 
 .top_posts_title{
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   font-size: 25px;
   font-weight: bold;

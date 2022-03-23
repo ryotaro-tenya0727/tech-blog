@@ -8,6 +8,7 @@
   border: none;
   color: #ffffff;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   font-size: 15px;
 }
@@ -24,6 +25,7 @@
 
 .sidebar_button {
   color: #000;
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   text-decoration: none;
   display: block;
@@ -62,6 +64,7 @@
   color: #484848;
   display:flex;
   padding-top: 7px;
+  font-display: swap;
   font-family: 'Kiwi Maru',
   serif;
   font-weight: 700;
@@ -88,6 +91,7 @@
   border: none;
   color: #ffffff;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-display: swap;
   font-family: 'Kiwi Maru',
   serif;
   font-size: 13px;
@@ -116,6 +120,7 @@
   border: none;
   color: #ffffff;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-display: swap;
   font-family: 'Kiwi Maru', serif;
   font-size: 12px;
   margin: 10px 5px 0px 0px;
@@ -149,6 +154,7 @@
   border: none;
   color: #ffffff;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
+  font-display: swap;
   font-family: 'Kiwi Maru',
   serif;
   font-size: 12px;
