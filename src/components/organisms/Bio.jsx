@@ -1,7 +1,6 @@
 import React from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
-import { StaticImage } from "gatsby-plugin-image"
 import styled from "styled-components"
 import MailIcon from "@mui/icons-material/Mail"
 import { pink } from "@mui/material/colors"
@@ -21,15 +20,13 @@ const Bio = ({ bio_wrapper }) => {
     <Card className={bio_wrapper}>
       <CardContent className={bio_card}>
         <BioImageWrapper className={bio_image_wrapper}>
-          <StaticImage
-            src="./../../images/newbio.png"
+          <img
+            alt="bio"
+            src="https://user-images.githubusercontent.com/71915489/160359100-85a1ed1b-9657-471c-8fde-e45e04de61d4.png"
+            className={bio_image}
+            placeholder="#fff"
             width={150}
             height={150}
-            placeholder="#fff"
-            className={bio_image}
-            loading="eager"
-            durationFadeIn={100}
-            alt="bio_image"
           />
         </BioImageWrapper>
         <BioIcons />
