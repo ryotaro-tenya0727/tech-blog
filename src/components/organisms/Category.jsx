@@ -14,12 +14,14 @@ import {
 
 import { category_tag_button } from "./../../../css/components/button.module.css"
 
+import { category_icon } from "./../../../css/components/icon.module.css"
+
 const Category = ({ tags, category_wrapper }) => {
   return (
     <Card className={category_wrapper}>
       <CardContent className={category_card}>
         <p className={category_title_wrapper}>
-          <FolderCopyIcon />
+          <FolderCopyIcon className={category_icon} />
           <span className={category_title}>カテゴリ一覧</span>
         </p>
         {tags.map((tag, index) => {

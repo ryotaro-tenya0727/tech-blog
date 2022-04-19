@@ -29,9 +29,13 @@
 
 .bio_icons_wrapper{
   margin: 0 auto;
-  width:50%;
   display: flex;
   justify-content: space-between;
+}
+
+.category_icon{
+  margin: 1.5px 3px 0px 0px;
+
 }
 
 .search_icon{

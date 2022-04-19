@@ -1,6 +1,6 @@
 .category_wrapper {
   border: 2.5px solid #605c5c;
-  max-width: 250px;
+  max-width: 230px;
   border-radius: 5px;
   margin: 20px 0px 0px 30px;
 }
@@ -14,7 +14,7 @@
 
 .posts_category_wrapper{
   border: 2.5px solid #605c5c;
-  max-width: 250px;
+  max-width: 230px;
   border-radius: 5px;
   margin: 20px 0px 0px 30px;
   position: sticky;
@@ -29,7 +29,7 @@
 
 .posts_show_category_wrapper{
   border: 2.5px solid #605c5c;
-  max-width: 250px;
+  max-width: 230px;
   border-radius: 5px;
   margin: 450px 0px 0px 30px;
 }
@@ -45,9 +45,9 @@
 }
 
 .category_title_wrapper{
-  padding: 5px;
-  background-color: #ffd8f3;
-  margin-top: -10px;
+  /* padding: 5px 5px 5px 5px; */
+  /* background-color: #ffd8f3; */
+  margin: -10px 0px 0px 19px;
   border-radius: 5px;
   font-family: 'Kiwi Maru', serif;
   display:flex;
@@ -55,7 +55,7 @@
 }
 
 .category_title{
-  margin: 0px 0px 2px 12px;
+  margin: 0px 0px 2px 2px;
   font-weight: bold;
   font-size: 20px;
 }
