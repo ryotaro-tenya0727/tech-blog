@@ -1,0 +1,161 @@
+---
+title: docker-composeを用いてRails APIモードの環境構築①
+date: "2022-03-26"
+description: Rails APIモードの環境構築をDockerで行い、RailsコンテナとMYSQLコンテナをdocker-composeで立ち上げました。
+image_url: "https://user-images.githubusercontent.com/71915489/159754796-8d6c7f46-f819-40a7-8848-0a47bda7c79c.png"
+tags: ["Rails", "docker"]
+---
+
+Rails API モードの環境構築を docker-compose を用いて行う方法を解説していきます。
+
+#### 必要なファイルとディレクトリ作成
+
+以下のようなフォルダ構成にします。
+
+<br />
+
+作成するファイルの役割は後述します！
+
+<br />
+
+```javascript{numberLines:true}
+backend(ディレクトリ)
+    ├ api(ディレクトリ)
+    │   └ Dockerfile
+    │   └ Gemfile
+    │   └ entrypoint.sh
+    └ docker-compose.yml
+```
+
+<br />
+
+任意のディレクトリで上の構成になるようにディレクトリとファイルを作っていきます。
+
+<br />
+
+```javascript{numberLines:true}
+$ mkdir backend
+$ cd backend
+$ mkdir api
+$ cd api
+$ touch Dockerfile Gemfile entrypoint.sh
+$ cd ..
+$ touch docker-compose.yml
+```
+
+<br />
+
+#### Gemfile を記述
+
+次に Gemfile に以下のように記述します。Rails のバージョンはお任せします。
+この状態で`bundle install` するとコンテナに Rails がインストールされます。
+
+<div class="gatsby-code-title">
+  <span>backend/api/Gemfile</span>
+</div>
+
+```ruby{numberLines:true}
+source 'https://rubygems.org'
+gem 'rails', '~> 6.1', '>= 6.1.5'
+```
+
+#### Dockerfile を記述
+
+以下のように`Dockerfile`を記述します。
+
+<div class="gatsby-code-title">
+  <span>backend/api/Dockerfile</span>
+</div>
+
+```ruby{numberLines:true}
+FROM ruby:2.7.4
+RUN apt-get update
+RUN apt-get install -y build-essential
+WORKDIR /api
+COPY Gemfile /api/
+RUN bundle install
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+CMD bundle exec puma -C config/puma.rb
+```
+
+<br />
+
+ポイントを解説していきます。
+
+<br />
+
+`ENTRYPOINT`にはコンテナ起動時に実行されるコマンドを記述しています。
+
+<br />
+
+今回であれば`["entrypoint.sh"]`と書くことによって`entrypoint.sh`に書かれたシェルスクリプトを実行しています。
+
+<br />
+
+そして`CMD`に指定したコマンドが`entrypoint.sh`に記述したシェルスクリプトの引数として実行されます。
+
+#### entrypoint.sh を記述
+
+`entrypoint.sh`　は先ほど言ったように`docker-compose up -d`のようなコンテナを起動させるコマンドを実行した時のみ、実行されるスクリプトを記述していきます。
+
+<div class="gatsby-code-title">
+  <span>backend/api/entrypoint.sh</span>
+</div>
+
+```ruby{numberLines:true}
+#!/bin/bash
+set -e
+
+# Remove a potentially pre-existing server.pid for Rails.
+rm -f /api/tmp/pids/server.pid
+
+# Then exec the container's main process (what's set as CMD in the Dockerfile).
+exec "$@"
+```
+
+それぞれ以下のような役割です。
+
+<br />
+
+`set -e` は「エラーが発生するとスクリプトを終了する」オプション
+
+<br />
+
+`rm -f /api/tmp/pids/server.pid` ではすでに存在する Rails の pid を削除
+
+<br />
+
+`exec "$@"`では、Dockerfile の`CMD`で記述されたコマンドを実行しています。
+
+<br />
+
+`Dockerfile`の`CMD` に指定したコマンドが `Dockerfile`の`ENTRYPOINT`に指定したコマンドの引数になるというイメージです！
+
+<br />
+
+つまり以下のようなコマンドを実行していることになります。
+
+<br />
+
+```
+$ exec "$@" bundle exec puma -C config/puma.rb
+```
+
+<br />
+
+長くなってしまうので一旦ここまでにします。
+
+<br />
+
+わかりにくい点、間違っている点などあれば以下にご連絡いただければと思います。
+
+<br />
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
