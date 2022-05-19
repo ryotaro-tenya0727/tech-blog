@@ -1,0 +1,170 @@
+---
+title: docker-composeを用いてRails APIモードの環境構築②
+date: "2022-04-01"
+description: 前回の続きです。RailsコンテナとMYSQLコンテナをdocker-composeで立ち上げました。
+image_url: "https://user-images.githubusercontent.com/71915489/159754796-8d6c7f46-f819-40a7-8848-0a47bda7c79c.png"
+tags: ["Rails", "docker"]
+---
+
+**[前回の続き](https://otaku-programmer.com/docker/rails/1)**からになります
+
+#### docker-compose.yml の記述
+
+次に`docker-compose.yml`を書いていきます。
+
+<br />
+
+`docker-compose.yml` は`docker run`に指定するオプションを複数のコンテナに渡って記載することができ、それらのコンテナを`docker-compose up -d`というコマンドで一度に立ち上げることができます。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>backend/docker-compose.yml</span>
+</div>
+
+```ruby{numberLines:true}
+version: '3'
+
+# 名前つきボリューム
+volumes:
+  mysql_data:
+services:
+  api:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    volumes:
+      - './api/:/api/'
+    ports:
+      - '3000:3000'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db:database
+  db:
+    image: mysql:5.7
+    volumes:
+      - 'mysql_data:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+```
+
+<br />
+
+#### 要点の解説
+
+いくつかポイントになるところを解説していきます。
+
+<br />
+
+##### データボリューム
+
+まずはデータボリュームの記述です。
+
+<br />
+
+```ruby{numberLines:true}
+volumes:
+  mysql_data:
+.
+.
+.
+db:
+  image: mysql:5.7
+  volumes:
+    - 'mysql_data:/var/lib/mysql'
+```
+
+<br />
+
+上に書いた`volumes:`で`docker`の管理下に`mysql_data`というデータボリュームを作成しています
+
+<br />
+
+以下のコマンドで確認できます。
+
+<br />
+
+```
+$ docker volume ls
+```
+
+<br />
+
+そして下に書いた、 `- 'mysql_data:/var/lib/mysql'`の部分で、`docker`の管理下の`mysql_data`というボリュームと、コンテナ内の`/var/lib/mysql`というディレクトリが同期されています。
+
+<br />
+
+`/var/lib/mysql` にはデーターベースの情報が入っているので、コンテナを削除してもデータを永続化することができています。
+
+##### ビルドコンテキスト
+
+次にビルドコンテキストです。
+
+以下の`context`に指定したディレクトリがビルドコンテキストと呼ばれるディレクトリになります。
+
+<br />
+
+```
+build:
+  context: ./api/
+  dockerfile: Dockerfile
+```
+
+<br />
+
+`build context`はビルドするときの環境や状況を表します。
+
+Docker デーモンは`build context` の中のファイルと `Dockerfile` を使って DockerImage を作成します。
+
+<br />
+
+ビルドコンテキストのディレクトリの中にあるファイルやフォルダを `Dockerfile` の`ADD`や`COPY`でコンテナ内に持っていくことができます。
+
+<br />
+
+そして`dockerfile`には`docker-compose.yml`から見た`Dockerfile`の場所を記述します。
+
+##### Rails フォルダの同期
+
+以下の部分で、ホスト側の Rails ファイルとコンテナ内の Rails ファイルを同期しています
+
+<br />
+
+```
+volumes:
+  - './api/:/api/'
+```
+
+##### db の起動を待つ
+
+以下の記述で Rails コンテナは db コンテナが起動してから起動するようになります。
+
+```
+depends_on:
+  - db
+```
+
+<br />
+
+長くなってしまうので一旦ここまでにします。
+
+<br />
+
+わかりにくい点、間違っている点などあれば以下にご連絡いただければと思います。
+
+<br />
+
+##### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com

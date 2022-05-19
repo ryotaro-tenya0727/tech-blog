@@ -1,7 +1,7 @@
 ---
 title: docker-composeを用いてRails APIモードの環境構築①
 date: "2022-03-26"
-description: Rails APIモードの環境構築をDockerで行い、RailsコンテナとMYSQLコンテナをdocker-composeで立ち上げました。
+description: RailsコンテナとMYSQLコンテナをdocker-composeで立ち上げる準備をします。
 image_url: "https://user-images.githubusercontent.com/71915489/159754796-8d6c7f46-f819-40a7-8848-0a47bda7c79c.png"
 tags: ["Rails", "docker"]
 ---
@@ -63,6 +63,10 @@ gem 'rails', '~> 6.1', '>= 6.1.5'
 
 以下のように`Dockerfile`を記述します。
 
+<br />
+
+API モードなので、`yarn` `node` は入れていません。
+
 <div class="gatsby-code-title">
   <span>backend/api/Dockerfile</span>
 </div>
@@ -116,17 +120,29 @@ rm -f /api/tmp/pids/server.pid
 exec "$@"
 ```
 
+<br />
+
 それぞれ以下のような役割です。
 
 <br />
+
+##### set -e
 
 `set -e` は「エラーが発生するとスクリプトを終了する」オプション
 
 <br />
 
+（参考　**[https://unix.stackexchange.com/questions/466999/what-does-exec-do]("https://unix.stackexchange.com/questions/466999/what-does-exec-do")**）
+
+<br />
+
+##### rm -f /api/tmp/pids/server.pid
+
 `rm -f /api/tmp/pids/server.pid` ではすでに存在する Rails の pid を削除
 
 <br />
+
+##### exec "$@"
 
 `exec "$@"`では、Dockerfile の`CMD`で記述されたコマンドを実行しています。
 
@@ -136,7 +152,7 @@ exec "$@"
 
 <br />
 
-つまり以下のようなコマンドを実行していることになります。
+つまり以下のようなコマンドを実行してサーバーを立ち上げていることになります。
 
 <br />
 
@@ -153,6 +169,10 @@ $ exec "$@" bundle exec puma -C config/puma.rb
 わかりにくい点、間違っている点などあれば以下にご連絡いただければと思います。
 
 <br />
+
+##### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
 
 **Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
 
