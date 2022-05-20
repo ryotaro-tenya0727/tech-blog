@@ -1,0 +1,113 @@
+---
+title: docker-composeを用いてRails APIモードの環境構築③
+date: "2022-04-02"
+description: 前回の続きです。Railsの起動を確認するところまで行います。
+image_url: "https://user-images.githubusercontent.com/71915489/159754796-8d6c7f46-f819-40a7-8848-0a47bda7c79c.png"
+tags: ["Rails", "docker"]
+---
+
+**[前回の続き](https://otaku-programmer.com/docker/rails/2)**からになります
+
+#### Rails ファイルを作成
+
+以下のコマンドで 一時的にコンテナを作成して、コンテナの中で `rails new`を実行してファイルを作成します。
+
+<br />
+
+コンテナ内のファイルとホストのファイルを同期する設定を前回行ったので、ホスト側にもファイルが作成されます。
+
+<br />
+
+```
+$ docker-compose run --rm api rails new . --api --force --database=mysql --skip-bundle --skip-test
+```
+
+<br />
+
+それぞれのオプションについて解説していきます。
+
+<br />
+
+**-skip-bundle** : Dockerfile で bundle install するので bundle をスキップ
+
+<br />
+
+**-force** : `rails new`で作られるファイルがすでに存在する場合上書き
+
+<br />
+
+**-skip-test** : rspec を使うのでスキップ
+
+<br />
+
+#### database.yml の編集
+
+`username` `password` は docker-compose.yml の環境変数に合わせる。
+
+<br />
+
+今回は指定していないのでデフォルトの`root`になる。
+
+<br />
+
+default に書くか、development に書くかは調整してください！
+
+<div class="gatsby-code-title">
+  <span>backend/config/database.yml</span>
+</div>
+
+```yaml{numberLines:true}
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: password
+  host: database
+```
+
+<br />
+
+これであとは起動するだけです！！
+
+<br />
+
+以下を順番に実行
+
+<br />
+
+```
+$ docker-compose up -d
+$ docker-compose exec api rails db:create
+```
+
+<br />
+
+これで localhost:3000 にアクセスして下記の画面になれば成功です！
+
+<br />
+
+長かったですね！これで環境構築完了です！！
+
+<br />
+
+<img
+  src="https://user-images.githubusercontent.com/71915489/169591163-4fa9b9f4-c8f1-48d4-8125-d8f0a030c3fe.png"
+  width="70%"
+/>
+
+<br />
+
+わかりにくい点、間違っている点などあれば以下にご連絡いただければと思います。
+
+<br />
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
