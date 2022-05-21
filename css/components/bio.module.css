@@ -1,6 +1,5 @@
 .bio_wrapper{
   display: inline-block;
-  /* border: 2.5px solid #605c5c; */
   border-radius: 5px;
   max-width: 230px;
   margin: -85px 0px 0px 30px;
@@ -24,7 +23,6 @@
 }
 .bio_post_page_wrapper {
   display: inline-block;
-  border: 2.5px solid #605c5c;
   border-radius: 5px;
   max-width: 230px;
   margin: -113.5px 0px 0px 30px;
