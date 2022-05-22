@@ -1,0 +1,304 @@
+---
+title: jsonapi-serializerの基本的な使い方まとめ
+date: "2022-04-03"
+description: jsonapi-serializerの実践的な使い方をまとめました！！
+image_url: "https://user-images.githubusercontent.com/71915489/169689052-48f59b2e-3cc7-459f-9a85-49ce5257671a.png"
+tags: ["Rails", "gem"]
+---
+
+**[jsonapi-serializer](https://github.com/jsonapi-serializer/jsonapi-serializer)**の基本的な使い方をまとめました！！
+
+<br />
+
+以前は**fast_jsonapi**と呼ばれていたようです！
+
+<br />
+
+現在もアップデートされ続けており、アップデートするたびに他のシリアライザーより処理時間が速くなっているのを保証すると Github に書いてあります！
+
+<br />
+
+すごい！
+
+#### 導入
+
+`Gemfile`に追加
+
+<br />
+
+```ruby{numberLines:true}
+gem 'jsonapi-serializer'
+```
+
+<br />
+
+インストール
+
+<br />
+
+```ruby{numberLines:true}
+$ bundle install
+```
+
+<br />
+
+モデルクラスを指定してシリアライザークラスを作成します。
+
+<br />
+
+```ruby{numberLines:true}
+$ rails g serializer Article
+Running via Spring preloader in process 40421
+create  app/serializers/article_serializer.rb
+```
+
+<br />
+
+#### 基本的な使い方
+
+シリアライザークラスは以下のように書きます。
+
+<br />
+
+`set_id`には欲しい`id`を、`attributes`には欲しいカラムを書きます。
+
+<br />
+
+`set_id :user_id`という書き方も可能です！
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/serializers/article_serializer.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ArticleSerializer
+  include JSONAPI::Serializer
+  set_type :article
+  set_id :id
+  # 欲しいカラム
+  attributes :title, :contents, :status
+  # 欲しい関連付け
+  belongs_to :user
+end
+```
+
+<br />
+
+API を以下のように作成します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/articles_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class Api::V1::ArticlesController < ApplicationController
+  def index
+    articles = Article.all
+    json_string = ArticleSerializer.new(articles).serialized_json
+    render json: json_string
+  end
+```
+
+<br />
+
+この API にリクエストを送ると以下のようなレスポンスが返ってきます。
+
+```ruby{numberLines:true}
+"data": [
+    {
+        "id": "1",
+        "type": "article",
+        "attributes": {
+            "title": "MyString1",
+            "contents": "MyText1",
+            "status": "draft"
+        },
+        "relationships": {
+            "user": {
+                "data": {
+                    "id": "1",
+                    "type": "user"
+                }
+            }
+        }
+    },
+    {
+        "id": "2",
+        "type": "article",
+        "attributes": {
+            "title": "MyString2",
+            "contents": "MyText2",
+            "status": "draft"
+        },
+        "relationships": {
+            "user": {
+                "data": {
+                    "id": "2",
+                    "type": "user"
+                }
+            }
+        }
+    },
+.
+.
+.
+```
+
+<br />
+
+`belongs_to :user`によって関連付けした`user`の`id`,`type`が帰ってきています。
+
+<br />
+
+```
+"relationships": {
+    "user": {
+        "data": {
+            "id": "1",
+            "type": "user"
+        }
+    }
+}
+```
+
+<br />
+
+これは`has_many`の場合も同様です。
+
+#### 関連付け先の詳細の値を取得
+
+以下の方法で関連付け先の詳細な値を取得できます。
+
+<div class="gatsby-code-title">
+  <span>app/serializers/article_serializer.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ArticleSerializer
+  include FastJsonapi::ObjectSerializer
+  set_type :article
+  set_id :id
+  attributes :title, :contents, :status
+
+  attribute :article_user do |object|
+    "#{object.user.name}"
+  end
+end
+```
+
+<br />
+
+以下の記述で新たに返却するカラムを作成し、その中で関連付け先の`user`の名前を指定しています。
+
+<br />
+
+```ruby{numberLines:true}
+attribute :article_user do |object|
+  "#{object.user.name}"
+end
+```
+
+<br />
+
+以下のレスポンスを取得
+
+```ruby{numberLines:true}
+"data": {
+    "id": "1",
+    "type": "article",
+    "attributes": {
+        "title": "MyString1",
+        "contents": "MyText1",
+        "status": "draft",
+        "article_user": "MyString1"
+    }
+```
+
+#### パラメーターから送信する値を判定
+
+リクエストで受け取ったパラメーターから返却する値を変えることもできます。
+
+<br />
+
+```ruby{numberLines:true}
+attribute :can_view_early do |movie, params|
+  params[:current_user].is_employee? ? true : false
+end
+```
+
+#### リンクを作成
+
+以下のようにオブジェクトごとにリンクを作成することもできます。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/serializers/article_serializer.rb</span>
+</div>
+
+<br />
+
+```ruby{numberLines:true}
+class ArticleSerializer
+  include FastJsonapi::ObjectSerializer
+  set_type :article
+  set_id :id
+  attributes :title, :contents, :status
+  belongs_to :user
+  link :custom_url do |object|
+    "http://article.com/#{object.title}"
+  end
+
+  link :personalized_url do |object, params|
+    "http://article.com/#{object.title}-#{object.user.email}"
+  end
+end
+```
+
+<br />
+
+以下のようなレスポンスが返ります。
+
+<br />
+
+```ruby{numberLines:true}
+{
+    "id": "1",
+    "type": "article",
+    "attributes": {
+        "title": "MyString1",
+        "contents": "MyText1",
+        "status": "draft"
+    },
+    "relationships": {
+        "user": {
+            "data": {
+                "id": "23",
+                "type": "user"
+            }
+        }
+    },
+    "links": {
+        "custom_url": "http://article.com/MyString1",
+        "personalized_url": "http://articles.com/MyString1-user1@example.com"
+    }
+}
+```
+
+<br />
+
+まとめは以上になります！
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
