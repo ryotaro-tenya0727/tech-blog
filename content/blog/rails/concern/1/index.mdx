@@ -1,0 +1,110 @@
+---
+title: RailsのActiveSupport::Concernで何が行われているか
+date: "2022-04-04"
+description: ActiveSupport::Concernで何が行われているか調べました。
+image_url: "https://user-images.githubusercontent.com/71915489/169689052-48f59b2e-3cc7-459f-9a85-49ce5257671a.png"
+tags: ["Rails", "ActiveSupport"]
+---
+
+ActiveSupport::Concern を使わない場合の concern の書き方について、**[公式ドキュメント](https://api.rubyonrails.org/classes/ActiveSupport/Concern.html)**をみながら、何が行われているのか見てみました。
+
+#### ActiveSupport::Concern を使う場合と使わない場合の比較
+
+concern の使い方としては読み込み先のクラスで、`include M`でモジュールを読み込むと、`included do..end`の中のメソッドがインスタンスメソッドまたはクラスメソッドとして読み込まれます。
+
+<br />
+
+インスタンスメソッドなら`def sum ... end`、クラスメソッドなら`def self.sum ... end`
+
+<br />
+
+また、`class_methods`に書いたメソッドはクラスメソッドとして拡張されます。
+
+<br />
+
+これをどうやって実現しているか見ていきます！！
+
+<br />
+
+`ActiveSupport::Concern` を使う場合、使わない場合、を記載して使わない場合のコードについて一つづつ見ていきます！
+
+##### ActiveSupport::Concern を使う場合
+
+```ruby{numberLines:true}
+require "active_support/concern"
+
+module M
+  extend ActiveSupport::Concern
+
+  included do
+    scope :disabled, -> { where(disabled: true) }
+  end
+
+  class_methods do
+    ...
+  end
+end
+```
+
+<br />
+
+##### ActiveSupport::Concern を使わない場合
+
+```ruby{numberLines:true}
+module M
+  def self.included(base)
+    base.extend ClassMethods
+    base.class_eval do
+      scope :disabled, -> { where(disabled: true) }
+    end
+  end
+
+  module ClassMethods
+    ...
+  end
+end
+```
+
+<br />
+
+###### def self.included(base) ... end
+
+こちら、**[公式ドキュメント](https://docs.ruby-lang.org/ja/latest/method/Module/i/included.html)**よりモジュールを読み込んだ時に発動するメソッドだと解ります。
+
+<br />
+
+つまり、`include M` とするとこのクラスメソッドが読み込み先のクラスで発動し`base`には読み込み先のクラスが入ってきます。
+
+###### base.extend ClassMethods
+
+読み込み先のクラスである`base`が`ClassMethods`というモジュールを拡張して、`ClassMethods`に書いてあるメソッドを`base`がクラスメソッドとして使えるようになります。
+
+###### base.class_eval do .. end
+
+`base`に中のインスタンスメソッドまたはクラスメソッドを追加しています。
+
+<br />
+
+ちなみに、`scope`はクラスメソッドと同じように振る舞いますが`if`のような条件文を使う場合は注意が必要なようです。
+
+<br />
+
+**[参考](https://railsguides.jp/active_record_querying.html#%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97)**
+
+<br />
+
+今回の記事は以上になります！読んでいただいてありがとうございます！
+
+<br />
+
+解りにくいところ、間違っているところなどあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
