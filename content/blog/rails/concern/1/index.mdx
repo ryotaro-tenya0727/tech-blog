@@ -8,6 +8,14 @@ tags: ["Rails", "ActiveSupport"]
 
 ActiveSupport::Concern を使わない場合の concern の書き方について、**[公式ドキュメント](https://api.rubyonrails.org/classes/ActiveSupport/Concern.html)**をみながら、何が行われているのか見てみました。
 
+<br />
+
+デフォルトでは rails は`app/{controllers,models}/concerns` を自動で読み込むモードになっているので`controller` `models` 以下では名前空間をつける必要はありません。(**[参考: 公式ドキュメント](https://railsguides.jp/constant_autoloading_and_reloading.html#:~:text=%E3%82%92%E8%A1%8C%E3%81%84%E3%81%BE%E3%81%99%E3%80%82-,5%20autoload_paths,-%E3%81%93%E3%82%8C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AF)**)
+
+<br />
+
+<br />
+
 #### ActiveSupport::Concern を使う場合と使わない場合の比較
 
 concern の使い方としては読み込み先のクラスで、`include M`でモジュールを読み込むと、`included do..end`の中のメソッドがインスタンスメソッドまたはクラスメソッドとして読み込まれます。
@@ -89,7 +97,7 @@ end
 
 <br />
 
-**[参考](https://railsguides.jp/active_record_querying.html#%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97)**
+**[参考: 公式ドキュメント](https://railsguides.jp/active_record_querying.html#%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97)**
 
 <br />
 
