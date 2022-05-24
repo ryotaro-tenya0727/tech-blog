@@ -1,0 +1,146 @@
+---
+title: Railsのdb:migrate:resetとrails db:resetの違い
+date: "2022-04-05"
+description: db:migrate:resetとrails db:resetについて解説しています。
+image_url: "https://user-images.githubusercontent.com/71915489/170094704-e6d02640-6153-4a45-9fdf-c5414243046e.png"
+tags: ["Rails", "migration", "db"]
+---
+
+`rails db:migrate:reset` と`rails db:reset` の違いについて整理しました。
+
+#### rails db:migrate:reset
+
+<br />
+
+`rails db:migrate:reset`では以下の内容が実行されます
+
+<br />
+
+**1** **全 DB を 削除 する (**`rails db:drop`** と同等)**
+
+<br />
+
+**2** **開発環境ととテスト環境の DB を作成する(**`rails db:create`** と同等)**
+
+<br />
+
+**3** **db/migrate/ 以下の全 migration ファイルを実行して、テーブルを再作成**
+
+<br />
+
+実際に実行してみると以下のようになります。
+
+<br />
+
+db の削除、db の作成、migration ファイルの実行が行われていることがわかります。
+
+<br />
+
+```ruby{numberLines:true}
+$ rails db:migrate:reset
+
+Dropped database 'db/runteq_normal_development'
+Dropped database 'db/runteq_normal_test'
+Created database 'db/runteq_normal_development'
+Created database 'db/runteq_normal_test'
+== 20220108144831 SorceryCore: migrating ======================================
+-- create_table(:users)
+   -> 0.0047s
+== 20220108144831 SorceryCore: migrated (0.0049s) =============================
+
+== 20220109062037 ChangeColumnNullToUsers: migrating ==========================
+-- change_column_null(:users, :first_name, false)
+   -> 0.0182s
+-- change_column_null(:users, :last_name, false)
+   -> 0.0138s
+.
+.
+# 長いので割愛
+```
+
+<br />
+
+データベースが一度削除されるので注意が必要。
+
+<br />
+
+新しいマイグレーションファイルを作って、変更できるようになった方が良い。
+
+#### rails db:reset
+
+<br />
+
+`rails db:reset`では以下の内容が実行されます
+
+<br />
+
+**1** **全 DB を 削除 する (**`rails db:drop`** と同等)**
+
+<br />
+
+**2** **開発環境ととテスト環境の DB を作成する(**`rails db:create`** と同等)**
+
+<br />
+
+**3** **スキーマファイルからテーブルを作成(**`rails db:schema:load`** と同等)**
+
+<br />
+
+**4** **初期データの登録(**`rails db:seed`** と同等)**
+
+<br />
+
+補足で**3** のスキーマファイルとは`db/schema.rb`のことです。
+
+<br />
+
+スキーマファイルはマイグレーションファイルが実行された結果を表しています。
+
+<br />
+
+つまり過去に作成したテーブルの情報が残っている時、それを利用してテーブルを作成します。
+
+<br />
+
+以下、実行結果になります
+
+<br />
+
+ちなみに、`rails db:seed`はログが出ません。
+
+<br />
+
+```ruby{numberLines:true}
+$ rails db:reset
+Dropped database 'db/runteq_normal_development'
+Database 'db/runteq_normal_test' does not exist
+Created database 'db/runteq_normal_development'
+Created database 'db/runteq_normal_test'
+-- create_table("authentications", {:force=>:cascade})
+   -> 0.0114s
+-- create_table("boards", {:force=>:cascade})
+   -> 0.0067s
+-- create_table("bookmarks", {:force=>:cascade})
+   -> 0.0137s
+.
+.
+# 長いので割愛
+```
+
+<br />
+
+今回は以上になります！
+
+<br />
+
+解りにくいところ、間違っているところなどあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
