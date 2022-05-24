@@ -62,3 +62,9 @@
   /* justify-content: space-between; */
   font-size: 12px;
 }
+
+.bio_follow_string{
+  text-align: center;
+  font-weight: bold;
+  color: #ff7ad7;
+}

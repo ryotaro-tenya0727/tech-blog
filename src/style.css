@@ -92,7 +92,7 @@ h3 {
 
 h4 {
   font-size: var(--fontSize-3);
-  border-bottom: solid 2px #fb9999;
+  border-bottom: solid 1.5px #fb9999;
 }
 
 h5 {
@@ -299,10 +299,10 @@ a:focus {
 
 
 .gatsby-highlight {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 .line-numbers .line-numbers-rows {
-  padding: 11.2px 0 0 0;
+  padding: 13px 0 0 0;
 }
 
 .gatsby-code-title {
@@ -312,7 +312,7 @@ a:focus {
   padding: 4.5px 8px 5px 5px;
   line-height: 1;
   display: table;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: bold;
   border-radius:2px
 }

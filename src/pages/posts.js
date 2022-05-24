@@ -105,7 +105,6 @@ export default BlogPostsIndex
 
 const ArticlesWrapper = styled.div``
 const CardsWrapper = styled.div``
-
 const ContentsWrapper = styled.div``
 
 export const pageQuery = graphql`

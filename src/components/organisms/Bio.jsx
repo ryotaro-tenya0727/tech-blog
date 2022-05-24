@@ -3,8 +3,6 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import { StaticImage } from "gatsby-plugin-image"
 import styled from "styled-components"
-import MailIcon from "@mui/icons-material/Mail"
-import { pink } from "@mui/material/colors"
 
 import {
   bio_card,
@@ -12,7 +10,7 @@ import {
   bio_name,
   bio_image,
   bio_description,
-  bio_email_wrapper,
+  bio_follow_string,
 } from "./../../../css/components/bio.module.css"
 import { BioIcons } from "./../components"
 
@@ -33,13 +31,8 @@ const Bio = ({ bio_wrapper }) => {
           />
         </BioImageWrapper>
         <p className={bio_name}>著者　中山遼太郎</p>
+        <p className={bio_follow_string}>ｆｏｌｌｏｗ ｍｅ！</p>
         <BioIcons />
-        <p className={bio_email_wrapper}>
-          <MailIcon sx={{ color: pink[`500`], fontSize: 20, mr: 1 }} />
-          <a href="mailto:ryotaro123110@gmail.com" target={`_blank`}>
-            ryotaro123110@gmail.com
-          </a>
-        </p>
         <p className={bio_description}>
           エンジニアを目指してプログラミングスクールで学習中です。主にRails
           Reactを学びながら競技プログラミングにも参加しています。
