@@ -24,7 +24,7 @@ const Items = ({ tableOfContents, depth }) => {
           }}
         >
           <Link to={item.url} className={toc_link}>
-            {item.title}
+            {`✭ ${item.title}`}
           </Link>
           {item.items && (
             <Items tableOfContents={item.items} depth={depth + 1} />
