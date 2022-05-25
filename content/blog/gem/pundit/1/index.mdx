@@ -1,0 +1,315 @@
+---
+title: Gem Punditの基本的な使い方まとめ
+date: "2022-04-06"
+description: punditの実践的な使い方をまとめました！！
+image_url: "https://user-images.githubusercontent.com/71915489/169689052-48f59b2e-3cc7-459f-9a85-49ce5257671a.png"
+tags: ["Rails", "gem", "pundit"]
+---
+
+認可の仕組みを構築する Gem Pundit について公式ドキュメントや、自分が使用した経験をもとにまとめました。
+
+<br />
+
+**[参考: https://github.com/varvet/pundit](https://github.com/varvet/pundit)**
+
+#### Pundit とは？
+
+公式にもあるとおり、Ruby のオブジェクトパターンを活用して、シンプルかつ堅牢な認可システムを構築することができます。
+
+#### 導入
+
+Gemfile に記述
+
+<br />
+
+```ruby{numberLines:true}
+gem 'pundit'
+```
+
+<br />
+
+`bundle install`実行
+
+<br />
+
+```ruby{numberLines:true}
+bundle install
+```
+
+<br />
+
+利用したいコントローラーの継承元で Pundit を include
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/application_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ApplicationController < ActionController::API
+  include Pundit::Authorization
+end
+```
+
+<br />
+
+generator 実行。これで、`app/policies/`配下に `application_policy.rb` というファイルが作成されます。
+
+<br />
+
+```ruby{numberLines:true}
+rails g pundit:install
+```
+
+#### 基本的なルール
+
+<br />
+
+pundit ではユーザーの役割ごとに、尚且つ、オブジェクトの種類ごとに、コントローラーの一つ一つのアクションに対して権限を持っているかどうかを確認することができます。
+
+<br />
+
+`application_policy.rb`には以下のように記述されています。
+
+<br />
+
+モデルクラスごとにポリシーを作成して、ユーザーがそのアクションを行う権限を持っているかどうか判定します。
+
+<br />
+
+`user`は`currnet_user`を参照し`record`は指定したモデルオブジェクトを参照します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/policies/application_policy.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ApplicationPolicy
+  attr_reader :user, :record
+
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
+  def index?
+    false
+  end
+end
+```
+
+<br />
+
+実際に`Post`モデルで使う方法を見ていきます。
+
+<br />
+
+コントローラー、ポリシーはそれぞれ以下のようになります。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/policies/post_policy.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class PostPolicy < ApplicationPolicy
+  attr_reader :user, :post
+
+  def initialize(user, post)
+    raise Pundit::NotAuthorizedError unless user
+
+    super
+  end
+
+  def update?
+    user.admin? || !post.published?
+  end
+end
+```
+
+<div class="gatsby-code-title">
+  <span>app/controllers/posts_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+def update
+  @post = Post.find(params[:id])
+  authorize @post
+  if @post.update(post_params)
+    redirect_to @post
+  else
+    render :edit
+  end
+end
+```
+
+<br />
+
+`authorize @post` は `@post = Post.find(params[:id])`に対してこの`update`を行うことができるかを判定するメソッドです。
+
+<br />
+
+`authorize`はモデルクラス名から、使用するポリシーファイル名(`post_policy.rb`)を推測し、アクション名から使用するポリシーファイルのメソッド(`update?`)を推測しています。
+
+<br />
+
+今回であれば、`currnet_user`が`admin`または`Post`オブジェクトが`published`ではない時に編集することが可能ということになります。
+
+<br />
+
+```ruby{numberLines:true}
+def update?
+  user.admin? || !post.published?
+end
+```
+
+##### 名前空間を使用したい
+
+`app/policies/admin`のような名前空間を使用したいときは以下のようなディレクトリ構成にします。
+
+<br />
+
+これは Rails のオートロードの仕組みと同じです！
+
+<br />
+
+```ruby{numberLines:true}
+app/policies/admin/post_policy.rb
+```
+
+<br />
+
+ポリシーファイルにも名前空間
+
+```ruby{numberLines:true}
+class Admin::PostPolicy < ApplicationPolicy
+  attr_reader :user, :post
+
+  def initialize(user, post)
+    raise Pundit::NotAuthorizedError unless user
+
+    super
+  end
+
+  def update?
+    user.admin? || !post.published?
+  end
+end
+```
+
+<br />
+
+コントローラーでは以下のようにして権限を確認
+
+```ruby{numberLines:true}
+def update
+  @post = Post.find(params[:id])
+  authorize([:admin, @post])
+  if @post.update(post_params)
+    redirect_to @post
+  else
+    render :edit
+  end
+end
+```
+
+##### 対応するモデルのないポリシーを利用する
+
+次のような S3 の署名 URL を取得するようなポリシーを作るとします。
+
+<br />
+
+名前空間は user です
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/policies/user/s3_presigned_urls_policy.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class User::S3PresignedUrlsPolicy < ApplicationPolicy
+  def initialize(user, record)
+    raise Pundit::NotAuthorizedError unless user
+
+    super
+  end
+
+  def diary_presigned_url?
+    check_current_user
+  end
+end
+```
+
+<br />
+
+この場合、名前空間と、ポリシー名、メソッド名を指定するため以下のように記述して権限を確認することができます。
+
+<br />
+
+`%i[user s3_presigned_urls]`で名前空間とポリシーファイルを、`:diary_presigned_url?`でメソッドを指定しています。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/user/s3_presigned_urls_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class Api::V1::User::S3PresignedUrlsController < SecuredController
+  def diary_presigned_url
+    authorize(%i[user s3_presigned_urls], :diary_presigned_url?)
+    presigned_url = Signer.presigned_url(:put_object,
+                                         bucket: ENV['S3_BUCKET'],
+                                         key: diary_s3_url.to_s)
+    render json: presigned_url: presigned_url
+  end
+end
+```
+
+##### authorize 漏れを検知
+
+Pundit を使ってアプリケーションを開発していると、あるアクションを承認するのを忘れてしまいます。
+
+<br />
+
+Pundit では、各コントローラのアクションに手動で `authorize`追加することを推奨しているため、 どうしても見逃してしまいがちです。
+
+<br />
+
+pundit ではアクションに `authorize` を実行させていないときに例外を発生させるメソッドがあります。
+
+<br />
+
+以下のように`after_action :verify_authorized`を追加することによって、`authorize`を実行せずにアクションを実行すると例外を発生させることができます。
+
+<div class="gatsby-code-title">
+  <span>app/controllers/application_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ApplicationController < ActionController::API
+  include Pundit::Authorization
+  after_action :verify_authorized
+end
+```
+
+まとめは以上になります！
+
+<br />
+
+分かりにくい、または間違っているところあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
