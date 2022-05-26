@@ -1,0 +1,283 @@
+---
+title: ReactとAuth0でソーシャルログイン
+date: "2022-04-15"
+description: Auth0を用いてReactでTwitter認証を実装しました。
+image_url: "https://user-images.githubusercontent.com/71915489/159204626-e6d7a74a-0ffd-43f6-ba16-a195c506b84a.png"
+tags: ["React", "Auth0"]
+---
+
+React の Auth0 用の sdk を用いて Auth0 の Twitter ログインを行いました。
+
+#### 参考サイト
+
+こちらの Auth0 の公式解説をもとに実装しました。
+
+<br />
+
+**https://auth0.com/docs/quickstart/spa/react/01-login**
+
+<br />
+
+**https://marketplace.auth0.com/integrations/twitter-social-connection**
+
+<br />
+
+**https://auth0.com/docs/libraries/auth0-react**
+
+#### 準備
+
+Auth0 への登録、TwitterDevelopper への登録は済んでいる前提でいきます。
+
+##### Auth0 でフロントエンドのプロジェクト作成]
+
+Auth0 の管理画面でアプリケーション作成する。
+
+<br />
+
+右上の Create Application をクリック
+
+<br />
+
+<img
+  src="https://user-images.githubusercontent.com/71915489/170593774-2842060c-6a76-4361-8d18-14028c4ff7f4.png"
+  width="70%"
+/>
+
+<br />
+
+今回は`idol-otaku-project` を作成します。
+
+<br />
+
+そのほかのプロジェクトはデフォルトで作られているプロジェクトです。
+
+<br />
+
+作成したら`idol-otaku-project` を選択し、そのまま下にスクロールして以下の**Application URIs**の項目を埋めます。
+
+<br />
+
+**Allowed Callback URLs**
+
+<br />
+
+**Allowed Logout URLs**
+
+<br />
+
+**Allowed Web Origins**
+
+<br />
+
+**Allowed Origins (CORS)**
+
+<br />
+
+<br />
+
+<img
+  src="https://user-images.githubusercontent.com/71915489/170595034-c6500ee6-6f20-4620-91ee-39e369ec9c12.png"
+  width="70%"
+/>
+
+<br />
+
+以上の 4 項目に
+
+<br />
+
+`http://localhost:3001(ローカルで使用するポートを設定)` を追加
+
+<br />
+
+次にプロジェクトの Twitter とのコネクションを有効にしておきます。
+
+<br />
+
+<img
+  src="https://user-images.githubusercontent.com/71915489/170598701-e78bb21d-0f71-4ba6-839e-9fd2b0c93032.png"
+  width="70%"
+/>
+
+##### Twitter Developper に Auth0 のテナントを登録
+
+Twitter Developper で作成したプロジェクトに auth0 のテナントの URL を入力します。
+
+<br />
+
+テナントのドメインは作成したプロジェクトの Settings に書いてあります。
+
+<br />
+
+以下のように登録
+
+<br />
+
+```
+Website URL:  <テナントのドメイン>
+
+Callback URI : <テナントのドメイン>/login/callback
+```
+
+<br />
+
+<img
+  src="https://user-images.githubusercontent.com/71915489/170597316-7a67294f-2dfc-4fcb-ae93-c48e30224693.png"
+  width="70%"
+/>
+
+##### React アプリケーション作成
+
+任意のディレクトリ作成
+
+<br />
+
+```javascript{numberLines:true}
+mkdir frontend
+
+cd frontend
+```
+
+<br />
+
+react アプリケーション作成。
+
+<br />
+
+```javascript{numberLines:true}
+$ yarn create react-app .
+```
+
+<br />
+
+必要な環境変数を作成します。
+
+<br />
+
+```javascript{numberLines:true}
+$ touch .env
+```
+
+<br />
+
+※ []はいりません。文字列のみ入力してください。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>frontend/.env.development</span>
+</div>
+
+```javascript{numberLines:true}
+// ローカルで起動時のポート
+PORT=3001
+// auth0のテナントのドメイン
+REACT_APP_AUTH0_DOMAIN=[Domain]
+// auth0のフロントエンドアプリケーションのClient ID
+REACT_APP_AUTH0_CLIENT_ID=[Client ID]
+```
+
+<br />
+
+auth0 用の sdk をインストール
+
+<br />
+
+```javascript{numberLines:true}
+yarn add @auth0/auth0-react
+```
+
+<br />
+
+`frontend/src/index.js` を以下のように編集
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>frontend/src/index.js</span>
+</div>
+
+```javascript{numberLines:true}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN || '';
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+
+root.render(
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    redirectUri={window.location.origin}
+  >
+    <App />
+  </Auth0Provider>
+);
+```
+
+<br />
+
+`frontend/src/App.js` を編集
+
+<div class="gatsby-code-title">
+  <span>frontend/src/App.js</span>
+</div>
+
+```javascript{numberLines:true}
+import './App.css';
+import { useAuth0 } from '@auth0/auth0-react';
+
+function App() {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  // 必要な機能をインポート
+  console.log(user);
+  return (
+    <div className='App'>
+      <div style={{ padding: '20px' }}>
+        <h2>ログインボタン</h2>
+        <button onClick={() => loginWithRedirect()}>ログイン</button>
+        <h2>ログアウトボタン</h2>
+        <button onClick={() => logout()}>ログアウト</button>
+        <h2>ログイン状態</h2>
+        {isAuthenticated ? <p>{user.name}</p> : <p> ログアウト</p>}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+<br />
+
+長かったですね！これでログイン処理ができます。
+
+<br />
+
+`loginWithRedirect`でログインができます。`logout`でログアウトします。`isAuthenticated`にはログインしたユーザーの情報が入っています。
+
+<br />
+
+`user`にはログインしたユーザーの情報が入っています。
+
+ここまで、読んでいただきありがとうございました！
+
+<br />
+
+分かりにくい、または間違っているところあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
