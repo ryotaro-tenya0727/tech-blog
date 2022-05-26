@@ -1,0 +1,119 @@
+---
+title: ABC 240の問題を解説
+date: "2022-04-11"
+description: DPの問題を綺麗に解けたので解説してみました。
+image_url: "https://user-images.githubusercontent.com/71915489/159755199-629aa3c9-46ef-4dfc-803e-667c1ef16b69.jpg"
+tags: ["Atcorder"]
+---
+
+Ruby で解説している記事が少なかったので、解説していきます。
+
+<br />
+
+今回解説するのは以下の問題です。
+
+<br />
+
+[$card](https://atcoder.jp/contests/abc240/tasks/abc240_c)
+
+<br />
+
+#### 解答
+
+自分が作成した解答は以下のコードになります。
+
+<br />
+
+一つ一つ解説していきます
+
+<br />
+
+```ruby{numberLines:true}
+N,X=gets.split.map(&:to_i)
+a=[]
+b=[]
+N.times{
+  aa,bb=gets.split.map(&:to_i)
+  a << aa
+  b << bb
+  }
+
+# iは 0~N jは 0~X もらう　dp
+dp=Array.new(N+1){Array.new(X+1,false)}
+
+dp[0][0]=true
+
+for i in (0..N-1) do
+  for j in (0..X) do
+    next if dp[i][j]==false
+    dp[i+1][j+a[i]]=true
+    dp[i+1][j+b[i]]=true
+  end
+end
+
+puts dp[N][X] ? "Yes" : "No"
+```
+
+##### 方針
+
+今回はもらう DP で解いていきます。
+
+<br />
+
+また、N 回のジャンプで X に到達できるかどうか調べるにあたって、`N+1`行`X+1`列のマスを考えます。
+
+<br />
+
+これを`dp=Array.new(N+1){Array.new(X+1,false)}`で表しています。
+
+<br />
+
+初期値は`dp[0][0]=true`とします
+
+<br />
+
+残りは、マスを一つ一つ調べていって、`true`なマスがあったら、その次の行の同じマスに`a[i]`,`b[i]`を足し、`true`にするだけです。
+
+<br />
+
+具体的には以下の部分です
+
+<br />
+
+```ruby{numberLines:true}
+for i in (0..N-1) do
+  for j in (0..X) do
+    next if dp[i][j]==false
+    dp[i+1][j+a[i]]=true
+    dp[i+1][j+b[i]]=true
+  end
+end
+```
+
+<br />
+
+そして調べたい地点`X`が`true`かどうか確認すればこの問題は完了です！
+
+<br />
+
+```ruby{numberLines:true}
+puts dp[N][X] ? "Yes" : "No"
+```
+
+<br />
+
+解説は以上になります。
+
+<br />
+
+分かりにくい、または間違っているところあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
