@@ -1,0 +1,167 @@
+---
+title: 任意の外部キーでhas_many, belongs_to
+date: "2022-04-20"
+description: 自動推測を使わずにhas_many,belongs_toを行う。
+image_url: "https://user-images.githubusercontent.com/71915489/170094704-e6d02640-6153-4a45-9fdf-c5414243046e.png"
+tags: ["Rails", "db"]
+---
+
+Rails で自動推測される外部キーではなく、値をして外部キーを指定する方法。
+
+#### 1 対多でカラム指定
+
+<br />
+
+次のような親テーブル、子テーブルがあるとする。
+
+<br />
+
+```ruby{numberLines:true}
+[モデルの関係]
+User
+↓
+↓ has_many
+↓
+Book
+```
+
+<br />
+
+よくある使い方は、`books`テーブルに外部キーとして`user_id`用いて、`has_many`, `belongs_to`を使う。
+
+<br />
+
+今回が`books`テーブルに`buyer_id`を指定して、`has_many`,`belongs_to`を使う方法を説明します。
+
+<br />
+
+##### 解説
+
+すでに`books`テーブルに`buyer_id`があるものとします。
+
+<br /> 結論以下のようにします
+
+<div class="gatsby-code-title">
+  <span>user.rb</span>
+</div>
+
+```ruby{numberLines:true}
+has_many :bought_books, class_name: 'Book', foreign_key: 'buyer_id'
+```
+
+<br />
+
+これによって`user.bought_books`で'buyer_id'を外部キーとして`has_many`することができます。
+
+<br />
+
+`books`テーブルから`belongs_to`する場合も同じようにできます。
+
+<div class="gatsby-code-title">
+  <span>book.rb</span>
+</div>
+
+```ruby{numberLines:true}
+belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+```
+
+<br />
+
+`book.buyer`が使用可能です。
+
+#### 多対多でカラム指定
+
+<br />
+
+考え方は同じです。
+
+<br />
+
+次のような多対多の関連付けがあるとします。
+
+<br />
+
+```ruby{numberLines:true}
+[モデルの関係]
+User
+↓           ↓
+↓ has_many  ↓ has_many through
+↓           ↓
+Like        ↓
+↓           ↓
+↓           ↓
+↓           ↓
+Idol
+```
+
+<br />
+
+ユーザーが好きなアイドルグループのメンバーを`like`する設計です。
+
+<br />
+
+まずはシンプルに`users`テーブルの外部キーを `likes`テーブルの`like_id`としたいので以下のようにします
+
+<div class="gatsby-code-title">
+  <span>user.rb</span>
+</div>
+
+```ruby{numberLines:true}
+has_many :likes
+```
+
+<br />
+
+`likes`テーブルの`recommended_id`が`idols `テーブルへの外部キーになるとします。
+
+<br />
+
+その場合以下のように書きます。
+
+<div class="gatsby-code-title">
+  <span>like.rb</span>
+</div>
+
+```ruby{numberLines:true}
+belongs_to :recommended, class_name: 'Idol', foreign_key: 'recommended_id'
+```
+
+<br />
+
+そして`users`テーブルから`likes`テーブルを通して `idols` テーブルを取得するには以下のようなコードを追加します。
+
+<div class="gatsby-code-title">
+  <span>user.rb</span>
+</div>
+
+```ruby{numberLines:true}
+has_many :likes
+# 追加
+has_many :recommended_idols, through: :likes, source: :recommended
+```
+
+<br />
+
+`like.rb` の `belongs_to :recommended` と `user.rb`の`source: :recommended`が対応しています。
+
+<br />
+
+`user.recommended_idols`で like したアイドルを取得できます。
+
+<br />
+
+以上になります！読んでくださってありがとうございました！
+
+<br />
+
+解りにくいところ、間違っているところなどあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
