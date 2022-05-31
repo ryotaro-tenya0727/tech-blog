@@ -1,0 +1,198 @@
+---
+title: Auth0のJWT認証をRspecのスタブを使ってテスト
+date: "2022-05-04"
+description: RspecでJWT認証をテストする方法を解説。
+image_url: "https://user-images.githubusercontent.com/71915489/171284278-bc6f3ef3-68da-43f6-b614-1a32ee9ae5bc.png"
+tags: ["Rspec", "Auth0"]
+---
+
+Rspec で JWT 認証をする場合、テストをパスするには実際にユーザーが使っている JWT トークンをセットしなければなりません。
+
+<br />
+
+しかしユーザーの認証トークンを使っていて尚且つ、特定の値に依存するようなテストを書くのは望ましくないです。
+
+<br />
+
+今回は Rspec のスタブを使ってそれを回避します。
+
+<br />
+
+#### コントローラーの JWT 認証
+
+コントローラーでは以下のような認証コードを書いています。
+
+<div class="gatsby-code-title">
+  <span>app/controllers/secured_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class SecuredController < ApplicationController
+  before_action :authorize_request
+
+  private
+
+  def authorize_request
+    authorization = Authorization::AuthorizationService.new(request.headers)
+    @current_user = authorization.current_user
+  rescue JWT::VerificationError, JWT::DecodeError
+    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+  end
+
+  attr_reader :current_user
+end
+```
+
+<br />
+
+ログインユーザーしか実行できないアクションでは`before_action :authorize_request`によってアクションの実行前に`authorize_request`が実行される仕組みです。
+
+<br />
+
+そして以下の部分で、ログインユーザーを呼び出すための認証を行なっているのですが Rspec を書く際、存在するトークンを使わずにどうやってテストをパスするか考えなくてはいけません。
+
+<br />
+
+```ruby{numberLines:true}
+  @current_user = authorization.current_user
+```
+
+#### スタブを使う
+
+上記の問題を Rspec のスタブを使って解決します。
+
+<br />
+
+`current_user`メソッドが実行された際に、Rspec 側で用意した`current_user`を返すスタブを作成します。
+
+<br />
+
+以下のモジュールを作成して読み込みます
+
+<div class="gatsby-code-title">
+  <span>spec/support/authorization_helper.rb</span>
+</div>
+
+```ruby{numberLines:true}
+module AuthorizationHelper
+  def authorization_stub
+    allow_any_instance_of(SecuredController).to receive(:authorize_request).and_return(current_user)
+    allow_any_instance_of(SecuredController).to receive(:current_user).and_return(current_user)
+  end
+end
+```
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>spec/rails_helper.rb</span>
+</div>
+
+```ruby{numberLines:true}
+RSpec.configure do |config|
+  config.include AuthorizationHelper
+.
+.
+end
+```
+
+<br />
+
+`authorize_request`メソッドと`current_user`メソッドが呼び出された時、それぞれに対して rsepc 側で作成した`current_user`を返すようにしました。
+
+<br />
+
+##### テスト例
+
+テストの一例は以下のようになります。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>spec/requests/api/v1/user/recommended_members_spec.rb</span>
+</div>
+
+```ruby{numberLines:true}
+RSpec.describe '推しメン登録機能 Api::V1::Users::RecommendedMembers', type: :request do
+  let!(:current_user) { create(:user) }
+  let(:headers) { { CONTENT_TYPE: 'application/json', ACCEPT: 'application/json', Authorization: 'jwt_test_token' } }
+
+  before do
+    # authorize_requestメソッドが呼ばれたらlet!(:current_user)を返す。
+    # SecuredControllerのcurrent_userメソッドが呼ばれたらlet!(:current_user)を返す。
+    authorization_stub
+  end
+
+  describe 'ユーザーが推しメンを閲覧 GET api/v1/user/recommended_members' do
+    let(:recommended_member_num) { 5 }
+    let(:http_request) { get api_v1_user_recommended_members_path, headers: headers }
+
+    before do
+      create_list(:recommended_member, recommended_member_num, user: current_user)
+    end
+
+    context '正常系' do
+      it '推しメンを閲覧できること' do
+        http_request
+        expect(body['data'].count).to eq(recommended_member_num)
+        expect(response).to be_successful
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+end
+```
+
+<br />
+
+以下のコードによって先ほどのスタブを呼び出しています。
+
+<br />
+
+```ruby{numberLines:true}
+  before do
+    # authorize_requestメソッドが呼ばれたらlet!(:current_user)を返す。
+    # SecuredControllerのcurrent_userメソッドが呼ばれたらlet!(:current_user)を返す。
+    authorization_stub
+  end
+```
+
+<br />
+
+そして`http_request`を実行し`authorize_request`メソッドと`current_user`メソッドが呼び出された時、それぞれに対して rsepc 側で作成した`current_user`を返しています。
+
+<br />
+
+```ruby{numberLines:true}
+let!(:current_user) { create(:user) }
+.
+.
+.
+let(:http_request) { get api_v1_user_recommended_members_path, headers: headers }
+.
+.
+.
+http_request
+```
+
+<br />
+
+解説は以上になります。
+
+<br />
+
+ここまで、読んでいただきありがとうございました！
+
+<br />
+
+分かりにくい、または間違っているところあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
