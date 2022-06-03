@@ -28,7 +28,7 @@ const Layout = memo(({ location, children }) => {
 })
 
 const SMain = styled.div`
-  width: 95%;
+  width 96.5%;
   margin 0 auto;
   padding-bottom: 60px;
   position: relative;
