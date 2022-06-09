@@ -115,7 +115,7 @@ end
 ```ruby{numberLines:true}
 RSpec.describe '推しメン登録機能 Api::V1::Users::RecommendedMembers', type: :request do
   let!(:current_user) { create(:user) }
-  let(:headers) { { CONTENT_TYPE: 'application/json', ACCEPT: 'application/json', Authorization: 'jwt_test_token' } }
+
 
   before do
     # authorize_requestメソッドが呼ばれたらlet!(:current_user)を返す。
@@ -125,7 +125,7 @@ RSpec.describe '推しメン登録機能 Api::V1::Users::RecommendedMembers', ty
 
   describe 'ユーザーが推しメンを閲覧 GET api/v1/user/recommended_members' do
     let(:recommended_member_num) { 5 }
-    let(:http_request) { get api_v1_user_recommended_members_path, headers: headers }
+    let(:http_request) { get api_v1_user_recommended_members_path}
 
     before do
       create_list(:recommended_member, recommended_member_num, user: current_user)
