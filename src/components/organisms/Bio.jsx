@@ -20,7 +20,7 @@ const Bio = ({ bio_wrapper }) => {
       <CardContent className={bio_card}>
         <BioImageWrapper className={bio_image_wrapper}>
           <img
-            src={`${process.env.REACT_APP_IMAGE_DOMAIN}/admin/menu-image.png`}
+            src={`https://d2dshvnpldvez1.cloudfront.net/admin/menu-image.png`}
             width={140}
             height={140}
             placeholder="#fff"
