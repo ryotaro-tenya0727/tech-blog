@@ -17,7 +17,7 @@ const Header = memo(({ onClickOpen }) => {
     <SHeader>
       <Link to="/">
         <img
-          src={`https://d2dshvnpldvez1.cloudfront.net/admin/logo_new.png/admin/logo_new.png`}
+          src={`${process.env.REACT_APP_IMAGE_DOMAIN}/admin/logo_new.png`}
           height={60}
           style={{ display: "inline-block" }}
           placeholder="#fff"
