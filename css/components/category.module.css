@@ -4,7 +4,7 @@
   margin: 20px 0px 0px 30px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 880px) {
   .category_wrapper {
     display: none;
   }
@@ -19,7 +19,7 @@
   top: 130px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 880px) {
   .posts_category_wrapper {
     display: none;
   }
