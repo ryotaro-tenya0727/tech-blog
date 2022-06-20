@@ -15,14 +15,17 @@ import {
 import { BioIcons } from "./../components"
 
 const Bio = ({ bio_wrapper }) => {
+  const imageDomain = process.env.REACT_APP_IMAGE_DOMAIN
+  const BioImagePath = `${imageDomain}/admin/menu-image.png`
+  console.log(BioImagePath)
   return (
     <Card className={bio_wrapper}>
       <CardContent className={bio_card}>
         <BioImageWrapper className={bio_image_wrapper}>
-          <StaticImage
-            src="./../../images/newbio.png"
-            width={150}
-            height={150}
+          <img
+            src="https://d2dshvnpldvez1.cloudfront.net/admin/menu-image.png"
+            width={140}
+            height={140}
             placeholder="#fff"
             className={bio_image}
             loading="eager"

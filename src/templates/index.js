@@ -18,6 +18,8 @@ import { bio_wrapper } from "./../../css/components/bio.module.css"
 import { category_wrapper } from "./../../css/components/category.module.css"
 import { contents_wrapper } from "./../../css/components/contents.module.css"
 
+console.log(process.env.REACT_APP_IMAGE_DOMAIN)
+
 const BlogIndex = memo(({ data, location, pageContext }) => {
   const posts = data.allMdx.nodes
   const tags = data.tags.group
