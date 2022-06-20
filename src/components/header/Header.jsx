@@ -4,7 +4,6 @@ import { memo } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import MediaQuery from "react-responsive"
 import styled from "styled-components"
-import { StaticImage } from "gatsby-plugin-image"
 
 import { BaseButton } from "./../components"
 import { menu_icon_button } from "./../../../css/components/icon.module.css"
@@ -17,10 +16,11 @@ const Header = memo(({ onClickOpen }) => {
   return (
     <SHeader>
       <Link to="/">
-        <StaticImage
-          src="./../../images/logo_new.png"
-          width={250}
+        <img
+          src="https://d2dshvnpldvez1.cloudfront.net/admin/logo_new.png"
+          // width={250}
           height={60}
+          style={{ display: "inline-block" }}
           placeholder="#fff"
           loading="eager"
           durationFadeIn={100}
