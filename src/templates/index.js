@@ -24,8 +24,7 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const description = data.site.siteMetadata.description
   const siteUrl = `${data.site.siteMetadata.siteUrl}`
-  // const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
-  const twitterImageUrl = `https://res.cloudinary.com/dfvvyyfgk/image/upload/v1656318260/main-ogp-image-min_hw0tzv.png`
+  const twitterImageUrl = `https://user-images.githubusercontent.com/71915489/156093388-f27e4c26-56ab-4456-ad64-648afee8316d.jpg`
   const fbImageUrl = `https://user-images.githubusercontent.com/71915489/156100268-d8076f76-ba09-4b84-87d3-6df2296ec384.jpg`
 
   return (
