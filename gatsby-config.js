@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `アイドルオタクプログラマーの技術ブログ`,
+    title: `技術ブログ`,
     author: {
       name: `Nakayama Ryotaro`,
     },
-    description: `エンジニア転職を目指すアイドルオタクプログラマーが、学んだことをアウトプットするブログです。`,
+    description: `エンジニア転職を目指すプログラマーが、学んだことをアウトプットするブログです。`,
     siteUrl: `https://otaku-programmer.com`,
     social: {
       twitter: `@naka_ryo_z`,

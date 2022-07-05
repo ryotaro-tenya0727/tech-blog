@@ -61,10 +61,6 @@ const Seo = ({
         },
 
         {
-          property: `og:site_name`,
-          content: `寝ても覚めてもプログラミングワールド、夢中にさせちゃうぞ！`,
-        },
-        {
           property: `og:image`,
           content: `${fbImageUrl}`,
         },
