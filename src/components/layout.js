@@ -28,10 +28,11 @@ const Layout = memo(({ location, children }) => {
 })
 
 const SMain = styled.div`
-  width 96.5%;
+  width 90%;
   margin 0 auto;
   padding-bottom: 60px;
   position: relative;
+    max-width: 1100px;
 
   `
 

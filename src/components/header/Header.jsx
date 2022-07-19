@@ -51,13 +51,13 @@ const Header = memo(({ onClickOpen }) => {
 
 const SHeader = styled.header`
   background-color: #fff5fd;
-  width: 96.5%;
+  width: 90%;
   margin 0 auto;
   padding-top: 10px;
   padding-bottom: 15px;
   display: flex;
   justify-content: space-between;
-
+  max-width: 1100px;
 
 `
 const SButtons = styled.div`

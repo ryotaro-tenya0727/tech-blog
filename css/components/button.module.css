@@ -80,7 +80,7 @@
 }
 
 .category_tag_button{
-  padding: 6px 10px 8px 10px;
+  padding: 3px 4px 6px 6px;
   text-align: center;
   cursor: pointer;
   background-color: #ff96df;
@@ -90,7 +90,7 @@
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
   font-family: 'Kiwi Maru',
   serif;
-  font-size: 13px;
+  font-size: 10px;
   margin: 10px 10px 0px 0px;
   font-weight: bold;
 }
