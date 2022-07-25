@@ -21,7 +21,12 @@ const Category = ({ tags, category_wrapper }) => {
     <Card className={category_wrapper}>
       <CardContent className={category_card}>
         <p className={category_title_wrapper}>
-          <FolderCopyIcon className={category_icon} />
+          <FolderCopyIcon
+            className={category_icon}
+            sx={{
+              fontSize: "16px",
+            }}
+          />
           <span className={category_title}>カテゴリ一覧</span>
         </p>
         {tags.map((tag, index) => {
