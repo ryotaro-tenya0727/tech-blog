@@ -21,8 +21,7 @@ const Bio = ({ bio_wrapper }) => {
         <BioImageWrapper className={bio_image_wrapper}>
           <img
             src={`https://d2dshvnpldvez1.cloudfront.net/admin/menu-image.png`}
-            width={140}
-            height={140}
+            width={100}
             placeholder="#fff"
             className={bio_image}
             loading="eager"

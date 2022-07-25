@@ -33,7 +33,7 @@
 }
 .bio_card{
   background-color: rgba(255, 230, 230, 0.3);
-  height: 330px;
+  height: 300px;
   box-shadow: 2.7px 3.2px 2px 0.3px #938d90;
 }
 .bio_name{
@@ -43,7 +43,7 @@
 }
 .bio_description{
   font-weight: bold;
-  font-size: 11px;
+  font-size: 10px;
   margin: 4px 0px 0px 0px;
 }
 .bio_image_wrapper{
