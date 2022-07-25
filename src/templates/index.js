@@ -39,7 +39,7 @@ const BlogIndex = memo(({ data, location, pageContext }) => {
       <ShareButtons
         url={siteUrl}
         title={`${siteTitle}`}
-        size={36}
+        size={32}
         words={`Share this Blog!`}
       />
       <Paginations pageContext={pageContext} />

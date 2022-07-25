@@ -38,12 +38,12 @@
 }
 .bio_name{
   text-align: center;
-  font-size: 1.0em;
+  font-size: 14px;
   font-weight: bold;
 }
 .bio_description{
   font-weight: bold;
-  font-size: 0.7em;
+  font-size: 11px;
   margin: 4px 0px 0px 0px;
 }
 .bio_image_wrapper{
@@ -65,6 +65,8 @@
 
 .bio_follow_string{
   text-align: center;
+  margin: 5px 0px 5px 0px;
   font-weight: bold;
+  font-size:12px;
   color: #ff7ad7;
 }

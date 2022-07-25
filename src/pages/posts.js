@@ -58,8 +58,8 @@ const BlogPostsIndex = memo(({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <ShareButtons
         url={siteUrl}
-        title={`${siteTitle}\nこのブログの著者を応援！\n`}
-        size={36}
+        title={`${siteTitle}`}
+        size={32}
         words={`Share this Blog!`}
       />
       <p className={top_posts_title}>記事一覧</p>
@@ -67,7 +67,7 @@ const BlogPostsIndex = memo(({ data, location }) => {
         <input
           type="text"
           aria-label="Search"
-          placeholder="検索ワードを入力..."
+          placeholder="タイトル、記事説明で検索..."
           onChange={handleInputChange}
           className={search_form}
         />

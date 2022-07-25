@@ -39,7 +39,7 @@ const Tags = memo(({ pageContext, data, location }) => {
       <ShareButtons
         url={siteUrl}
         title={`${siteTitle}`}
-        size={36}
+        size={32}
         words={`Share this Blog!`}
       />
       <p className={top_tag_title}>

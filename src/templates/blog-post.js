@@ -72,7 +72,7 @@ const BlogPostTemplate = memo(({ data, location }) => {
           <p className={post_show_calender_wrapper}>
             <DateRangeIcon
               className={post_show_calender_icon}
-              sx={{ fontSize: 28 }}
+              sx={{ fontSize: 26 }}
             />
             <span className={post_show_calender_string}>
               {post.frontmatter.date}
