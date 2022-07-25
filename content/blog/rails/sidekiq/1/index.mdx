@@ -1,0 +1,313 @@
+---
+title: Rails + Sidekiq + Redisの使い方
+date: "2022-07-26"
+description: 開発環境で簡単なリクエストを送ってSidekiqが動作することを確認してみました。
+image_url: "https://user-images.githubusercontent.com/71915489/180871818-b90fa84d-ae2b-4ad6-bb56-0d4625a0708b.png"
+tags: ["Rails", "Sidekiq", "Redis"]
+---
+
+開発環境で Sidekiq と Redis を接続して Sidekiq が動作することを確認します。
+
+<br />
+
+#### 環境
+
+```ruby
+macOS Monterey v12.4
+
+ruby 3.0.0
+
+rails 6.1.6.1
+
+```
+
+#### 準備
+
+今回、Message モデルを保存する POST リクエストを送った後、Sidekiq を走らせ日時を更新することができるかどうか確認します。
+
+<br />
+
+モデル作成
+
+<br />
+
+```ruby
+$ rails g model Message
+```
+
+<br />
+
+migration ファイル作成
+
+<br />
+
+Sidekiq で`sidekiq_executed_time`というカラムを更新します
+
+<br />
+
+```ruby{numberLines:true}
+class CreateMessages < ActiveRecord::Migration[6.1]
+  def change
+    create_table :messages do |t|
+      t.string :body
+      t.datetime :sidekiq_executed_time
+      t.timestamps
+    end
+  end
+end
+
+```
+
+<br />
+
+テーブル作成
+
+<br />
+
+```ruby
+$ rails db:migrate
+```
+
+#### Messages コントローラ作成
+
+<br />
+
+コントローラー作成
+
+```ruby
+$ bundle exec rails generate controller Messages
+```
+
+<br />
+
+以下のように POST リクエストを受けるメッセージコントローラーを記述します
+
+<br />
+
+`sidekiq_executed_time`をパラメーターとして送信せずに Sidekiq で更新するようにします。
+
+<div class="gatsby-code-title">
+  <span>app/controllers/messages_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class MessagesController < ApplicationController
+  def new
+    @message = Message.new
+  end
+
+  def create
+    @message = Message.new(message_params)
+    @message.save!
+    # ここでJobを実行する。
+  end
+
+  private
+
+  def message_params
+    params.require(:message).permit(:body)
+  end
+end
+```
+
+#### ルーティング追加
+
+ルーティング追加
+
+<div class="gatsby-code-title">
+  <span>config/routes.rb</span>
+</div>
+
+```ruby{numberLines:true}
+require 'sidekiq/web'
+Rails.application.routes.draw do
+  root to: 'messages#new'
+  resources :messages
+  mount Sidekiq::Web => '/sidekiq'
+end
+```
+
+#### フォーム追加
+
+Message コントローラーにリクエストを送るフォームを追加。
+
+これでフォームから Message を保存できる
+
+<div class="gatsby-code-title">
+  <span>app/views/messages/new.html.erb</span>
+</div>
+
+```ruby{numberLines:true}
+<h1>Message#new</h1>
+<p>Find me in app/views/message/new.html.erb</p>
+<%= form_with(model: @message, local: true) do |f| %>
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+  <%= f.submit%>
+<% end %>
+```
+
+#### Redis と Sidekiq インストール
+
+gem を Gemfile に追加
+
+```ruby{numberLines:true}
+gem 'redis', '~> 4.7', '>= 4.7.1'
+gem 'sidekiq'
+```
+
+<br />
+
+インストール
+
+<br />
+
+```ruby
+$ bundle install
+```
+
+#### Sidekiq の設定
+
+アダプターを sidekiq にする
+
+<div class="gatsby-code-title">
+  <span>config/application.rb</span>
+</div>
+
+```ruby{numberLines:true}
+config.active_job.queue_adapter = :sidekiq
+```
+
+<br />
+
+Sidekiq の設定ファイルを追加
+
+<div class="gatsby-code-title">
+  <span>config/sidekiq.yml</span>
+</div>
+
+```ruby{numberLines:true}
+:concurrency: 5
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+production:
+  :concurrency: 5
+:queues:
+  - default
+:daemon: true
+```
+
+#### Redis の起動確認
+
+redis の起動を以下のコマンドで確認
+
+```ruby{numberLines:true}
+# 起動
+$ redis-server
+
+# 接続（起動した時と別ターミナルで実行）
+$ redis-cli
+
+# 値の設置
+127.0.0.1:6379> SET mykey "Hello"
+OK
+127.0.0.1:6379> GET mykey
+"Hello"
+```
+
+redis の起動が確認できた。
+
+<br />
+
+次に Sidekiq から接続する redis の url を設定する
+
+<div class="gatsby-code-title">
+  <span>config/initializes/sidekiq.rb</span>
+</div>
+
+```ruby{numberLines:true}
+Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://localhost:6379' }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: 'redis://localhost:6379' }
+end
+```
+
+#### Job 作成
+
+実行するジョブを作成する
+
+```ruby
+$ rails g job sample
+```
+
+<div class="gatsby-code-title">
+  <span>app/jobs/sample_job.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class SampleJob < ApplicationJob
+  queue_as :default
+
+  def perform(*args)
+    Message.find_each do |message|
+      message.update(sidekiq_executed_time: DateTime.current)
+    end
+  end
+end
+```
+
+<br />
+
+コントローラーにジョブを実行する処理追加
+
+<div class="gatsby-code-title">
+  <span>app/controllers/messages_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class MessagesController < ApplicationController
+  def new
+    @message = Message.new
+  end
+
+  def create
+    @message = Message.new(message_params)
+    @message.save!
+    # 追加
+    SampleJob.perform_later
+  end
+
+  private
+
+  def message_params
+    params.require(:message).permit(:body)
+  end
+end
+```
+
+#### ブラウザで確認
+
+Rails と redis を起動した状態で と sidekiq を起動。
+
+<br />
+
+```
+$ sidekiq -C config/sidekiq.yml
+```
+
+<br />
+
+作成した Message フォームで送信するとメッセージインスタンスの sidekiq_executed_time が更新されていて、Sidekiq が動いているのが確認できた。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
