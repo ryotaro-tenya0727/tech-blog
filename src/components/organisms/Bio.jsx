@@ -33,7 +33,11 @@ const Bio = ({ bio_wrapper }) => {
             />
             <div className={bio_name_tw_wrapper}>
               <p className={bio_name}>
-                <a href="https://twitter.com/naka_ryo_z" target="_blank">
+                <a
+                  href="https://twitter.com/naka_ryo_z"
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
                   @naka_ryo_z
                 </a>
               </p>
@@ -50,7 +54,11 @@ const Bio = ({ bio_wrapper }) => {
                 mr: 0.7,
               }}
             />
-            <a href="https://www.oshi-diary.com/" target="_blank">
+            <a
+              href="https://www.oshi-diary.com/"
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
               https://www.oshi-diary.com
             </a>
           </p>

@@ -1,0 +1,261 @@
+---
+title: RailsでGithub OAuthからユーザー情報取得
+date: "2022-08-21"
+description: ユーザーがGithubへのアクセスを承認後、Railsにコールバックしてプロフィール情報を取得しました。
+image_url: "https://user-images.githubusercontent.com/71915489/170094704-e6d02640-6153-4a45-9fdf-c5414243046e.png"
+tags: ["Rails", "Github", "OAuth"]
+---
+
+Github API を用いてユーザーがアカウントへのアクセスを承認後 OAuth トークンを用いてユーザーのプロフィール情報を取得します。
+
+<br />
+
+流れとしては以下のようになります。
+
+<br />
+
+① Github アカウントへのアクセスへの承認を求める画面にユーザーが遷移する
+
+<br />
+
+② 承認後、指定したコールバック URL(Rails で設定する)に GET リクエストを送る。
+
+<br />
+
+③ GET リクエストのクエリパラメーターを用いてアクセストークンを取得
+
+<br />
+
+④ アクセストークンを用いて、ユーザーのプロフィール情報を取得
+
+<br />
+
+#### 参考
+
+**[GitHub Docs](https://docs.github.com/ja/rest/guides/basics-of-authentication)**
+
+<br />
+
+<br />
+
+#### コールバックの URL とアクション追加
+
+<br />
+
+ルーティングに`get 'callback', to: 'github_oauth#callback'` を追加します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/routes.rb</span>
+</div>
+
+```ruby{numberLines:true}
+Rails.application.routes.draw do
+  root to: 'home#index'
+  namespace :api, format: 'json'  do
+    namespace :v1 do
+			# 追加
+      get 'callback', to: 'github_oauth#callback'
+    end
+  end
+end
+```
+
+<br />
+
+コールバック用のアクション追加
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/github_oauth_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class Api::V1::GithubOauthController < ApplicationController
+  def callback
+
+  end
+end
+```
+
+#### Github にアプリケーションに登録
+
+以下でアプリケーション登録します
+
+<br />
+
+**[https://github.com/settings/applications/new](https://github.com/settings/applications/new)**
+
+<br />
+
+HomepageURL はドメインを取得するまでは自分が持つ任意のドメイン。
+
+<br />
+
+CallbackURL は先ほど指定したコールバック URL になるようにする。
+
+<br />
+
+ドメインを取得したら適宜変える。
+
+<br />
+
+<img
+  width="584"
+  alt="スクリーンショット 2022-08-17 14 08 18"
+  src="https://user-images.githubusercontent.com/71915489/185794064-cc4f7afe-57f8-4bc1-b307-c5b80c761feb.png"
+/>
+
+#### フロントエンドにリンク設置
+
+フロントエンドに以下のリンクを設置します。
+
+<br />
+
+`clientId`には先ほど作成した Github アプリケーションの Client ID を入れてください。
+
+<br />
+
+クエリパラメーターの`scope`には以下のリンクから選んでスコープを設定します。ユーザーが承認するときに何をリクエストしているか表示されます。
+
+<br />
+
+**[https://docs.github.com/ja/developers/apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes](https://docs.github.com/ja/developers/apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes)**
+
+<br />
+
+```js{numberLines:true}
+<a
+  href={`https://github.com/login/oauth/authorize?scope=read:user&client_id=${clientId}`}
+>
+  Githubの内容を取得
+</a>
+```
+
+<br />
+
+<img
+  width="700"
+  alt="スクリーンショット 2022-08-21 22 58 48"
+  src="https://user-images.githubusercontent.com/71915489/185794678-f4ff07bc-8cab-48dc-872b-c60e3e8c567c.png"
+/>
+
+#### ユーザー情報の取得に必要なトークンをリクエスト
+
+ここからはコールバックしてきた時の挙動になります。
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/github_oauth_controller.rb</span>
+</div>
+
+<br />
+
+Faraday を用いてアクセストークンを取得します。
+
+<br />
+
+`ENV['GITHUB_FETCH_TOKEN_URL']`には `https://github.com/login/oauth/access_token`が入ります
+
+<br />
+
+`ENV['REACT_APP_CLIENT_ID']`には Github アプリケーションの Client ID が入ります。
+
+<br />
+
+`ENV['CLIENT_SECRET']`には Github アプリケーションの Client Secret が入ります。
+
+<br />
+
+```ruby{numberLines:true}
+Faraday.default_adapter = :net_http
+
+class Api::V1::GithubOauthController < ApplicationController
+  def callback
+    conn = Faraday.new do |builder|
+      builder.request :json
+    end
+    response = conn.post(ENV['GITHUB_FETCH_TOKEN_URL'], { client_id: ENV['REACT_APP_CLIENT_ID']
+    # 改行してますが繋げてください
+    , client_secret: ENV['CLIENT_SECRET'], code: params[:code] })
+
+    access_token = Rack::Utils.parse_nested_query(response.body)['access_token']
+
+  end
+end
+```
+
+<br />
+
+`params[:code]`はコールバック時のクエリパラメーターです。このコードとアクセストークンを引き換えるようです。
+
+<br />
+
+#### ユーザー情報を取得
+
+アクセストークンを用いて以下のコードでユーザー情報をリクエストしてユーザーの GitHub プロフィール情報を取得します。
+
+<br />
+
+`ENV['GITHUB_API_URL']`には `https://api.github.com`が入ります
+
+<br />
+
+```ruby{numberLines:true}
+req = Faraday.new(
+  url: "#{ENV['GITHUB_API_URL']}/user",
+  headers: { "Authorization": "token #{access_token}" }
+)
+user_response = req.get
+user_info = JSON.parse(user_response.body)
+```
+
+<br />
+
+アクション全体のコードは以下のようになります。
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/github_oauth_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+Faraday.default_adapter = :net_http
+
+class Api::V1::GithubOauthController < ApplicationController
+  def callback
+    conn = Faraday.new do |builder|
+      builder.request :json
+    end
+    response = conn.post(ENV['GITHUB_FETCH_TOKEN_URL'],
+    # 改行してますが繋げてください
+    { client_id: ENV['REACT_APP_CLIENT_ID'], client_secret: ENV['CLIENT_SECRET'], code: params[:code] })
+    access_token = Rack::Utils.parse_nested_query(response.body)['access_token']
+
+    req = Faraday.new(
+      url: "#{ENV['GITHUB_API_URL']}/user",
+      headers: { "Authorization": "token #{access_token}" }
+    )
+    user_response = req.get
+    user_info = JSON.parse(user_response.body)
+  end
+end
+```
+
+これでユーザーの情報が取得できました。
+
+<br />
+
+最後まで見ていただきありがとうございました。
+
+<br />
+
+分かりにくい、または間違っているところあれば連絡いただければと思います。
+
+#### 連絡先
+
+何か連絡をしたい際は以下 SNS、メールでお願いいたします。
+
+**Twitter**: 　[https://twitter.com/naka_ryo_z](https://twitter.com/naka_ryo_z)
+
+**Github**: 　[https://github.com/ryotaro-tenya0727](https://github.com/ryotaro-tenya0727)
+
+**メール**: 　 ryotaro123110@gmail.com
