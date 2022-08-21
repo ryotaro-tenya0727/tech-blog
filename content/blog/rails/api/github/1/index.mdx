@@ -144,10 +144,6 @@ CallbackURL は先ほど指定したコールバック URL になるようにす
 
 ここからはコールバックしてきた時の挙動になります。
 
-<div class="gatsby-code-title">
-  <span>app/controllers/api/v1/github_oauth_controller.rb</span>
-</div>
-
 <br />
 
 Faraday を用いてアクセストークンを取得します。
@@ -165,6 +161,10 @@ Faraday を用いてアクセストークンを取得します。
 `ENV['CLIENT_SECRET']`には Github アプリケーションの Client Secret が入ります。
 
 <br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/github_oauth_controller.rb</span>
+</div>
 
 ```ruby{numberLines:true}
 Faraday.default_adapter = :net_http
