@@ -17,7 +17,7 @@
   border-radius: 3px;
   cursor: pointer;
   display: flex;
-  height: 140px;
+  height: 160px;
   position: relative;
 }
 
@@ -75,7 +75,7 @@
 .article_image{
   width: 95px;
   height: 95px;
-  margin: 4px 0px 0px -2px;
+  margin: 14px 0px 0px -2px;
   border: 2px solid #605c5c;
   border-radius: 3px;
   background-color: #ffffff;

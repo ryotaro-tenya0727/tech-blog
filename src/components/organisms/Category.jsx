@@ -12,7 +12,10 @@ import {
   category_title_wrapper,
 } from "./../../../css/components/category.module.css"
 
-import { category_tag_button } from "./../../../css/components/button.module.css"
+import {
+  category_tag_button,
+  category_count,
+} from "./../../../css/components/button.module.css"
 
 import { category_icon } from "./../../../css/components/icon.module.css"
 
@@ -32,10 +35,10 @@ const Category = ({ tags, category_wrapper }) => {
         {tags.map((tag, index) => {
           return (
             <Link to={`/tags/${_.kebabCase(tag.fieldValue)}/`} key={index}>
-              <BaseButton
-                word={`#${tag.fieldValue}(${tag.totalCount})`}
-                base_button_style={category_tag_button}
-              />
+              <button className={category_tag_button}>
+                {`${tag.fieldValue}`}
+                <span className={category_count}>{`${tag.totalCount}`}</span>
+              </button>
             </Link>
           )
         })}

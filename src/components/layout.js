@@ -25,7 +25,7 @@ const Layout = memo(({ location, children }) => {
       <SFooter>
         <p>© {new Date().getFullYear()}, written by Nakayama</p>
         <p>
-          Powered by a <a href="https://www.gatsbyjs.com/">Gatsby</a>
+          Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a>
         </p>
       </SFooter>
     </SMainWrapper>
