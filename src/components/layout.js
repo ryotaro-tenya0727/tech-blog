@@ -22,7 +22,12 @@ const Layout = memo(({ location, children }) => {
         {children}
         {isOpenSideMenu && <SideMenu />}
       </SMain>
-      <SFooter>© {new Date().getFullYear()}, written by Nakayama</SFooter>
+      <SFooter>
+        <p>© {new Date().getFullYear()}, written by Nakayama</p>
+        <p>
+          Powered by a <a href="https://www.gatsbyjs.com/">Gatsby</a>
+        </p>
+      </SFooter>
     </SMainWrapper>
   )
 })
@@ -40,6 +45,7 @@ const SFooter = styled.div`
   background-color: #ffc9ef;
   margin-top: auto;
   text-align: center;
+  padding: 3px 0px 3px 0px;
 `
 
 const SMainWrapper = styled.div`
