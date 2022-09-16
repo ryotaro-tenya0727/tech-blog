@@ -17,9 +17,12 @@ const Header = memo(({ onClickOpen }) => {
     <SHeader>
       <Link to="/">
         <img
-          src={`https://d2dshvnpldvez1.cloudfront.net/admin/logo_new.png`}
-          height={60}
-          style={{ display: "inline-block" }}
+          src={`https://d2dshvnpldvez1.cloudfront.net/admin/logo_new_blog_new.png`}
+          height={25}
+          style={{
+            display: "inline-block",
+            marginTop: "10px",
+          }}
           placeholder="#fff"
           loading="eager"
           durationFadeIn={100}
