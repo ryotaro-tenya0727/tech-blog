@@ -1,0 +1,586 @@
+---
+title: OAuth2.0の認可サーバーとクライアントをRailsで実装
+date: "2023-12-21"
+description: OAuth2.0の認可サーバーとクライアントをRailsで実装し、アクセストークンでユーザーのリソースを取得する仕組みを開発環境で再現
+image_url: "https://user-images.githubusercontent.com/71915489/170094704-e6d02640-6153-4a45-9fdf-c5414243046e.png"
+tags: ["Rails", "OAuth", "doorkeeper"]
+---
+
+OAuth2.0 の規約を用いて、クライアントアプリケーションが認可サーバー側のアプリケーションののリソースを取得する以下の流れを開発環境で Rails で実装しました。<br />
+
+認可サーバー側の gem には doorkeeper を使います。
+
+#### 実装した流れ
+
+**1**. クライアントアプリケーションから認可サーバーの認証 URL にアクセスして認証を行う<br />
+
+**2**. リソースオーナーが、クライアントアプリケーションが認可サーバー側のリソースにアクセスすることを許可する<br />
+
+**3**. 認可サーバーが、クライアントアプリケーションの URL に認可コードを付与してリダイレクトする<br />
+
+**4**. クライアントアプリケーションが認可コードを利用して、認可サーバーからアクセストークンを取得する<br />
+
+**5**. クライアントアプリケーションが 4 で取得したアクセストークンを用いて、認可サーバー側のリソースを取得する<br />
+
+#### 準備
+
+以下のリポジトリを使用します。
+
+<br />
+
+認可サーバ用のリポジトリ
+
+<br />
+
+**[https://github.com/ryotaro-tenya0727/authorization_end_point_app](https://github.com/ryotaro-tenya0727/authorization_end_point_app)**
+
+<br />
+
+クライアントアプリケーション用のリポジトリ
+
+<br />
+
+**[https://github.com/ryotaro-tenya0727/client_app](https://github.com/ryotaro-tenya0727/client_app)**
+
+<br />
+
+docker-compose 間で通信するためにホスト側で以下を実行して network を作成します。
+
+<br />
+
+```
+docker network create --driver bridge shared-network
+```
+
+<br />
+
+リポジトリをクローンして以下のディレクトリ構成を作成します。
+
+<br />
+
+```
+├ authorization_end_point_app(ディレクトリ)
+└ client_app(ディレクトリ)
+```
+
+<br />
+
+クローンしたらそれぞれのアプリケーションに対して以下を実行して、Rails の最初のスタート画面が出るところまで進めます。
+
+<br />
+
+authorization_end_point_app の場合のコマンドです。client_app も同じコマンドを実行します。
+
+<br />
+
+```
+docker-compose build
+
+docker-compose run --rm authorization_end_point_app rails db:create
+
+docker-compose up -d
+```
+
+<br />
+
+authorization_end_point_app は`localhost:3005` client_app は `localhost:3006` で以下の画面が出るところまで進めます。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/0d519f4771f5-20240106.png"
+/>
+
+#### 認可サーバー側の実装
+
+<br />
+
+認可サーバ用のリポジトリに実装していきます。
+
+<br />
+
+Gemfile に gem を追加してインストールします。
+
+<br />
+
+```ruby{numberLines:true}
+gem 'doorkeeper', '~> 5.6', '>= 5.6.8'
+gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'rack-cors', '~> 2.0', '>= 2.0.1'
+```
+
+<br />
+
+doorkeeper に必要なファイルを生成するコマンドを実行します。
+
+<br />
+
+```ruby{numberLines:true}
+bundle exec rails generate doorkeeper:install
+
+# 以下のログが出ます
+create  config/initializers/doorkeeper.rb
+create  config/locales/doorkeeper.en.yml
+route  use_doorkeeper
+```
+
+<br />
+
+doorkeeper の使用に必要な migration ファイルを生成するコマンドを実行後、migrate してテーブルを作成します
+
+<br />
+
+```ruby{numberLines:true}
+bundle exec rails generate doorkeeper:migration
+
+bundle exec rails db:migrate
+```
+
+##### CORS の設定
+
+認可サーバー側の cors の設定をします。
+
+<br />
+
+`172.30.0.3` の部分は `docker network inspect shared-network` を実行した時の `client_app` の `IPv4Address` を入力してください。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/initializers/cors.rb</span>
+</div>
+
+```ruby{numberLines:true}
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://172.30.0.3:3004' # 許可するオリジンを指定
+    resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end
+```
+
+##### ログイン機能
+
+認可サーバー側のアプリケーションログイン機能を実装します。
+
+<br />
+
+```
+bin/rails g devise:install
+```
+
+<br />
+
+config/environments/development.rb に追加
+
+<br />
+
+```ruby{numberLines:true}
+config.action_mailer.default_url_options = { host: 'localhost', port: 3003 }
+```
+
+<br />
+
+devise の view とモデルを作成します
+
+<br />
+
+```
+bin/rails g devise:views
+
+bin/rails g devise User
+```
+
+<br />
+
+上記で作成された users テーブルに関する migration ファイルに name カラムと image_url カラムを追加しておきます。（ファイル作成時にコメントアウトされていた部分は削除してます。）
+
+<br />
+
+```ruby{numberLines:true}
+class DeviseCreateUsers < ActiveRecord::Migration[7.1]
+  def change
+    create_table :users do |t|
+      ## Database authenticatable
+      t.string :email, null: false, default: ""
+      t.string :name, null: false, default: ""
+      t.string :image_url
+      t.string :encrypted_password, null: false, default: ""
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+      t.timestamps null: false
+    end
+
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+  end
+end
+```
+
+<br />
+
+migrate してテーブル作成
+
+<br />
+
+```
+rails db:migrate
+```
+
+<br />
+
+User モデルに doorkeeper で作成したテーブルへの関連付けと、devise の設定を追加します
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/models/user.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class User < ApplicationRecord
+  extend Devise::Models
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  has_many :access_grants,
+          class_name: 'Doorkeeper::AccessGrant',
+          foreign_key: :resource_owner_id,
+          dependent: :destroy # or :destroy if you need callbacks
+
+  has_many :access_tokens,
+           class_name: 'Doorkeeper::AccessToken',
+           foreign_key: :resource_owner_id,
+           dependent: :destroy # or :destroy if you need callbacks
+end
+```
+
+<br />
+
+devise のサインアップ時の name パラメーターを追加しておきます
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/application_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+end
+```
+
+<br />
+
+name フィールドを view に追加しておきます
+
+<div class="gatsby-code-title">
+  <span>app/views/devise/registrations/new.html.erb</span>
+</div>
+
+```ruby{numberLines:true}
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="name">
+    <%= f.label :name %><br />
+    <%= f.text_field :name  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+```
+
+<br />
+
+ログインしていることがわかるようにルートページにログイン情報が表示されるようにしておきます
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/routes.rb</span>
+</div>
+
+```ruby{numberLines:true}
+root to: "home#index"
+```
+
+<div class="gatsby-code-title">
+  <span>app/controllers/home_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class HomeController < ApplicationController
+  before_action :authenticate_user!, only: :index
+
+  def index
+  end
+end
+```
+
+<div class="gatsby-code-title">
+  <span>app/views/home/index.html.erb</span>
+</div>
+
+```ruby{numberLines:true}
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<%= "メールアドレス: #{current_user.email}" %>
+<br>
+<%= "名前: #{current_user.name}" %>
+<%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+```
+
+##### doorkeeper の設定ファイルの記述
+
+doorkeeper の設定を追加します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/initializers/doorkeeper.rb</span>
+</div>
+
+```ruby{numberLines:true}
+Doorkeeper.configure do
+
+  # リソースオーナーにの認証に関するロジックを記述します。
+  # 認可サーバー側のログインしているユーザー（リソースオーナー）を返したいので以下のように記述します。
+  resource_owner_authenticator do
+    current_user || warden.authenticate!(scope: :user)
+  end
+
+  # /oauth/applications のOAuthのアプリケーションリストの表示に関するロジックを記述します。
+  # 今回はいつでも見れるようにしたいため空白にしてます。
+  # 例 redirect_to root unless current_user.admin?
+  admin_authenticator do |_routes|
+
+  end
+
+  # scopeに関する設定です。今回は記述しなくても大丈夫です。
+  # 参考 https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
+  default_scopes :public
+
+  optional_scopes :write
+
+  # 以下省略
+```
+
+##### アクセストークンを使ってユーザーのプロフィール情報を取得するためのエンドポイント
+
+ルーティングを追加します
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/routes.rb</span>
+</div>
+
+```ruby{numberLines:true}
+namespace :api do
+  namespace :v1 do
+    get '/me' => 'users#me'
+  end
+end
+```
+
+<div class="gatsby-code-title">
+  <span>app/controllers/api/v1/users_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class Api::V1::UsersController < ApplicationController
+  before_action :doorkeeper_authorize!
+  respond_to :json
+
+  def me
+    respond_with current_resource_owner
+  end
+
+  private
+
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+  end
+end
+```
+
+<br />
+
+/users/sign_up にアクセスして、ユーザーを作成しログイン状態にします。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/4ea59c9e3f0a-20240107.png"
+/>
+
+<br />
+
+/oauth/applications にアクセスして、oauth_applications を作成します。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/003b9c67dc8b-20240107.png"
+/>
+
+<br />
+
+作成すると、以下のように client uid とシークレットが発行されます。
+
+<br />
+
+scopes を public に、Callback urls を http://localhost:3006/oauth/callback としてください。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/4151a998120b-20240107.png"
+/>
+
+##### クライアントアプリケーション側の実装（client_app ディレクトリ）
+
+gem を追加してインストールします
+
+<br />
+
+```
+gem 'oauth2', '~> 2.0', '>= 2.0.9'
+```
+
+<br />
+
+先ほど作成した認可サーバー側のアプリケーションのリダイレクト URI に対応する API を作成します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>config/routes.rb</span>
+</div>
+
+```ruby{numberLines:true}
+get "oauth/callback"  => "oauth#callback"
+```
+
+<br />
+
+認可サーバーの IPv4Address は `docker network inspect shared-network` で確認します。
+
+<br />
+
+<div class="gatsby-code-title">
+  <span>app/controllers/oauth_controller.rb</span>
+</div>
+
+```ruby{numberLines:true}
+class OauthController < ApplicationController
+  def callback
+    host = '#{認可サーバーのIPv4Address}'
+    client = OAuth2::Client.new(
+                                '#{先ほど作成したoauth_applicationのUID}',
+                                '#{先ほど作成したoauth_applicationのSecret}',
+                                site: "http://#{host}:3003",
+                                authorize_url: "http://#{host}:3003/oauth/authorize",
+                                token_url: "http://#{host}:3003/oauth/token",
+                              )
+    # 以下は認証URLが取得できる
+    # client.auth_code.authorize_url(redirect_uri: 'http://localhost:3004/oauth/callback')
+    access = client.auth_code.get_token(
+                                        params[:code],
+                                        redirect_uri: 'http://localhost:3004/oauth/callback'
+                                      )
+    token = access.token
+    response = access.get('/api/v1/me', headers: {"Authorization" => "Bearer #{token}"})
+    body = JSON.parse(response.body)
+    binding.pry
+
+  end
+end
+```
+
+<br />
+
+実装が完了したので、うまく行けば上記の `binding.pry` でのデバッグに成功し`body`には認可サーバー側でログインしたユーザーの情報が入っているはずです。
+
+<br />
+
+対象のアプリの CallbackURLs の Authorize から認証します。
+
+<br />
+
+本来のアプリケーションではこの Authorize ボタンの URL が、クライアントアプリケーション内に設置してあります。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/f8e1f3f724ee-20240107.png"
+/>
+
+<br />
+
+client_app が authorization_end_point_app にアクセスを許可するかどうか確認する画面が出るので、authorize を押します。
+
+<br />
+
+<img
+  width="50%"
+  src="https://storage.googleapis.com/zenn-user-upload/767267338588-20240107.png"
+/>
+
+以下のように認可サーバー側でログインしたユーザーの情報を取得できれば成功です！
+
+```ruby
+[1] pry(#<OauthController>)> body
+=> {
+    "id"=>6,
+    "email"=>"ryotaro123@test.com",
+    "name"=>"test_ryotaro",
+    "image_url"=>nil,
+    "created_at"=>"2024-01-06T22:20:04.345Z",
+    "updated_at"=>"2024-01-06T22:20:04.345Z"
+    }
+```
