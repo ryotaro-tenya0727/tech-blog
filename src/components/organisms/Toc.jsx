@@ -23,8 +23,10 @@ const Items = ({ tableOfContents, depth }) => {
             listStyle: "none",
           }}
         >
+          {depth === 0 && "⚫︎".repeat(1)}
+          {depth === 1 && "⚪︎".repeat(1)}
           <Link to={item.url} className={toc_link}>
-            {`・${item.title}`}
+            {`${item.title}`}
           </Link>
           {item.items && (
             <Items tableOfContents={item.items} depth={depth + 1} />

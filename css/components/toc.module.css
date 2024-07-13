@@ -23,8 +23,13 @@
 }
 
 .toc_link{
+  font-size: 14px;
   text-decoration: none;
-  display: block;
+  /* border-bottom: 1px solid rgb(0, 0, 0); */
+
+  margin-bottom: 4px;
+  margin-left: 4px;
+
 }
 
 .toc_link:hover {
